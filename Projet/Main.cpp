@@ -29,47 +29,13 @@ void main()
 	oFragColor = vec4(vColor, 1.0);
 })";
 
-// Les sommets. Trois floats consécutifs donnent un sommet 3D ; trois sommets consécutifs donnent un triangle. 
-// Un cube possède six faces avec deux triangles pour chaque, donc cela fait 6*2=12 triangles et 12*3=36 sommets 
+
 static const GLfloat g_vertex_buffer_data[] = { 
-    -1.0f,-1.0f,-1.0f, // triangle 1 : début
+    -1.0f,-1.0f,-1.0f, // triangle 1 : dÃ©but
     -1.0f,-1.0f, 1.0f, 
-    -1.0f, 1.0f, 1.0f, // triangle 1 : fin 
-    1.0f, 1.0f,-1.0f, // triangle 2 : début 
-    -1.0f,-1.0f,-1.0f, 
-    -1.0f, 1.0f,-1.0f, // triangle 2 : fin 
-    1.0f,-1.0f, 1.0f, 
-    -1.0f,-1.0f,-1.0f, 
-    1.0f,-1.0f,-1.0f, 
-    1.0f, 1.0f,-1.0f, 
-    1.0f,-1.0f,-1.0f, 
-    -1.0f,-1.0f,-1.0f, 
-    -1.0f,-1.0f,-1.0f, 
-    -1.0f, 1.0f, 1.0f, 
-    -1.0f, 1.0f,-1.0f, 
-    1.0f,-1.0f, 1.0f, 
-    -1.0f,-1.0f, 1.0f, 
-    -1.0f,-1.0f,-1.0f, 
-    -1.0f, 1.0f, 1.0f, 
-    -1.0f,-1.0f, 1.0f, 
-    1.0f,-1.0f, 1.0f, 
-    1.0f, 1.0f, 1.0f, 
-    1.0f,-1.0f,-1.0f, 
-    1.0f, 1.0f,-1.0f, 
-    1.0f,-1.0f,-1.0f, 
-    1.0f, 1.0f, 1.0f, 
-    1.0f,-1.0f, 1.0f, 
-    1.0f, 1.0f, 1.0f, 
-    1.0f, 1.0f,-1.0f, 
-    -1.0f, 1.0f,-1.0f, 
-    1.0f, 1.0f, 1.0f, 
-    -1.0f, 1.0f,-1.0f, 
-    -1.0f, 1.0f, 1.0f, 
-    1.0f, 1.0f, 1.0f, 
-    -1.0f, 1.0f, 1.0f, 
-    1.0f,-1.0f, 1.0f 
+    -1.0f, 1.0f, 1.0f, // triangle 1 : fin
 };
-// Une couleur pour chaque sommet. Elles ont été générées aléatoirement. 
+// Une couleur pour chaque sommet. Elles ont Ã©tÃ© gÃ©nÃ©rÃ©es alÃ©atoirement. 
 // Source tuto openGL afficher un cube
 static const GLfloat g_color_buffer_data[] = {
 	0.583f,  0.771f,  0.014f,
@@ -114,7 +80,7 @@ static const GLfloat g_color_buffer_data[] = {
 int main(int argc, char** argv)
 {
 	//// Affiche le triangle ! 
-	//glDrawArrays(GL_TRIANGLES, 0, 12 * 3); // 12*3 indices démarrant à 0 -> 12 triangles -> 6 carrés
+	//glDrawArrays(GL_TRIANGLES, 0, 12 * 3); // 12*3 indices dÃ©marrant Ã  0 -> 12 triangles -> 6 carrÃ©s
 	//// Source cube tuto p=opengl
 	//GLuint colorbuffer;
 	//glGenBuffers(1, &colorbuffer);
@@ -126,12 +92,12 @@ int main(int argc, char** argv)
 	//glEnableVertexAttribArray(1);
 	//glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
 	//glVertexAttribPointer(
-	//	1,                                // attribut. Aucune raison particulière pour 1, mais cela doit correspondre au « layout » du shader 
+	//	1,                                // attribut. Aucune raison particuliÃ¨re pour 1, mais cela doit correspondre au Â« layout Â» du shader 
 	//	3,                                // taille 
 	//	GL_FLOAT,                         // type 
-	//	GL_FALSE,                         // normalisé ? 
-	//	0,                                // nombre d'octets séparant deux sommets dans le tampon 
-	//	(void*)0                          // décalage du tableau de tampons 
+	//	GL_FALSE,                         // normalisÃ© ? 
+	//	0,                                // nombre d'octets sÃ©parant deux sommets dans le tampon 
+	//	(void*)0                          // dÃ©calage du tableau de tampons 
 	//);
 
 
