@@ -1,4 +1,7 @@
 x64-windows/
+x64-windows/debug/
+x64-windows/debug/lib/
+x64-windows/debug/lib/glm.lib
 x64-windows/include/
 x64-windows/include/glm/
 x64-windows/include/glm/common.hpp
@@ -27,6 +30,7 @@ x64-windows/include/glm/detail/func_trigonometric.inl
 x64-windows/include/glm/detail/func_trigonometric_simd.inl
 x64-windows/include/glm/detail/func_vector_relational.inl
 x64-windows/include/glm/detail/func_vector_relational_simd.inl
+x64-windows/include/glm/detail/glm.cpp
 x64-windows/include/glm/detail/qualifier.hpp
 x64-windows/include/glm/detail/setup.hpp
 x64-windows/include/glm/detail/type_float.hpp
@@ -66,6 +70,7 @@ x64-windows/include/glm/detail/type_vec4_simd.inl
 x64-windows/include/glm/exponential.hpp
 x64-windows/include/glm/ext.hpp
 x64-windows/include/glm/ext/
+x64-windows/include/glm/ext/_matrix_vectorize.hpp
 x64-windows/include/glm/ext/matrix_clip_space.hpp
 x64-windows/include/glm/ext/matrix_clip_space.inl
 x64-windows/include/glm/ext/matrix_common.hpp
@@ -124,6 +129,8 @@ x64-windows/include/glm/ext/matrix_int4x3.hpp
 x64-windows/include/glm/ext/matrix_int4x3_sized.hpp
 x64-windows/include/glm/ext/matrix_int4x4.hpp
 x64-windows/include/glm/ext/matrix_int4x4_sized.hpp
+x64-windows/include/glm/ext/matrix_integer.hpp
+x64-windows/include/glm/ext/matrix_integer.inl
 x64-windows/include/glm/ext/matrix_projection.hpp
 x64-windows/include/glm/ext/matrix_projection.inl
 x64-windows/include/glm/ext/matrix_relational.hpp
@@ -174,6 +181,8 @@ x64-windows/include/glm/ext/scalar_integer.hpp
 x64-windows/include/glm/ext/scalar_integer.inl
 x64-windows/include/glm/ext/scalar_packing.hpp
 x64-windows/include/glm/ext/scalar_packing.inl
+x64-windows/include/glm/ext/scalar_reciprocal.hpp
+x64-windows/include/glm/ext/scalar_reciprocal.inl
 x64-windows/include/glm/ext/scalar_relational.hpp
 x64-windows/include/glm/ext/scalar_relational.inl
 x64-windows/include/glm/ext/scalar_uint_sized.hpp
@@ -217,6 +226,8 @@ x64-windows/include/glm/ext/vector_integer.hpp
 x64-windows/include/glm/ext/vector_integer.inl
 x64-windows/include/glm/ext/vector_packing.hpp
 x64-windows/include/glm/ext/vector_packing.inl
+x64-windows/include/glm/ext/vector_reciprocal.hpp
+x64-windows/include/glm/ext/vector_reciprocal.inl
 x64-windows/include/glm/ext/vector_relational.hpp
 x64-windows/include/glm/ext/vector_relational.inl
 x64-windows/include/glm/ext/vector_uint1.hpp
@@ -231,6 +242,7 @@ x64-windows/include/glm/ext/vector_ulp.hpp
 x64-windows/include/glm/ext/vector_ulp.inl
 x64-windows/include/glm/fwd.hpp
 x64-windows/include/glm/geometric.hpp
+x64-windows/include/glm/glm.cppm
 x64-windows/include/glm/glm.hpp
 x64-windows/include/glm/gtc/
 x64-windows/include/glm/gtc/bitfield.hpp
@@ -260,7 +272,6 @@ x64-windows/include/glm/gtc/quaternion_simd.inl
 x64-windows/include/glm/gtc/random.hpp
 x64-windows/include/glm/gtc/random.inl
 x64-windows/include/glm/gtc/reciprocal.hpp
-x64-windows/include/glm/gtc/reciprocal.inl
 x64-windows/include/glm/gtc/round.hpp
 x64-windows/include/glm/gtc/round.inl
 x64-windows/include/glm/gtc/type_aligned.hpp
@@ -350,11 +361,12 @@ x64-windows/include/glm/gtx/normal.inl
 x64-windows/include/glm/gtx/normalize_dot.hpp
 x64-windows/include/glm/gtx/normalize_dot.inl
 x64-windows/include/glm/gtx/number_precision.hpp
-x64-windows/include/glm/gtx/number_precision.inl
 x64-windows/include/glm/gtx/optimum_pow.hpp
 x64-windows/include/glm/gtx/optimum_pow.inl
 x64-windows/include/glm/gtx/orthonormalize.hpp
 x64-windows/include/glm/gtx/orthonormalize.inl
+x64-windows/include/glm/gtx/pca.hpp
+x64-windows/include/glm/gtx/pca.inl
 x64-windows/include/glm/gtx/perpendicular.hpp
 x64-windows/include/glm/gtx/perpendicular.inl
 x64-windows/include/glm/gtx/polar_coordinates.hpp
@@ -424,9 +436,15 @@ x64-windows/include/glm/vec2.hpp
 x64-windows/include/glm/vec3.hpp
 x64-windows/include/glm/vec4.hpp
 x64-windows/include/glm/vector_relational.hpp
+x64-windows/lib/
+x64-windows/lib/glm.lib
 x64-windows/share/
 x64-windows/share/glm/
 x64-windows/share/glm/copyright
-x64-windows/share/glm/glm-config.cmake
+x64-windows/share/glm/glmConfig-debug.cmake
+x64-windows/share/glm/glmConfig-release.cmake
+x64-windows/share/glm/glmConfig.cmake
+x64-windows/share/glm/glmConfigVersion.cmake
+x64-windows/share/glm/usage
 x64-windows/share/glm/vcpkg.spdx.json
 x64-windows/share/glm/vcpkg_abi_info.txt
