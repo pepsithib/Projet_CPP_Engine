@@ -1,5 +1,0 @@
-{
-    "name": "moteurdevcpptest1",
-    "dependencies": ["opengl", "glfw3", "glew"
-    ]
-  }
