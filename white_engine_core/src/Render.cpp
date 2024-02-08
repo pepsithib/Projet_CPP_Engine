@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <glm/vec3.hpp>
 #include <glm/glm.hpp>
+
 Render::~Render()
 {
 	for (DataShape* shapeToDelete : m_drawList)
@@ -13,6 +14,10 @@ Render::~Render()
 		glDeleteProgram(shapeToDelete->progamId);
 		glDeleteShader(shapeToDelete->fragmentShader);
 		glDeleteShader(shapeToDelete->vertexShader);
+
+		if (shapeToDelete->buf != nullptr)
+			delete shapeToDelete->buf;
+
 		delete shapeToDelete;
 	}
 
@@ -89,14 +94,12 @@ void Render::buildTriangle(File* vsSrc, File* fsSrc)
 		glGetProgramInfoLog(sp, InfoLogLength, NULL, &ProgramErrorMessage[0]);
 		printf("%s\n", &ProgramErrorMessage[0]);
 	}
-	m_drawList.push_back(new DataShape(vao, sp, vs, fs));
+	m_drawList.push_back(new DataShape(vao, sp, vs, fs, 3));
 }
 
 void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
 {
 	std::vector<glm::vec3> vertices;
-	unsigned int vertexBuffer;
-	unsigned int vertexArray;
 
 	/* Calculate theta angle, witch  is use to draw the triangles */
 	float angle = 360.0f / dotNumbers;
@@ -174,11 +177,12 @@ void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
 	}
 
 	// buffer
-	glGenVertexArrays(1, &vertexArray);
-	glGenBuffers(1, &vertexBuffer);
 
-	glBindVertexArray(vertexArray);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	Buffers* buf = new Buffers(1);
+	Vao* vao = new Vao();
+
+	glBindVertexArray(vao->GetVaoBuffer());
+	buf->bind();
 
 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * vertices.size(), &vertices[0], GL_STATIC_DRAW); // asd
@@ -186,6 +190,8 @@ void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
 	glEnableVertexAttribArray(0);
+
+	m_drawList.push_back(new DataShape(vao, sp, vs, fs, vertices.size(), buf));
 }
 
 void Render::buildRectangle(File* vsSrc, File* fsSrc)
@@ -194,16 +200,25 @@ void Render::buildRectangle(File* vsSrc, File* fsSrc)
 
 void Render::drawTriangle()
 {
-	glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-
 	for (DataShape* shapeToRender : m_drawList)
 	{
 		glBindVertexArray(shapeToRender->shapeVertices->GetVaoBuffer());
 		glUseProgram(shapeToRender->progamId);
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, shapeToRender->count, GL_UNSIGNED_INT, nullptr);
 		glUseProgram(0);
 		glBindVertexArray(0);
 	}
 
+}
+
+void Render::drawCircle()
+{
+	for (DataShape* shapeToRender : m_drawList)
+	{
+		glBindVertexArray(shapeToRender->shapeVertices->GetVaoBuffer());
+		glUseProgram(shapeToRender->progamId);
+		glDrawArrays(GL_TRIANGLES, 0, shapeToRender->count);
+		glUseProgram(0);
+		glBindVertexArray(0);
+	}
 }

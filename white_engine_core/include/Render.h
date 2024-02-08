@@ -1,5 +1,6 @@
 #pragma once
 #include "Vao.h"
+#include "Buffers.h"
 #include "../include/File.h"
 class Render
 {
@@ -8,17 +9,32 @@ public:
 	/* Struct to stock current draw shape */
 	struct DataShape 
 	{
-		DataShape(Vao* vertices, unsigned int prog, unsigned int vs, unsigned int fs)
+		DataShape(Vao* vertices, unsigned int prog, unsigned int vs, unsigned int fs, GLsizei size)
 		{
 			shapeVertices = vertices;
 			progamId = prog;
 			vertexShader = vs;
 			fragmentShader = fs;
+			count = size;
+			buf = nullptr;
 		}
+
+		DataShape(Vao* vertices, unsigned int prog, unsigned int vs, unsigned int fs, GLsizei size, Buffers* buffer)
+		{
+			shapeVertices = vertices;
+			progamId = prog;
+			vertexShader = vs;
+			fragmentShader = fs;
+			count = size;
+			buf = buffer;
+		}
+
 		Vao* shapeVertices;
 		unsigned int progamId;
 		unsigned int fragmentShader;
 		unsigned int vertexShader;
+		GLsizei count;
+		Buffers* buf;
 	};
 
 	Render() = default;

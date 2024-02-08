@@ -43,13 +43,16 @@ void Application::run()
 	glewInit();
 
 	Render* renderer = new Render();
-	renderer->buildTriangle(vsSrc, fsSrc);
+	renderer->buildCircle(1,8,vsSrc, fsSrc);
 
 	do
 	{
 		glfwPollEvents();
 
-		renderer->drawTriangle();
+		glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		renderer->drawCircle();
 
 		glfwSwapBuffers(window);
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
