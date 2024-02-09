@@ -196,6 +196,79 @@ void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
 
 void Render::buildRectangle(File* vsSrc, File* fsSrc)
 {
+	float vertices[30] = {
+	 0.0f,  0.5f, 1.0f, 0.0f, 0.0f,
+	-0.5f,  0.5f, 0.0f, 1.0f, 0.0f,
+	-0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+	 0.0f,  0.5f, 1.0f, 0.0f, 0.0f,
+	 0.0f,  0.0f, 0.0f, 1.0f, 0.0f,
+	 -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+	};
+
+	unsigned int indices[6] = { 0, 1, 2, 3, 4, 5 };
+
+	/* Allocate brut memory on GPU */
+	Buffers buf;
+	buf.storeData(vertices, 30 * sizeof(float));
+	Buffers buf2;
+	buf2.storeData(indices, 6 * sizeof(unsigned int));
+
+	/* Create the Vao */
+	Vao* vao = new Vao(0, buf.GetBuffer(), 0, 5 * sizeof(float));
+
+	vao->MakeVao(0, 0, 2, GL_FLOAT, GL_FALSE, 0);
+	vao->MakeVao(1, 0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float));
+
+	glVertexArrayElementBuffer(vao->GetVaoBuffer(), buf2.GetBuffer());
+
+	// Compile Vextex Shader
+	unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
+	auto* ptr = vsSrc->fileContent.c_str();
+	glShaderSource(vs, 1, &ptr, nullptr);
+	glCompileShader(vs);
+
+	GLint Result = GL_FALSE;
+	int InfoLogLength = 0;
+
+	// Check Vertex Shader
+	glGetShaderiv(vs, GL_COMPILE_STATUS, &Result);
+	glGetShaderiv(vs, GL_INFO_LOG_LENGTH, &InfoLogLength);
+	if (InfoLogLength > 0) {
+		std::vector<char> VertexShaderErrorMessage(InfoLogLength + 1);
+		glGetShaderInfoLog(vs, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
+		printf("%s\n", &VertexShaderErrorMessage[0]);
+	}
+
+	// Compile fragment shader
+	unsigned int fs = glCreateShader(GL_FRAGMENT_SHADER);
+	auto* ptr2 = fsSrc->fileContent.c_str();
+	glShaderSource(fs, 1, &ptr2, nullptr);
+	glCompileShader(fs);
+
+	// Check Fragment Shader
+	glGetShaderiv(fs, GL_COMPILE_STATUS, &Result);
+	glGetShaderiv(fs, GL_INFO_LOG_LENGTH, &InfoLogLength);
+	if (InfoLogLength > 0) {
+		std::vector<char> FragmentShaderErrorMessage(InfoLogLength + 1);
+		glGetShaderInfoLog(fs, InfoLogLength, NULL, &FragmentShaderErrorMessage[0]);
+		printf("%s\n", &FragmentShaderErrorMessage[0]);
+	}
+
+	// Link program
+	unsigned int sp = glCreateProgram();
+	glAttachShader(sp, vs);
+	glAttachShader(sp, fs);
+	glLinkProgram(sp);
+
+	// Check program
+	glGetProgramiv(sp, GL_LINK_STATUS, &Result);
+	glGetProgramiv(sp, GL_INFO_LOG_LENGTH, &InfoLogLength);
+	if (InfoLogLength > 0) {
+		std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
+		glGetProgramInfoLog(sp, InfoLogLength, NULL, &ProgramErrorMessage[0]);
+		printf("%s\n", &ProgramErrorMessage[0]);
+	}
+	m_drawList.push_back(new DataShape(vao, sp, vs, fs, 6));
 }
 
 void Render::drawTriangle()

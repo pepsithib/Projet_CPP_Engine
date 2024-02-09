@@ -23,9 +23,9 @@ File* fsSrc = new File("..\\white_engine_core\\Shaders\\fsSrc.txt");
 
 int main()
 {
-	auto test = new Application();
-	test->run();
-	delete test;
+	Application* app = new Application();
+	app->run();
+	delete app;
 }
 
 #ifdef NDEBUG

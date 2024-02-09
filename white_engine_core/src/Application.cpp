@@ -43,7 +43,7 @@ void Application::run()
 	glewInit();
 
 	Render* renderer = new Render();
-	renderer->buildCircle(1,8,vsSrc, fsSrc);
+	renderer->buildRectangle(vsSrc, fsSrc);
 
 	do
 	{
@@ -52,7 +52,7 @@ void Application::run()
 		glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		renderer->drawCircle();
+		renderer->drawTriangle();
 
 		glfwSwapBuffers(window);
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
