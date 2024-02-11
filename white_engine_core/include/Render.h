@@ -2,6 +2,8 @@
 #include "Vao.h"
 #include "Buffers.h"
 #include "../include/File.h"
+#include <glm/vec3.hpp>
+#include <map>
 class Render
 {
 public:
@@ -29,6 +31,17 @@ public:
 			buf = buffer;
 		}
 
+		~DataShape()
+		{
+			delete shapeVertices;
+			glDeleteProgram(progamId);
+			glDeleteShader(fragmentShader);
+			glDeleteShader(vertexShader);
+
+			if (buf != nullptr)
+				delete buf;
+		}
+
 		Vao* shapeVertices;
 		unsigned int progamId;
 		unsigned int fragmentShader;
@@ -41,9 +54,9 @@ public:
 	~Render();
 
 	/* Shape render functions */
-	void buildTriangle(File* vsSrc, File* fsSrc);
+	void buildTriangle(File* vsSrc, File* fsSrc,float x, float y);
 	void buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc);
-	void buildRectangle(File* vsSrc, File* fsSrc);
+	void buildRectangle(File* vsSrc, File* fsSrc, float x, float y);
 
 	void drawTriangle();
 	void drawCircle();

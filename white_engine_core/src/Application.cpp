@@ -43,7 +43,7 @@ void Application::run()
 	glewInit();
 
 	Render* renderer = new Render();
-	renderer->buildRectangle(vsSrc, fsSrc);
+	renderer->buildTriangle(vsSrc, fsSrc, 0, 0);
 
 	do
 	{
