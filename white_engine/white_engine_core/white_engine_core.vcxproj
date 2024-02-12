@@ -144,6 +144,10 @@
     <ClInclude Include="include\Buffers.h" />
     <ClInclude Include="include\File.h" />
     <ClInclude Include="include\Vao.h" />
+    <ClInclude Include="MovementSystem.h" />
+    <ClInclude Include="RenderingSystem.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -152,6 +156,10 @@
     <ClCompile Include="ImGui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="MovementSystem.cpp" />
+    <ClCompile Include="RenderingSystem.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="src\Buffers.cpp" />
     <ClCompile Include="src\File.cpp" />
     <ClCompile Include="src\Vao.cpp" />
