@@ -54,6 +54,12 @@
     <ClInclude Include="ImGui\imstb_truetype.h">
       <Filter>Fichiers d%27en-tête\IMGUI</Filter>
     </ClInclude>
+    <ClInclude Include="include\TransformComponent.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IComponent.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -81,6 +87,12 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\Vao.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TransformComponent.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
