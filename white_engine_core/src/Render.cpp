@@ -290,3 +290,9 @@ void Render::drawCircle()
 		glBindVertexArray(0);
 	}
 }
+
+Render* Render::getInstance()
+{
+	static Render instance;
+	return &instance;
+}

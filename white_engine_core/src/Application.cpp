@@ -42,8 +42,8 @@ void Application::run()
 	glewExperimental = true;
 	glewInit();
 
-	Render* renderer = new Render();
-	renderer->buildTriangle(vsSrc, fsSrc, 0, 0);
+	Render* renderer = Render::getInstance();
+	renderer->buildRectangle(vsSrc, fsSrc, 0, 0);
 
 	do
 	{
@@ -66,7 +66,6 @@ void Application::run()
 	//buf2.deleteBuffer();
 	delete vsSrc;
 	delete fsSrc;
-	delete renderer;
 
 	glfwDestroyWindow(window);
 	glfwTerminate();

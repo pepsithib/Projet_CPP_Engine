@@ -142,9 +142,15 @@
     <ClInclude Include="ImGui\imstb_rectpack.h" />
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="include\Application.h" />
     <ClInclude Include="include\Buffers.h" />
     <ClInclude Include="include\File.h" />
+    <ClInclude Include="include\Render.h" />
+    <ClInclude Include="include\stb_image.h" />
+    <ClInclude Include="include\Texture.h" />
     <ClInclude Include="include\Vao.h" />
+    <ClInclude Include="include\Windows.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -153,9 +159,17 @@
     <ClCompile Include="ImGui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Buffers.cpp" />
     <ClCompile Include="src\File.cpp" />
+    <ClCompile Include="src\Render.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Vao.cpp" />
+    <ClCompile Include="src\Windows.cpp" />
+    <ClCompile Include="stb_image.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="white_engine_core.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

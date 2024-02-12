@@ -61,6 +61,8 @@ public:
 	void drawTriangle();
 	void drawCircle();
 
+	static Render* getInstance();
+
 private :
 	std::vector<DataShape*> m_drawList;
 };
