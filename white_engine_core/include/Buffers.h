@@ -7,8 +7,10 @@ public:
 
 	// Methodes
 	Buffers();
+	Buffers(int indices);
 	~Buffers();
 	void storeData(void* data, size_t size);
+	void bind();
 	unsigned int GetBuffer();
 
 private:
