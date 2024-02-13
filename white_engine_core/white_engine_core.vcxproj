@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_impl_glfw.h" />
@@ -144,17 +145,25 @@
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="include\Buffers.h" />
     <ClInclude Include="include\File.h" />
+    <ClInclude Include="include\GameObject.hxx" />
+    <ClInclude Include="include\IComponent.h" />
+    <ClInclude Include="include\TransformComponent.h" />
     <ClInclude Include="include\Vao.h" />
+    <ClInclude Include="include\RenderComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
     <ClCompile Include="ImGui\imgui_impl_glfw.cpp" />
     <ClCompile Include="ImGui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="src\RenderComponent.cpp" />
     <ClCompile Include="src\Buffers.cpp" />
     <ClCompile Include="src\File.cpp" />
+    <ClCompile Include="src\IComponent.cpp" />
+    <ClCompile Include="src\TransformComponent.cpp" />
     <ClCompile Include="src\Vao.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
