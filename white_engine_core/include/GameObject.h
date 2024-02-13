@@ -28,7 +28,7 @@ public :
 
 protected:
 
-	std::vector<IComponent&> Components;
+	std::vector<IComponent*> Components;
 	std::string FriendlyName;
 };
 

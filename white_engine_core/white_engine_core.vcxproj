@@ -150,8 +150,16 @@
     <ClInclude Include="include\TransformComponent.h" />
     <ClInclude Include="include\Vao.h" />
     <ClInclude Include="include\RenderComponent.h" />
+    <ClInclude Include="include\MovementSystem.h" />
+    <ClInclude Include="include\RenderingSystem.h" />
+    <ClInclude Include="include\Scene.h" />
+    <ClInclude Include="include\SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\MovementSystem.cpp" />
+    <ClCompile Include="src\RenderingSystem.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\SceneManager.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
