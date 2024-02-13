@@ -1,8 +1,7 @@
 #include "Scene.h"
-#include "MovementSystem.h"
-#include "RenderingSystem.h"
 
-Scene::Scene() : movementSystem(new MovementSystem()), renderingSystem(new RenderingSystem()) {}
+
+Scene::Scene() {}
 
 Scene::~Scene() {
     delete movementSystem;
@@ -15,9 +14,9 @@ void Scene::addEntity(const Position& initialPosition, const Velocity& initialVe
 }
 
 void Scene::update(float dt) {
-    movementSystem->update(positions, velocities, dt);
+
 }
 
 void Scene::render() {
-    renderingSystem->render(positions);
+ 
 }
