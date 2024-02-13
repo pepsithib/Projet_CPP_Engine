@@ -4,6 +4,7 @@
 #include "../include/File.h"
 #include <glm/vec3.hpp>
 #include <map>
+#include <Texture.h>
 class Render
 {
 public:
@@ -11,24 +12,15 @@ public:
 	/* Struct to stock current draw shape */
 	struct DataShape 
 	{
-		DataShape(Vao* vertices, unsigned int prog, unsigned int vs, unsigned int fs, GLsizei size)
-		{
-			shapeVertices = vertices;
-			progamId = prog;
-			vertexShader = vs;
-			fragmentShader = fs;
-			count = size;
-			buf = nullptr;
-		}
 
-		DataShape(Vao* vertices, unsigned int prog, unsigned int vs, unsigned int fs, GLsizei size, Buffers* buffer)
+		DataShape(Vao* vertices, unsigned int prog, unsigned int vs, unsigned int fs, GLsizei size, std::vector<Buffers*> *buffers)
 		{
 			shapeVertices = vertices;
 			progamId = prog;
 			vertexShader = vs;
 			fragmentShader = fs;
 			count = size;
-			buf = buffer;
+			buf = buffers;
 		}
 
 		~DataShape()
@@ -37,9 +29,17 @@ public:
 			glDeleteProgram(progamId);
 			glDeleteShader(fragmentShader);
 			glDeleteShader(vertexShader);
+			delete texture;
 
-			if (buf != nullptr)
+			if (!buf->empty())
+			{
+				for (auto i : *buf)
+				{
+					delete i;
+				}
 				delete buf;
+			}
+
 		}
 
 		Vao* shapeVertices;
@@ -47,7 +47,8 @@ public:
 		unsigned int fragmentShader;
 		unsigned int vertexShader;
 		GLsizei count;
-		Buffers* buf;
+		Texture* texture = new Texture("../white_engine_core/Texture/container.jpg");
+		std::vector<Buffers*> *buf;
 	};
 
 	Render() = default;

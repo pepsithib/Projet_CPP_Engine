@@ -27,19 +27,19 @@ void Render::buildTriangle(File* vsSrc, File* fsSrc, float x, float y)
 	unsigned int indices[3] = { 0, 1, 2 };
 
 	/* Allocate brut memory on GPU */ 
-	Buffers buf;
-	buf.storeData(vertices, 21 * sizeof(float));
-	Buffers buf2;
-	buf2.storeData(indices, 3 * sizeof(unsigned int));
+	Buffers* buf = new Buffers();
+	buf->storeData(vertices, 21 * sizeof(float));
+	Buffers* buf2 = new Buffers();
+	buf2->storeData(indices, 3 * sizeof(unsigned int));
 
 	/* Create the Vao */
-	Vao* vao = new Vao(0, buf.GetBuffer(), 0, 7 * sizeof(float));
+	Vao* vao = new Vao(0, buf->GetBuffer(), 0, 7 * sizeof(float));
 
 	vao->MakeVao(0, 0, 2, GL_FLOAT, GL_FALSE, 0);
 	vao->MakeVao(1, 0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float));
 	vao->MakeVao(2, 0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float));
 
-	glVertexArrayElementBuffer(vao->GetVaoBuffer(), buf2.GetBuffer());
+	glVertexArrayElementBuffer(vao->GetVaoBuffer(), buf2->GetBuffer());
 
 	// Compile Vextex Shader
 	unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
@@ -88,7 +88,10 @@ void Render::buildTriangle(File* vsSrc, File* fsSrc, float x, float y)
 		glGetProgramInfoLog(sp, InfoLogLength, NULL, &ProgramErrorMessage[0]);
 		printf("%s\n", &ProgramErrorMessage[0]);
 	}
-	m_drawList.push_back(new DataShape(vao, sp, vs, fs, 3));
+	std::vector<Buffers*> *test = new std::vector<Buffers*>;
+	test->push_back(buf);
+	test->push_back(buf2);
+	m_drawList.push_back(new DataShape(vao, sp, vs, fs, 3, test));
 }
 
 void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
@@ -185,7 +188,10 @@ void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
 
 	glEnableVertexAttribArray(0);
 
-	m_drawList.push_back(new DataShape(vao, sp, vs, fs, vertices.size(), buf));
+	std::vector<Buffers*>* test = new std::vector<Buffers*>;
+	test->push_back(buf);
+
+	m_drawList.push_back(new DataShape(vao, sp, vs, fs, vertices.size(), test));
 }
 
 void Render::buildRectangle(File* vsSrc, File* fsSrc, float x, float y)
@@ -200,19 +206,19 @@ void Render::buildRectangle(File* vsSrc, File* fsSrc, float x, float y)
 	unsigned int indices[6] = { 0, 1, 3, 1, 2, 3 };
 
 	/* Allocate brut memory on GPU */
-	Buffers buf;
-	buf.storeData(vertices, 28 * sizeof(float));
-	Buffers buf2;
-	buf2.storeData(indices, 6 * sizeof(unsigned int));
+	Buffers* buf = new Buffers();
+	buf->storeData(vertices, 28 * sizeof(float));
+	Buffers* buf2 = new Buffers();
+	buf2->storeData(indices, 6 * sizeof(unsigned int));
 
 	/* Create the Vao */
-	Vao* vao = new Vao(0, buf.GetBuffer(), 0, 7 * sizeof(float));
+	Vao* vao = new Vao(0, buf->GetBuffer(), 0, 7 * sizeof(float));
 
 	vao->MakeVao(0, 0, 2, GL_FLOAT, GL_FALSE, 0);
 	vao->MakeVao(1, 0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float));
 	vao->MakeVao(2, 0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float));
 
-	glVertexArrayElementBuffer(vao->GetVaoBuffer(), buf2.GetBuffer());
+	glVertexArrayElementBuffer(vao->GetVaoBuffer(), buf2->GetBuffer());
 
 	// Compile Vextex Shader
 	unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
@@ -261,15 +267,19 @@ void Render::buildRectangle(File* vsSrc, File* fsSrc, float x, float y)
 		glGetProgramInfoLog(sp, InfoLogLength, NULL, &ProgramErrorMessage[0]);
 		printf("%s\n", &ProgramErrorMessage[0]);
 	}
-	m_drawList.push_back(new DataShape(vao, sp, vs, fs, 6));
+
+	std::vector<Buffers*>* test = new std::vector<Buffers*>;
+	test->push_back(buf);
+	test->push_back(buf2);
+
+	m_drawList.push_back(new DataShape(vao, sp, vs, fs, 6, test));
 }
 
 void Render::drawTriangle()
 {
 	for (DataShape* shapeToRender : m_drawList)
 	{
-		Texture texture("../white_engine_core/Texture/container.jpg");
-		glBindTexture(GL_TEXTURE_2D, texture.texture);
+		glBindTexture(GL_TEXTURE_2D, shapeToRender->texture->texture);
 		glBindVertexArray(shapeToRender->shapeVertices->GetVaoBuffer());
 		glUseProgram(shapeToRender->progamId);
 		glDrawElements(GL_TRIANGLES, shapeToRender->count, GL_UNSIGNED_INT, nullptr);
