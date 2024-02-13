@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\IMGUI">
-      <UniqueIdentifier>{737862ad-202d-4d3b-8463-6cbbb510a368}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\IMGUI">
-      <UniqueIdentifier>{a1d12b99-8222-4819-8059-e026feea7eee}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Buffers.h">
@@ -29,30 +23,6 @@
     </ClInclude>
     <ClInclude Include="include\File.h">
       <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imconfig.h">
-      <Filter>Fichiers d%27en-tête\IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui.h">
-      <Filter>Fichiers d%27en-tête\IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_glfw.h">
-      <Filter>Fichiers d%27en-tête\IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_opengl3.h">
-      <Filter>Fichiers d%27en-tête\IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui_internal.h">
-      <Filter>Fichiers d%27en-tête\IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imstb_rectpack.h">
-      <Filter>Fichiers d%27en-tête\IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imstb_textedit.h">
-      <Filter>Fichiers d%27en-tête\IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imstb_truetype.h">
-      <Filter>Fichiers d%27en-tête\IMGUI</Filter>
     </ClInclude>
     <ClInclude Include="include\Application.h">
       <Filter>Fichiers d%27en-tête</Filter>
@@ -74,24 +44,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ImGui\imgui.cpp">
-      <Filter>Fichiers sources\IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_draw.cpp">
-      <Filter>Fichiers sources\IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_glfw.cpp">
-      <Filter>Fichiers sources\IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_opengl3.cpp">
-      <Filter>Fichiers sources\IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_tables.cpp">
-      <Filter>Fichiers sources\IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_widgets.cpp">
-      <Filter>Fichiers sources\IMGUI</Filter>
-    </ClCompile>
     <ClCompile Include="src\Buffers.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -116,10 +68,5 @@
     <ClCompile Include="stb_image.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="white_engine_core.rc">
-      <Filter>Fichiers de ressources</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>
