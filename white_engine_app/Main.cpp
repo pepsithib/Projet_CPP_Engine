@@ -1,11 +1,12 @@
 
-#include "GL/glew.h"
-#include <GLFW/glfw3.h>
 #include <stdexcept>
 #include <vector>
 #include "Buffers.h"
 #include "Vao.h"
 #include "File.h"
+
+#include <GLFW/glfw3.h>
+#include <GL/glew.h>
 
 float vertices[15] = {
 	 0.0f,  0.5f, 1.0f, 0.0f, 0.0f,

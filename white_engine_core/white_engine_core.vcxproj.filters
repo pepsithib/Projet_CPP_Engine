@@ -54,16 +54,19 @@
     <ClInclude Include="ImGui\imstb_truetype.h">
       <Filter>Fichiers d%27en-tête\IMGUI</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
+    <ClInclude Include="include\TransformComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
+    <ClInclude Include="include\IComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="MovementSystem.h">
+    <ClInclude Include="include\RenderComponent.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="RenderingSystem.h">
+    <ClInclude Include="include\GameObject.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameObject.hxx">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,16 +98,16 @@
     <ClCompile Include="src\Vao.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
+    <ClCompile Include="src\TransformComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
+    <ClCompile Include="src\IComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="MovementSystem.cpp">
+    <ClCompile Include="src\RenderComponent.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="RenderingSystem.cpp">
+    <ClCompile Include="src\GameObject.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

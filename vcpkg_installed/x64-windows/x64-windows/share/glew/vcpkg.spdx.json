@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/glew-x64-windows-2.2.0-b11971b2-7608-4288-91b7-17866d36cf5d",
-  "name": "glew:x64-windows@2.2.0 c3ff2aa8ffdffbec37cf56e79638cc02607b7c72afa740d3babc04595fde4a0c",
+  "documentNamespace": "https://spdx.org/spdxdocs/glew-x64-windows-2.2.0#3-ae80f4bd-b5a3-4c02-9faf-36ca6640bbb7",
+  "name": "glew:x64-windows@2.2.0#3 a1b36fe5d5a4405abb287b3677d63a290957ccb0422c27f2838083f27419439d",
   "creationInfo": {
     "creators": [
-      "Tool: vcpkg-7ae0d8527fb488fde10a89c2813802dc9b03b6f9"
+      "Tool: vcpkg-9c1e418fc6264dffcab6ca47746a648c35c379b9"
     ],
-    "created": "2024-02-06T13:40:39Z"
+    "created": "2024-02-06T14:07:05Z"
   },
   "relationships": [
     {
@@ -43,6 +43,11 @@
       "relatedSpdxElement": "SPDXRef-file-4"
     },
     {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-5"
+    },
+    {
       "spdxElementId": "SPDXRef-binary",
       "relationshipType": "GENERATED_FROM",
       "relatedSpdxElement": "SPDXRef-port"
@@ -73,8 +78,8 @@
       "relatedSpdxElement": "SPDXRef-port"
     },
     {
-      "spdxElementId": "SPDXRef-file-4",
-      "relationshipType": "DEPENDENCY_MANIFEST_OF",
+      "spdxElementId": "SPDXRef-file-5",
+      "relationshipType": "CONTAINED_BY",
       "relatedSpdxElement": "SPDXRef-port"
     }
   ],
@@ -82,7 +87,7 @@
     {
       "name": "glew",
       "SPDXID": "SPDXRef-port",
-      "versionInfo": "2.2.0",
+      "versionInfo": "2.2.0#3",
       "downloadLocation": "NOASSERTION",
       "homepage": "https://github.com/nigels-com/glew",
       "licenseConcluded": "NOASSERTION",
@@ -94,7 +99,7 @@
     {
       "name": "glew:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "c3ff2aa8ffdffbec37cf56e79638cc02607b7c72afa740d3babc04595fde4a0c",
+      "versionInfo": "a1b36fe5d5a4405abb287b3677d63a290957ccb0422c27f2838083f27419439d",
       "downloadLocation": "NONE",
       "licenseConcluded": "NOASSERTION",
       "licenseDeclared": "NOASSERTION",
@@ -127,8 +132,20 @@
   ],
   "files": [
     {
-      "fileName": "./fix-LNK2019.patch",
+      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/glew/base_address.patch",
       "SPDXID": "SPDXRef-file-0",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "91d276024d8cadc85270035b0a54a028db7804c9d7e1e919b10a2bdb6dbe0af4"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/glew/fix-LNK2019.patch",
+      "SPDXID": "SPDXRef-file-1",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -139,20 +156,20 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./portfile.cmake",
-      "SPDXID": "SPDXRef-file-1",
+      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/glew/portfile.cmake",
+      "SPDXID": "SPDXRef-file-2",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "e20f9ff3dc8a403178b6e62ba5a7f8560b2e66a5d48ddb4e0f6b509b423358bb"
+          "checksumValue": "1f2d1cdc7836bf612366e7cc17cb4ca959c7524c5ef95a19076d54056055489c"
         }
       ],
       "licenseConcluded": "NOASSERTION",
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./usage",
-      "SPDXID": "SPDXRef-file-2",
+      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/glew/usage",
+      "SPDXID": "SPDXRef-file-3",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -163,8 +180,8 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./vcpkg-cmake-wrapper.cmake",
-      "SPDXID": "SPDXRef-file-3",
+      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/glew/vcpkg-cmake-wrapper.cmake",
+      "SPDXID": "SPDXRef-file-4",
       "checksums": [
         {
           "algorithm": "SHA256",
@@ -175,12 +192,12 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./vcpkg.json",
-      "SPDXID": "SPDXRef-file-4",
+      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/glew/vcpkg.json",
+      "SPDXID": "SPDXRef-file-5",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "94882fef1665948de65f1859d74f9a4240109a7290d425b680e0ed011bb4e730"
+          "checksumValue": "438cf45c16ad7a53dc0264500d22e337f291faefcb61e8c0b98fe7ecdb32afb6"
         }
       ],
       "licenseConcluded": "NOASSERTION",
