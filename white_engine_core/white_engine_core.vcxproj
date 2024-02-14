@@ -141,6 +141,7 @@
     <ClInclude Include="include\GameObject.hxx" />
     <ClInclude Include="include\IComponent.h" />
     <ClInclude Include="include\Render.h" />
+    <ClInclude Include="include\Shader.h" />
     <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="include\Texture.h" />
     <ClInclude Include="include\TransformComponent.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="src\Buffers.cpp" />
     <ClCompile Include="src\File.cpp" />
     <ClCompile Include="src\IComponent.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\TransformComponent.cpp" />
     <ClCompile Include="src\Vao.cpp" />

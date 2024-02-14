@@ -5,6 +5,12 @@
 #include <glm/vec3.hpp>
 #include <map>
 #include <Texture.h>
+
+class Shader;
+class Vao;
+class Buffers;
+class File;
+
 class Render
 {
 public:
@@ -13,22 +19,18 @@ public:
 	struct DataShape 
 	{
 
-		DataShape(Vao* vertices, unsigned int prog, unsigned int vs, unsigned int fs, GLsizei size, std::vector<Buffers*> *buffers)
+		DataShape(Vao* vertices, Shader* shader, GLsizei size, std::vector<Buffers*> *buffers)
 		{
 			shapeVertices = vertices;
-			progamId = prog;
-			vertexShader = vs;
-			fragmentShader = fs;
 			count = size;
 			buf = buffers;
+			shaders = shader;
 		}
 
 		~DataShape()
 		{
 			delete shapeVertices;
-			glDeleteProgram(progamId);
-			glDeleteShader(fragmentShader);
-			glDeleteShader(vertexShader);
+			delete shaders;
 			delete texture;
 
 			if (!buf->empty())
@@ -43,9 +45,7 @@ public:
 		}
 
 		Vao* shapeVertices;
-		unsigned int progamId;
-		unsigned int fragmentShader;
-		unsigned int vertexShader;
+		Shader* shaders;
 		GLsizei count;
 		Texture* texture = new Texture("../white_engine_core/Texture/container.jpg");
 		std::vector<Buffers*> *buf;
