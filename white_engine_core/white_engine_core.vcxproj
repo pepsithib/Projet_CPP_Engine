@@ -134,6 +134,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Flipper.h" />
+    <ClInclude Include="include\Application.h" />
+    <ClInclude Include="include\GameObject.h" />
+    <ClInclude Include="ImGui\imconfig.h" />
+    <ClInclude Include="ImGui\imgui.h" />
+    <ClInclude Include="ImGui\imgui_impl_glfw.h" />
+    <ClInclude Include="ImGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="ImGui\imgui_internal.h" />
     <ClInclude Include="ImGui\imstb_rectpack.h" />
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
@@ -154,8 +162,11 @@
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\Windows.h" />
+    <ClInclude Include="Parse.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Flipper.cpp" />
+    <ClCompile Include="Parse.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Render.cpp" />
     <ClCompile Include="src\Scene.cpp" />

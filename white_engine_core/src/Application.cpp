@@ -13,11 +13,41 @@
 #include <imgui_impl_glfw.h>
 #include <GameObject.h>
 #include <RenderComponent.h>
-
+#include "../Flipper.h"
+#include "../Parse.h"
 
 void Application::run()
 {
+	// On crée un objet Flipper
+	Flipper flipper(10.5f, 20.0f, 45.0f);
 
+	// Sérialisation en JSON
+	json serializedFlipper = JSONParser::serializeFlipper(flipper);
+
+	// Affichage dans la console
+	std::cout << "Serialized JSON:\n" << serializedFlipper.dump(4) << std::endl;
+
+	// Écriture dans un fichier
+	std::ofstream file("flipper.json");
+	file << serializedFlipper.dump(4);
+	file.close();
+
+	// Lecture du fichier
+	std::ifstream fileRead("flipper.json");
+	json jsonRead;
+	fileRead >> jsonRead;
+	fileRead.close();
+
+	// Désérialisation de notre objet Flipper
+	Flipper flipperDeserialized = JSONParser::deserializeFlipper(jsonRead);
+
+	// Affichage des données désérialisées
+	std::cout << "\nDeserialized Flipper Data:\n"
+		<< "Position X: " << flipperDeserialized.getPositionX() << ", "
+		<< "Position Y: " << flipperDeserialized.getPositionY() << ", "
+		<< "Rotation: " << flipperDeserialized.getRotation() << std::endl;
+
+	//FIn test serialisation
 	
 	glfwInit();
 
@@ -72,10 +102,8 @@ void Application::run()
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-
 		glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-
 		go.Update(0.0f);
 
 		renderer->drawTriangle();
@@ -89,9 +117,11 @@ void Application::run()
 		glfwWindowShouldClose(window) == 0);
 
 
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
+
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
@@ -113,3 +143,4 @@ void Application::DrawImgui()
 	}
 	ImGui::End();
 }
+
