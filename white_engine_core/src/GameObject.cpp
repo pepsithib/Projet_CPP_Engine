@@ -8,6 +8,7 @@ GameObject::GameObject(std::string friendlyName,float* matrix,Shape shape) : mat
 {
 	AddComponent<TransformComponent>();
 	AddComponent<RenderComponent>();
+	FriendlyName = friendlyName;
 }
 
 GameObject::~GameObject()

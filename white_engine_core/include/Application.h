@@ -1,4 +1,7 @@
 #pragma once
+#include <vector>
+class GameObject;
+
 class Application
 {
 public:
@@ -6,6 +9,12 @@ public:
 	~Application() = default;
 
 	void run();
-	void DrawImgui();
+
+	/**
+	 * \brief : Function that display the imgui windows for the editor DEBUG ONLY
+	 * \param 
+	 *  object : list of Game object to edit : position, rotation, scale, texture can be edit, a gameObject can be delete to
+	*/
+	void DrawImgui(std::vector<GameObject*> &objects);
 };
 

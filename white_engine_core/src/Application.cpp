@@ -1,6 +1,5 @@
 #include "Application.h"
 #include <stdexcept>
-#include <vector>
 #include "Buffers.h"
 #include "Vao.h"
 #include "File.h"
@@ -11,10 +10,12 @@
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_glfw.h>
-#include <GameObject.h>
+#include "GameObject.h"
 #include <RenderComponent.h>
 #include "../Flipper.h"
 #include "../Parse.h"
+#include "TransformComponent.h"
+#include <glm/trigonometric.hpp>
 
 void Application::run()
 {
@@ -92,10 +93,17 @@ void Application::run()
 #endif
 	ImGui_ImplOpenGL3_Init("#version 460");
 
-	GameObject go = GameObject("",{},Triangle);
+	GameObject* go = new GameObject("Castor",{},Triangle);
 	Render* renderer = Render::getInstance();
 	renderer->setShaders();
-	go.GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
+	go->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
+
+	GameObject* go2 = new GameObject("Pollux", {}, Triangle);
+	go2->GetComponent<TransformComponent>()->SetWorldPosition({ 0.5, 0.5 });
+	go2->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
+
+	std::vector<GameObject*> list = { go, go2 };
+
 	do
 	{
 		glfwPollEvents();
@@ -104,10 +112,14 @@ void Application::run()
 		ImGui::NewFrame();
 		glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		go.Update(0.0f);
+		
+		for (GameObject* i : list)
+		{
+			i->Update(0.0f);
+		}
 
 		renderer->drawTriangle();
-		DrawImgui();
+		DrawImgui(list);
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -116,7 +128,10 @@ void Application::run()
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		glfwWindowShouldClose(window) == 0);
 
-
+	for (int i = 0; i < list.size(); i++)
+	{
+		delete list[i];
+	}
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
@@ -127,13 +142,82 @@ void Application::run()
 	glfwTerminate();
 }
 
-void Application::DrawImgui()
-{
+void Application::DrawImgui(std::vector<GameObject*> &objects)
+{ 
+	/* Temporary variable to get value througth fields */
+
+
 	if (ImGui::Begin("Global"))
 	{
 		if (ImGui::BeginTabBar("Tabs"))
 		{
+			/* Editor section : use to modified a gameObject transform */
 			if (ImGui::BeginTabItem("Edit"))
+			{
+				for (int i = 0; i < objects.size(); i++)
+				{
+					if (ImGui::TreeNode(objects[i]->GetFriendlyName().c_str()))
+					{
+						glm::vec2 position = objects[i]->GetComponent<TransformComponent>()->GetWorldPosition();
+						float rotate = objects[i]->GetComponent<TransformComponent>()->GetRotation();
+						glm::vec2 scale = objects[i]->GetComponent<TransformComponent>()->GetScale();
+						char text[200] = "../white_engine_core/Texture/container.jpg";
+
+						/* Modified Position */
+						ImGui::InputFloat2("Position", &position.x);
+						objects[i]->GetComponent<TransformComponent>()->SetWorldPosition(position);
+
+						/* Modified Rotate */
+						ImGui::InputFloat("Rotate", &rotate);
+						objects[i]->GetComponent<TransformComponent>()->SetRotation(glm::radians(rotate));
+
+						/* Modified Scale */
+						ImGui::InputFloat2("Scale", &scale.x);
+						objects[i]->GetComponent<TransformComponent>()->SetScale(scale);
+
+						//ImGui::InputText("Texture", text, IM_ARRAYSIZE(text));
+						//if (ImGui::Button("Change Texture"))
+						//{
+						//	objects[i]ect->GetComponent<RenderComponent>()->setTexture(text);
+						//}
+
+						/* Delete this gameObject */
+						if (ImGui::Button("Delete Object"))
+						{
+							objects.erase(objects.begin()+i);
+						}
+
+						ImGui::TreePop();
+					}
+					ImGui::Separator();
+				}
+
+				/* Section to add a new game object to the scene */
+				if (ImGui::TreeNode("Add New gameObject"))
+				{
+					/* Enter the name of the object */
+					static char name[30] = "default";
+					ImGui::InputText("Name", name, IM_ARRAYSIZE(name));
+
+					/* Enter the position of the object */
+					static glm::vec2 position = { 0,0 };
+					ImGui::InputFloat2("Position", &position.x);
+
+					if (ImGui::Button("Add Object"))
+					{
+						GameObject* newGameObject = new GameObject(name, {}, Triangle);
+						newGameObject->GetComponent<TransformComponent>()->SetWorldPosition(position);
+						newGameObject->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
+						objects.push_back(newGameObject);
+					}
+					ImGui::TreePop();
+				}
+				
+				ImGui::EndTabItem();
+			}
+
+			/* Info section : use to display debug info */
+			if (ImGui::BeginTabItem("Debug Info"))
 			{
 				ImGui::EndTabItem();
 			}
