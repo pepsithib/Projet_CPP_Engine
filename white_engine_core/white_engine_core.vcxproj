@@ -135,8 +135,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Flipper.h" />
-    <ClInclude Include="include\Application.h" />
-    <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_impl_glfw.h" />
