@@ -4,8 +4,8 @@
     "glfw3",
     "opengl",
     "glm",
-    "glew"
+    "glew",
 	"imgui",
-	"nlohmann-json"
+	"rapidxml"
   ]
 }
