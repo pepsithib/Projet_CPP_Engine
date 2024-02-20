@@ -19,46 +19,45 @@ public:
 	struct DataShape 
 	{
 
-		DataShape(Vao* vertices, Shader* shader, GLsizei size, std::vector<Buffers*> *buffers)
+		DataShape(Vao* vertices, GLsizei size, std::vector<Buffers*> *buffers, Texture* newTexture)
 		{
 			shapeVertices = vertices;
 			count = size;
 			buf = buffers;
-			shaders = shader;
-		}
-
+			texture = newTexture;
+    }
 		~DataShape()
 		{
 			delete shapeVertices;
 			delete shaders;
-			delete texture;
-
 			if (!buf->empty())
 			{
 				for (auto i : *buf)
 				{
 					delete i;
 				}
-				delete buf;
 			}
-
+			delete buf;
 		}
 
 		Vao* shapeVertices;
+		Texture* texture;
 		Shader* shaders;
 		GLsizei count;
-		Texture* texture = new Texture("../white_engine_core/Texture/container.jpg");
+		
 		std::vector<Buffers*> *buf;
 	};
 
 	Render() = default;
 	~Render();
 
+
+
 	/* Shape render functions */
-	void buildTriangle(File* vsSrc, File* fsSrc,float x, float y);
+	void buildTriangle(float* vertex,Texture* texture);
 	void buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc);
 	void buildRectangle(File* vsSrc, File* fsSrc, float x, float y);
-
+	void setShaders();
 	void drawTriangle();
 	void drawCircle();
 
@@ -66,5 +65,8 @@ public:
 
 private :
 	std::vector<DataShape*> m_drawList;
+
+	File* vsSrc;
+	File* fsSrc;
 };
 

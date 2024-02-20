@@ -5,7 +5,7 @@
 template <typename C>
 inline C* GameObject::GetComponent() const {
 
-	static_assert(std::is_base_of<IComponent>);
+	static_assert(std::is_base_of<IComponent, C>());
 
 	for (auto& component : Components) {
 		if (component->GetComponentName() == C::GetComponentName_Static()) {
