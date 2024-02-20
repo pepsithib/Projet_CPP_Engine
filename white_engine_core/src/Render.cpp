@@ -13,22 +13,19 @@ Render::~Render()
 	{
 		delete shapeToDelete;
 	}
-
+	m_drawList.clear();
+	delete vsSrc;
+	delete fsSrc;
 }
 
-void Render::buildTriangle(File* vsSrc, File* fsSrc, float x, float y)
+void Render::buildTriangle(float* vertex,Texture* texture)
 {
-	float vertices[21] = {
-	 0.0f + x,  0.5f + y, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-	-0.5f + x, -0.5f + y, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-	 0.5f + x, -0.5f + y, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f
-	};
 
 	unsigned int indices[3] = { 0, 1, 2 };
 
 	/* Allocate brut memory on GPU */ 
 	Buffers* buf = new Buffers();
-	buf->storeData(vertices, 21 * sizeof(float));
+	buf->storeData(vertex, 21 * sizeof(float));
 	Buffers* buf2 = new Buffers();
 	buf2->storeData(indices, 3 * sizeof(unsigned int));
 
@@ -91,7 +88,7 @@ void Render::buildTriangle(File* vsSrc, File* fsSrc, float x, float y)
 	std::vector<Buffers*> *test = new std::vector<Buffers*>;
 	test->push_back(buf);
 	test->push_back(buf2);
-	m_drawList.push_back(new DataShape(vao, sp, vs, fs, 3, test));
+	m_drawList.push_back(new DataShape(vao, sp, vs, fs, 3, test,texture));
 }
 
 void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
@@ -191,7 +188,7 @@ void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
 	std::vector<Buffers*>* test = new std::vector<Buffers*>;
 	test->push_back(buf);
 
-	m_drawList.push_back(new DataShape(vao, sp, vs, fs, vertices.size(), test));
+	//m_drawList.push_back(new DataShape(vao, sp, vs, fs, vertices.size(), test));
 }
 
 void Render::buildRectangle(File* vsSrc, File* fsSrc, float x, float y)
@@ -272,22 +269,35 @@ void Render::buildRectangle(File* vsSrc, File* fsSrc, float x, float y)
 	test->push_back(buf);
 	test->push_back(buf2);
 
-	m_drawList.push_back(new DataShape(vao, sp, vs, fs, 6, test));
+	//m_drawList.push_back(new DataShape(vao, sp, vs, fs, 6, test));
 }
+
+void Render::setShaders()
+{
+
+	vsSrc = new File("..\\white_engine_core\\Shaders\\vsSrc.txt");
+
+	fsSrc = new File("..\\white_engine_core\\Shaders\\fsSrc.txt");
+}
+
 
 void Render::drawTriangle()
 {
 	for (DataShape* shapeToRender : m_drawList)
 	{
-		glBindTexture(GL_TEXTURE_2D, shapeToRender->texture->texture);
-		glBindVertexArray(shapeToRender->shapeVertices->GetVaoBuffer());
-		glUseProgram(shapeToRender->progamId);
-		glDrawElements(GL_TRIANGLES, shapeToRender->count, GL_UNSIGNED_INT, nullptr);
-		glUseProgram(0);
-		glBindVertexArray(0);
+			glBindTexture(GL_TEXTURE_2D, shapeToRender->texture->texture);
+			glBindVertexArray(shapeToRender->shapeVertices->GetVaoBuffer());
+			glUseProgram(shapeToRender->progamId);
+			glDrawElements(GL_TRIANGLES, shapeToRender->count, GL_UNSIGNED_INT, nullptr);
+			glUseProgram(0);
+			glBindVertexArray(0);
+			delete shapeToRender;
 	}
+	m_drawList.clear();
 
 }
+
+
 
 void Render::drawCircle()
 {

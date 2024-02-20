@@ -5,7 +5,7 @@ File::File(std::filesystem::path filePath)
 {
 	if (!std::filesystem::exists(filePath))
 	{
-		std::cout << "File instentiation Error : path do not  exits" << std::endl;
+		std::cout << "File instantiation Error : path do not  exits" << std::endl;
 		exit(151);
 	}
 	Path = filePath;

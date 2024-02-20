@@ -1,6 +1,6 @@
 #include "IComponent.h"
 
-IComponent::IComponent(GameObject& GameObject) : Parent(GameObject) {}
+IComponent::IComponent(GameObject& GameObject) : Parent{ GameObject } {}
 
 IComponent::~IComponent(){}
 
