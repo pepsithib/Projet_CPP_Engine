@@ -4,12 +4,12 @@
 #include "../include/File.h"
 #include <glm/vec3.hpp>
 #include <map>
-#include <Texture.h>
+#include "Texture.h"
+#include "Shader.h"
 
-class Shader;
-class Vao;
-class Buffers;
+
 class File;
+
 
 class Render
 {
