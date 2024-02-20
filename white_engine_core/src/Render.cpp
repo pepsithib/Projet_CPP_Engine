@@ -1,5 +1,7 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "Render.h"
 #include "Buffers.h"
+#include "Shader.h"
 
 #include <GLFW/glfw3.h>
 #include <GL/glew.h>
@@ -39,59 +41,15 @@ void Render::buildTriangle(File* vsSrc, File* fsSrc, float x, float y)
 	vao->MakeVao(1, 0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float));
 	vao->MakeVao(2, 0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float));
 
-	glVertexArrayElementBuffer(vao->GetVaoBuffer(), buf2->GetBuffer());
+	/* Create Program */
+	glVertexArrayElementBuffer(vao->GetVaoId(), buf2->GetBuffer());
 
-	// Compile Vextex Shader
-	unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
-	auto* ptr = vsSrc->fileContent.c_str();
-	glShaderSource(vs, 1, &ptr, nullptr);
-	glCompileShader(vs);
+	Shader* shader = new Shader(vsSrc, fsSrc);
 
-	GLint Result = GL_FALSE;
-	int InfoLogLength = 0;
-
-	// Check Vertex Shader
-	glGetShaderiv(vs, GL_COMPILE_STATUS, &Result);
-	glGetShaderiv(vs, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	if (InfoLogLength > 0) {
-		std::vector<char> VertexShaderErrorMessage(InfoLogLength + 1);
-		glGetShaderInfoLog(vs, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
-		printf("%s\n", &VertexShaderErrorMessage[0]);
-	}
-
-	// Compile fragment shader
-	unsigned int fs = glCreateShader(GL_FRAGMENT_SHADER);
-	auto* ptr2 = fsSrc->fileContent.c_str();
-	glShaderSource(fs, 1, &ptr2, nullptr);
-	glCompileShader(fs);
-
-	// Check Fragment Shader
-	glGetShaderiv(fs, GL_COMPILE_STATUS, &Result);
-	glGetShaderiv(fs, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	if (InfoLogLength > 0) {
-		std::vector<char> FragmentShaderErrorMessage(InfoLogLength + 1);
-		glGetShaderInfoLog(fs, InfoLogLength, NULL, &FragmentShaderErrorMessage[0]);
-		printf("%s\n", &FragmentShaderErrorMessage[0]);
-	}
-
-	// Link program
-	unsigned int sp = glCreateProgram();
-	glAttachShader(sp, vs);
-	glAttachShader(sp, fs);
-	glLinkProgram(sp);
-
-	// Check program
-	glGetProgramiv(sp, GL_LINK_STATUS, &Result);
-	glGetProgramiv(sp, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	if (InfoLogLength > 0) {
-		std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
-		glGetProgramInfoLog(sp, InfoLogLength, NULL, &ProgramErrorMessage[0]);
-		printf("%s\n", &ProgramErrorMessage[0]);
-	}
-	std::vector<Buffers*> *test = new std::vector<Buffers*>;
-	test->push_back(buf);
-	test->push_back(buf2);
-	m_drawList.push_back(new DataShape(vao, sp, vs, fs, 3, test));
+	std::vector<Buffers*> *buffers = new std::vector<Buffers*>;
+	buffers->push_back(buf);
+	buffers->push_back(buf2);
+	m_drawList.push_back(new DataShape(vao, shader, 3, buffers));
 }
 
 void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
@@ -125,60 +83,16 @@ void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
 		vertices.push_back(temp[i + 2]);
 	}
 
-	// Compile Vextex Shader
-	unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
-	auto* ptr = vsSrc->fileContent.c_str();
-	glShaderSource(vs, 1, &ptr, nullptr);
-	glCompileShader(vs);
+	/* Create Program */
 
-	GLint Result = GL_FALSE;
-	int InfoLogLength = 0;
-
-	// Check Vertex Shader
-	glGetShaderiv(vs, GL_COMPILE_STATUS, &Result);
-	glGetShaderiv(vs, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	if (InfoLogLength > 0) {
-		std::vector<char> VertexShaderErrorMessage(InfoLogLength + 1);
-		glGetShaderInfoLog(vs, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
-		printf("%s\n", &VertexShaderErrorMessage[0]);
-	}
-
-	// Compile fragment shader
-	unsigned int fs = glCreateShader(GL_FRAGMENT_SHADER);
-	auto* ptr2 = fsSrc->fileContent.c_str();
-	glShaderSource(fs, 1, &ptr2, nullptr);
-	glCompileShader(fs);
-
-	// Check Fragment Shader
-	glGetShaderiv(fs, GL_COMPILE_STATUS, &Result);
-	glGetShaderiv(fs, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	if (InfoLogLength > 0) {
-		std::vector<char> FragmentShaderErrorMessage(InfoLogLength + 1);
-		glGetShaderInfoLog(fs, InfoLogLength, NULL, &FragmentShaderErrorMessage[0]);
-		printf("%s\n", &FragmentShaderErrorMessage[0]);
-	}
-
-	// Link program
-	unsigned int sp = glCreateProgram();
-	glAttachShader(sp, vs);
-	glAttachShader(sp, fs);
-	glLinkProgram(sp);
-
-	// Check program
-	glGetProgramiv(sp, GL_LINK_STATUS, &Result);
-	glGetProgramiv(sp, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	if (InfoLogLength > 0) {
-		std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
-		glGetProgramInfoLog(sp, InfoLogLength, NULL, &ProgramErrorMessage[0]);
-		printf("%s\n", &ProgramErrorMessage[0]);
-	}
+	Shader* shader = new Shader(vsSrc, fsSrc);
 
 	// buffer
 
 	Buffers* buf = new Buffers(1);
 	Vao* vao = new Vao();
 
-	glBindVertexArray(vao->GetVaoBuffer());
+	glBindVertexArray(vao->GetVaoId());
 	buf->bind();
 
 
@@ -188,10 +102,10 @@ void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
 
 	glEnableVertexAttribArray(0);
 
-	std::vector<Buffers*>* test = new std::vector<Buffers*>;
-	test->push_back(buf);
+	std::vector<Buffers*>* buffers = new std::vector<Buffers*>;
+	buffers->push_back(buf);
 
-	m_drawList.push_back(new DataShape(vao, sp, vs, fs, vertices.size(), test));
+	m_drawList.push_back(new DataShape(vao, shader, vertices.size(), buffers));
 }
 
 void Render::buildRectangle(File* vsSrc, File* fsSrc, float x, float y)
@@ -218,70 +132,25 @@ void Render::buildRectangle(File* vsSrc, File* fsSrc, float x, float y)
 	vao->MakeVao(1, 0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float));
 	vao->MakeVao(2, 0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float));
 
-	glVertexArrayElementBuffer(vao->GetVaoBuffer(), buf2->GetBuffer());
+	glVertexArrayElementBuffer(vao->GetVaoId(), buf2->GetBuffer());
 
-	// Compile Vextex Shader
-	unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
-	auto* ptr = vsSrc->fileContent.c_str();
-	glShaderSource(vs, 1, &ptr, nullptr);
-	glCompileShader(vs);
+	/* Create Program */
+	Shader* shader = new Shader(vsSrc,fsSrc);
 
-	GLint Result = GL_FALSE;
-	int InfoLogLength = 0;
+	std::vector<Buffers*>* buffers = new std::vector<Buffers*>;
+	buffers->push_back(buf);
+	buffers->push_back(buf2);
 
-	// Check Vertex Shader
-	glGetShaderiv(vs, GL_COMPILE_STATUS, &Result);
-	glGetShaderiv(vs, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	if (InfoLogLength > 0) {
-		std::vector<char> VertexShaderErrorMessage(InfoLogLength + 1);
-		glGetShaderInfoLog(vs, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
-		printf("%s\n", &VertexShaderErrorMessage[0]);
-	}
-
-	// Compile fragment shader
-	unsigned int fs = glCreateShader(GL_FRAGMENT_SHADER);
-	auto* ptr2 = fsSrc->fileContent.c_str();
-	glShaderSource(fs, 1, &ptr2, nullptr);
-	glCompileShader(fs);
-
-	// Check Fragment Shader
-	glGetShaderiv(fs, GL_COMPILE_STATUS, &Result);
-	glGetShaderiv(fs, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	if (InfoLogLength > 0) {
-		std::vector<char> FragmentShaderErrorMessage(InfoLogLength + 1);
-		glGetShaderInfoLog(fs, InfoLogLength, NULL, &FragmentShaderErrorMessage[0]);
-		printf("%s\n", &FragmentShaderErrorMessage[0]);
-	}
-
-	// Link program
-	unsigned int sp = glCreateProgram();
-	glAttachShader(sp, vs);
-	glAttachShader(sp, fs);
-	glLinkProgram(sp);
-
-	// Check program
-	glGetProgramiv(sp, GL_LINK_STATUS, &Result);
-	glGetProgramiv(sp, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	if (InfoLogLength > 0) {
-		std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
-		glGetProgramInfoLog(sp, InfoLogLength, NULL, &ProgramErrorMessage[0]);
-		printf("%s\n", &ProgramErrorMessage[0]);
-	}
-
-	std::vector<Buffers*>* test = new std::vector<Buffers*>;
-	test->push_back(buf);
-	test->push_back(buf2);
-
-	m_drawList.push_back(new DataShape(vao, sp, vs, fs, 6, test));
+	m_drawList.push_back(new DataShape(vao, shader, 6, buffers));
 }
 
 void Render::drawTriangle()
 {
 	for (DataShape* shapeToRender : m_drawList)
 	{
-		glBindTexture(GL_TEXTURE_2D, shapeToRender->texture->texture);
-		glBindVertexArray(shapeToRender->shapeVertices->GetVaoBuffer());
-		glUseProgram(shapeToRender->progamId);
+		glBindTexture(GL_TEXTURE_2D, shapeToRender->texture->textureId);
+		glBindVertexArray(shapeToRender->shapeVertices->GetVaoId());
+		glUseProgram(shapeToRender->shaders->programId);
 		glDrawElements(GL_TRIANGLES, shapeToRender->count, GL_UNSIGNED_INT, nullptr);
 		glUseProgram(0);
 		glBindVertexArray(0);
@@ -293,8 +162,8 @@ void Render::drawCircle()
 {
 	for (DataShape* shapeToRender : m_drawList)
 	{
-		glBindVertexArray(shapeToRender->shapeVertices->GetVaoBuffer());
-		glUseProgram(shapeToRender->progamId);
+		glBindVertexArray(shapeToRender->shapeVertices->GetVaoId());
+		glUseProgram(shapeToRender->shaders->programId);
 		glDrawArrays(GL_TRIANGLES, 0, shapeToRender->count);
 		glUseProgram(0);
 		glBindVertexArray(0);
