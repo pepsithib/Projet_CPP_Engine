@@ -2,28 +2,28 @@
 
 Vao::Vao()
 {
-	glCreateVertexArrays(1, &vaoBuffer);
+	glCreateVertexArrays(1, &vaoId);
 }
 
 Vao::Vao(unsigned int bindingIndex, unsigned int buffer, unsigned int offset, unsigned int size)
 {
-	glCreateVertexArrays(1, &vaoBuffer);
-	glVertexArrayVertexBuffer(vaoBuffer, bindingIndex, buffer, offset, size);
+	glCreateVertexArrays(1, &vaoId);
+	glVertexArrayVertexBuffer(vaoId, bindingIndex, buffer, offset, size);
 }
 
 Vao::~Vao()
 {
-	glDeleteVertexArrays(1, &vaoBuffer);
+	glDeleteVertexArrays(1, &vaoId);
 }
 
 void Vao::MakeVao(unsigned int attribIndex, unsigned int bindingindex, int size, GLenum type, GLboolean normalize, unsigned int relativeOffset)
 {
-	glEnableVertexArrayAttrib(vaoBuffer, attribIndex);
-	glVertexArrayAttribBinding(vaoBuffer, attribIndex, bindingindex);
-	glVertexArrayAttribFormat(vaoBuffer, attribIndex, size, type, normalize, relativeOffset);
+	glEnableVertexArrayAttrib(vaoId, attribIndex);
+	glVertexArrayAttribBinding(vaoId, attribIndex, bindingindex);
+	glVertexArrayAttribFormat(vaoId, attribIndex, size, type, normalize, relativeOffset);
 }
 
-unsigned int Vao::GetVaoBuffer()
+unsigned int Vao::GetVaoId()
 {
-	return vaoBuffer;
+	return vaoId;
 }

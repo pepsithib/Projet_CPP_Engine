@@ -5,6 +5,6 @@ public:
 	Texture(const char* texturePath);
 	~Texture();
 
-	unsigned int texture;
+	unsigned int textureId;
 };
 

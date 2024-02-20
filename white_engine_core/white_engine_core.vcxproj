@@ -134,6 +134,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ImGui\imstb_rectpack.h" />
+    <ClInclude Include="ImGui\imstb_textedit.h" />
+    <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="include\Application.h" />
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\Buffers.h" />
@@ -141,7 +144,9 @@
     <ClInclude Include="include\GameObject.hxx" />
     <ClInclude Include="include\IComponent.h" />
     <ClInclude Include="include\Render.h" />
+    <ClInclude Include="include\Shader.h" />
     <ClInclude Include="include\stb_image.h" />
+    <ClInclude Include="include\stb_truetype.h" />
     <ClInclude Include="include\Texture.h" />
     <ClInclude Include="include\TransformComponent.h" />
     <ClInclude Include="include\Vao.h" />
@@ -160,11 +165,13 @@
     <ClCompile Include="src\Buffers.cpp" />
     <ClCompile Include="src\File.cpp" />
     <ClCompile Include="src\IComponent.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\TransformComponent.cpp" />
     <ClCompile Include="src\Vao.cpp" />
     <ClCompile Include="src\Windows.cpp" />
     <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="stb_truetype.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Texture\container.jpg" />
