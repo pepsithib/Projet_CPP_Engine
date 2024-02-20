@@ -3,20 +3,24 @@
 
 Scene::Scene() {}
 
-Scene::~Scene() {
-    delete movementSystem;
-    delete renderingSystem;
+Scene::~Scene() {}
+
+void Scene::addEntity(GameObject* object) {
+    objects.push_back(object);
 }
 
-void Scene::addEntity(const Position& initialPosition, const Velocity& initialVelocity) {
-    positions.push_back(initialPosition);
-    velocities.push_back(initialVelocity);
+void Scene::removeEntity(GameObject* object) {
+    auto it = std::find(objects.begin(), objects.end(), object);
+    if (it != objects.end()) {
+        objects.erase(it);
+    }
 }
 
-void Scene::update(float dt) {
-
+void Scene::update() {
 }
 
 void Scene::render() {
- 
-}
+    for (GameObject* object : objects) {
+        object->Render();
+    }
+

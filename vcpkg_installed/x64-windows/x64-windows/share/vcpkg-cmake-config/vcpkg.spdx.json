@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/vcpkg-cmake-config-x64-windows-2022-02-06#1-14040ab4-7f08-4c19-b9f0-8302225769d8",
-  "name": "vcpkg-cmake-config:x64-windows@2022-02-06#1 5131dc743d42170739bbcd1b0856bda6ceed5856e2557887cccd8c5983576e46",
+  "documentNamespace": "https://spdx.org/spdxdocs/vcpkg-cmake-config-x64-windows-2022-02-06#1-c5070813-9f36-489b-bd5d-c080e60071f2",
+  "name": "vcpkg-cmake-config:x64-windows@2022-02-06#1 52769a9e5c2237c1d49a02df5b98f2b20e2b05d0d080527c7c92942bd6a27c50",
   "creationInfo": {
     "creators": [
-      "Tool: vcpkg-9c1e418fc6264dffcab6ca47746a648c35c379b9"
+      "Tool: vcpkg-7ae0d8527fb488fde10a89c2813802dc9b03b6f9"
     ],
-    "created": "2024-02-06T14:06:01Z"
+    "created": "2024-02-06T13:39:20Z"
   },
   "relationships": [
     {
@@ -68,6 +68,11 @@
       "relatedSpdxElement": "SPDXRef-port"
     },
     {
+      "spdxElementId": "SPDXRef-file-3",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
       "spdxElementId": "SPDXRef-file-4",
       "relationshipType": "CONTAINED_BY",
       "relatedSpdxElement": "SPDXRef-port"
@@ -87,7 +92,7 @@
     {
       "name": "vcpkg-cmake-config:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "5131dc743d42170739bbcd1b0856bda6ceed5856e2557887cccd8c5983576e46",
+      "versionInfo": "52769a9e5c2237c1d49a02df5b98f2b20e2b05d0d080527c7c92942bd6a27c50",
       "downloadLocation": "NONE",
       "licenseConcluded": "MIT",
       "licenseDeclared": "NOASSERTION",
@@ -97,7 +102,7 @@
   ],
   "files": [
     {
-      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/vcpkg-cmake-config/copyright",
+      "fileName": "./copyright",
       "SPDXID": "SPDXRef-file-0",
       "checksums": [
         {
@@ -109,7 +114,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/vcpkg-cmake-config/portfile.cmake",
+      "fileName": "./portfile.cmake",
       "SPDXID": "SPDXRef-file-1",
       "checksums": [
         {
@@ -121,7 +126,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/vcpkg-cmake-config/vcpkg-port-config.cmake",
+      "fileName": "./vcpkg-port-config.cmake",
       "SPDXID": "SPDXRef-file-2",
       "checksums": [
         {
@@ -133,7 +138,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/vcpkg-cmake-config/vcpkg.json",
+      "fileName": "./vcpkg.json",
       "SPDXID": "SPDXRef-file-3",
       "checksums": [
         {
@@ -145,7 +150,7 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/vcpkg-cmake-config/vcpkg_cmake_config_fixup.cmake",
+      "fileName": "./vcpkg_cmake_config_fixup.cmake",
       "SPDXID": "SPDXRef-file-4",
       "checksums": [
         {

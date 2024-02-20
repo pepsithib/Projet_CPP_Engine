@@ -13,7 +13,6 @@
 #include <imgui_impl_glfw.h>
 #include <GameObject.h>
 #include <RenderComponent.h>
-#include "../Flipper.h"
 #include "../Parse.h"
 
 void Application::run()

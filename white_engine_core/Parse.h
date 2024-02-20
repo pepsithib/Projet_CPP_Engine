@@ -2,7 +2,7 @@
 #ifndef PARSE_H
 #define PARSE_H
 
-#include "flipper.h"
+//#include "flipper.h"
 #include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
@@ -14,5 +14,19 @@ public:
 };
 
 #endif // PARSE_H
+
+class Flipper {
+private:
+    float positionX;
+    float positionY;
+    float rotation;
+
+public:
+    Flipper(float posX, float posY, float rot);
+
+    float getPositionX() const;
+    float getPositionY() const;
+    float getRotation() const;
+};
 
 

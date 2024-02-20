@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/opengl-registry-x64-windows-2022-09-29#1-c794bc3a-375e-4546-9fec-b8c7f41b58db",
-  "name": "opengl-registry:x64-windows@2022-09-29#1 14c9834884d90f8180e27725a8dc80ef8f70b64fc70d79522cb53893b4c824ec",
+  "documentNamespace": "https://spdx.org/spdxdocs/opengl-registry-x64-windows-2022-09-29-ade6f446-efa2-4ffd-8cdd-1fd353af3b2c",
+  "name": "opengl-registry:x64-windows@2022-09-29 9dc6d8dfb75f797557ba42b09a26c6781b36264076a2b0968e22b41d69c82bf6",
   "creationInfo": {
     "creators": [
-      "Tool: vcpkg-9c1e418fc6264dffcab6ca47746a648c35c379b9"
+      "Tool: vcpkg-7ae0d8527fb488fde10a89c2813802dc9b03b6f9"
     ],
-    "created": "2024-02-06T14:06:12Z"
+    "created": "2024-02-06T13:39:33Z"
   },
   "relationships": [
     {
@@ -41,13 +41,18 @@
       "spdxElementId": "SPDXRef-file-1",
       "relationshipType": "CONTAINED_BY",
       "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-1",
+      "relationshipType": "DEPENDENCY_MANIFEST_OF",
+      "relatedSpdxElement": "SPDXRef-port"
     }
   ],
   "packages": [
     {
       "name": "opengl-registry",
       "SPDXID": "SPDXRef-port",
-      "versionInfo": "2022-09-29#1",
+      "versionInfo": "2022-09-29",
       "downloadLocation": "NOASSERTION",
       "homepage": "https://github.com/KhronosGroup/OpenGL-Registry",
       "licenseConcluded": "NOASSERTION",
@@ -59,7 +64,7 @@
     {
       "name": "opengl-registry:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "14c9834884d90f8180e27725a8dc80ef8f70b64fc70d79522cb53893b4c824ec",
+      "versionInfo": "9dc6d8dfb75f797557ba42b09a26c6781b36264076a2b0968e22b41d69c82bf6",
       "downloadLocation": "NONE",
       "licenseConcluded": "NOASSERTION",
       "licenseDeclared": "NOASSERTION",
@@ -83,7 +88,7 @@
   ],
   "files": [
     {
-      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/opengl-registry/portfile.cmake",
+      "fileName": "./portfile.cmake",
       "SPDXID": "SPDXRef-file-0",
       "checksums": [
         {
@@ -95,12 +100,12 @@
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/thiba/Desktop/Nouveau dossier/vcpkg/ports/opengl-registry/vcpkg.json",
+      "fileName": "./vcpkg.json",
       "SPDXID": "SPDXRef-file-1",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "48b852891aadefbf39efb494414e356c9c7b4bf23a3723b7714af923c1f0cbab"
+          "checksumValue": "ae3008e4eb3f6b76131f42d1062fa2bbe14907945b069ecc6e918d416d8772df"
         }
       ],
       "licenseConcluded": "NOASSERTION",
