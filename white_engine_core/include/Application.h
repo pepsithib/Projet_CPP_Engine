@@ -6,5 +6,6 @@ public:
 	~Application() = default;
 
 	void run();
+	void DrawImgui();
 };
 

@@ -8,6 +8,10 @@
 
 #include <GLFW/glfw3.h>
 #include <GL/glew.h>
+#include <imgui.h>
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_glfw.h>
+
 
 void Application::run()
 {
@@ -42,17 +46,41 @@ void Application::run()
 	glewExperimental = true;
 	glewInit();
 
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+	// Setup Dear ImGui style
+	ImGui::StyleColorsDark();
+	//ImGui::StyleColorsLight();
+
+	// Setup Platform/Renderer backends
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+#ifdef __EMSCRIPTEN__
+	ImGui_ImplGlfw_InstallEmscriptenCanvasResizeCallback("#canvas");
+#endif
+	ImGui_ImplOpenGL3_Init("#version 460");
+
 	Render* renderer = Render::getInstance();
 	renderer->buildRectangle(vsSrc, fsSrc, 0, 0);
 
 	do
 	{
 		glfwPollEvents();
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
 		glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		renderer->drawTriangle();
+		DrawImgui();
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		glfwSwapBuffers(window);
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
@@ -67,6 +95,27 @@ void Application::run()
 	delete vsSrc;
 	delete fsSrc;
 
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
 	glfwDestroyWindow(window);
 	glfwTerminate();
+}
+
+void Application::DrawImgui()
+{
+	if (ImGui::Begin("Global"))
+	{
+		if (ImGui::BeginTabBar("Tabs"))
+		{
+			if (ImGui::BeginTabItem("Edit"))
+			{
+				ImGui::EndTabItem();
+			}
+
+			ImGui::EndTabBar();
+		}
+	}
+	ImGui::End();
 }

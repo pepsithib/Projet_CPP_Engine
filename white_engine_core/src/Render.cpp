@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "Render.h"
 #include "Buffers.h"
 #include "Shader.h"
