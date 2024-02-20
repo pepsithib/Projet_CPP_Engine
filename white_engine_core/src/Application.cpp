@@ -11,14 +11,13 @@
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_glfw.h>
+#include <GameObject.h>
+#include <RenderComponent.h>
 
 
 void Application::run()
 {
 
-	File* vsSrc = new File("..\\white_engine_core\\Shaders\\vsSrc.txt");
-
-	File* fsSrc = new File("..\\white_engine_core\\Shaders\\fsSrc.txt");
 	
 	glfwInit();
 
@@ -63,9 +62,10 @@ void Application::run()
 #endif
 	ImGui_ImplOpenGL3_Init("#version 460");
 
+	GameObject go = GameObject("",{},Triangle);
 	Render* renderer = Render::getInstance();
-	renderer->buildRectangle(vsSrc, fsSrc, 0, 0);
-
+	renderer->setShaders();
+	go.GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
 	do
 	{
 		glfwPollEvents();
@@ -75,6 +75,8 @@ void Application::run()
 
 		glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		go.Update(0.0f);
 
 		renderer->drawTriangle();
 		DrawImgui();
@@ -86,14 +88,6 @@ void Application::run()
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		glfwWindowShouldClose(window) == 0);
 
-	//glDeleteProgram(sp);
-	//glDeleteShader(fs);
-	//glDeleteShader(vs);
-	//glDeleteBuffers(2, buffers);
-	//buf.deleteBuffer();
-	//buf2.deleteBuffer();
-	delete vsSrc;
-	delete fsSrc;
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();

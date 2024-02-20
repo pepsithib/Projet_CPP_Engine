@@ -102,7 +102,7 @@ void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
 	std::vector<Buffers*>* buffers = new std::vector<Buffers*>;
 	buffers->push_back(buf);
 
-	m_drawList.push_back(new DataShape(vao, shader, vertices.size(), buffers));
+	//m_drawList.push_back(new DataShape(vao, shader, vertices.size(), buffers));
 }
 
 void Render::buildRectangle(File* vsSrc, File* fsSrc, float x, float y)
@@ -137,7 +137,7 @@ void Render::buildRectangle(File* vsSrc, File* fsSrc, float x, float y)
 	test->push_back(buf);
 	test->push_back(buf2);
 
-	m_drawList.push_back(new DataShape(vao, shader, 6, buffers));
+	//m_drawList.push_back(new DataShape(vao, shader, 6, buffers));
 }
 
 void Render::setShaders()
@@ -154,9 +154,9 @@ void Render::drawTriangle()
 {
 	for (DataShape* shapeToRender : m_drawList)
 	{
-			glBindTexture(GL_TEXTURE_2D, shapeToRender->texture->texture);
-			glBindVertexArray(shapeToRender->shapeVertices->GetVaoBuffer());
-			glUseProgram(shapeToRender->progamId);
+			glBindTexture(GL_TEXTURE_2D, shapeToRender->texture->textureId);
+			glBindVertexArray(shapeToRender->shapeVertices->GetVaoId());
+			glUseProgram(shapeToRender->shaders->programId);
 			glDrawElements(GL_TRIANGLES, shapeToRender->count, GL_UNSIGNED_INT, nullptr);
 			glUseProgram(0);
 			glBindVertexArray(0);

@@ -19,12 +19,13 @@ public:
 	struct DataShape 
 	{
 
-		DataShape(Vao* vertices, GLsizei size, std::vector<Buffers*> *buffers, Texture* newTexture)
+		DataShape(Vao* vertices, Shader* shader, GLsizei size, std::vector<Buffers*>* buffers, Texture* newTexture)
 		{
 			shapeVertices = vertices;
 			count = size;
 			buf = buffers;
 			texture = newTexture;
+			shaders = shader;
     }
 		~DataShape()
 		{
