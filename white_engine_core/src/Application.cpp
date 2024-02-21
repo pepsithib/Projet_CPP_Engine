@@ -10,12 +10,13 @@
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_glfw.h>
-#include "GameObject.h"
-#include <RenderComponent.h>
+#include "RenderComponent.h"
 #include "../Flipper.h"
 #include "../Parse.h"
 #include "TransformComponent.h"
 #include <glm/trigonometric.hpp>
+#include "GameObject.h"
+#include "Render.h"
 
 void Application::run()
 {
@@ -119,7 +120,9 @@ void Application::run()
 		}
 
 		renderer->drawTriangle();
+#ifdef _QA
 		DrawImgui(list);
+#endif
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -151,8 +154,9 @@ void Application::DrawImgui(std::vector<GameObject*> &objects)
 	{
 		if (ImGui::BeginTabBar("Tabs"))
 		{
+#ifdef _DEBUG
 			/* Editor section : use to modified a gameObject transform */
-			if (ImGui::BeginTabItem("Edit"))
+			if (ImGui::BeginTabItem("Editor"))
 			{
 				for (int i = 0; i < objects.size(); i++)
 				{
@@ -215,10 +219,28 @@ void Application::DrawImgui(std::vector<GameObject*> &objects)
 				
 				ImGui::EndTabItem();
 			}
-
+#endif
 			/* Info section : use to display debug info */
 			if (ImGui::BeginTabItem("Debug Info"))
 			{
+				for (int i = 0; i < objects.size(); i++)
+				{
+					char pos[DEBUG_INFO_SIZE];
+					char rot[DEBUG_INFO_SIZE];
+					char sca[DEBUG_INFO_SIZE];
+
+					snprintf(pos, DEBUG_INFO_SIZE, "Position : %3.2f, %3.2f", objects[i]->GetComponent<TransformComponent>()->GetWorldPosition().x, objects[i]->GetComponent<TransformComponent>()->GetWorldPosition().y);
+					snprintf(rot, DEBUG_INFO_SIZE, "Rotation : %3.2f", objects[i]->GetComponent<TransformComponent>()->GetRotation());
+					snprintf(sca, DEBUG_INFO_SIZE, "Scale : %3.2f, %3.2f", objects[i]->GetComponent<TransformComponent>()->GetScale().x, objects[i]->GetComponent<TransformComponent>()->GetScale().y);
+
+					if (ImGui::TreeNode(objects[i]->GetFriendlyName().c_str()))
+					{
+						ImGui::Text(pos);
+						ImGui::Text(rot);
+						ImGui::Text(sca);
+						ImGui::TreePop();
+					}
+				}
 				ImGui::EndTabItem();
 			}
 

@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+
+#define DEBUG_INFO_SIZE 30
 class GameObject;
 
 class Application
