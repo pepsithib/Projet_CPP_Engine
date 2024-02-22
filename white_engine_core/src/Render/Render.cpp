@@ -106,7 +106,7 @@ void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
 	std::vector<Buffers*>* buffers = new std::vector<Buffers*>;
 	buffers->push_back(buf);
 
-	m_drawList.push_back(new DataShape(vao, shader, vertices.size(), buffers));
+	//m_drawList.push_back(new DataShape(vao, shader, vertices.size(), buffers));
 }
 
 void Render::drawTriangle(GLFWwindow* window,DataShape& shapeToRender,glm::vec2 worldPosition, float Rotation, glm::vec2 Scale)
@@ -122,53 +122,7 @@ void Render::drawTriangle(GLFWwindow* window,DataShape& shapeToRender,glm::vec2 
 			glUniform2f(shapeToRender.shaders->positionLocation, worldPosition.x,worldPosition.y);
 			glUniform1f(shapeToRender.shaders->rotationLocation, Rotation);
 			glUniform2f(shapeToRender.shaders->scaleLocation, Scale.x, Scale.y);
-
-<<<<<<< Updated upstream:white_engine_core/src/Render.cpp
-	/* Allocate brut memory on GPU */
-	Buffers* buf = new Buffers();
-	buf->storeData(vertices, 28 * sizeof(float));
-	Buffers* buf2 = new Buffers();
-	buf2->storeData(indices, 6 * sizeof(unsigned int));
-
-	/* Create the Vao */
-	Vao* vao = new Vao(0, buf->GetBuffer(), 0, 7 * sizeof(float));
-
-	vao->MakeVao(0, 0, 2, GL_FLOAT, GL_FALSE, 0);
-	vao->MakeVao(1, 0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float));
-	vao->MakeVao(2, 0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float));
-
-	glVertexArrayElementBuffer(vao->GetVaoId(), buf2->GetBuffer());
-  
-  Shader* shader = new Shader(vsSrc, fsSrc);
-  
-	std::vector<Buffers*>* test = new std::vector<Buffers*>;
-	test->push_back(buf);
-	test->push_back(buf2);
-
-	m_drawList.push_back(new DataShape(vao, shader, 6, buffers));
-}
-
-void Render::setShaders()
-{
-
-	vsSrc = new File("..\\white_engine_core\\Shaders\\vsSrc.txt");
-
-	fsSrc = new File("..\\white_engine_core\\Shaders\\fsSrc.txt");
-	
-}
-
-
-void Render::drawTriangle()
-{
-	for (DataShape* shapeToRender : m_drawList)
-	{
-			glBindTexture(GL_TEXTURE_2D, shapeToRender->texture->texture);
-			glBindVertexArray(shapeToRender->shapeVertices->GetVaoBuffer());
-			glUseProgram(shapeToRender->progamId);
-			glDrawElements(GL_TRIANGLES, shapeToRender->count, GL_UNSIGNED_INT, nullptr);
-=======
 			glDrawElements(GL_TRIANGLES, shapeToRender.count, GL_UNSIGNED_INT, nullptr);
->>>>>>> Stashed changes:white_engine_core/src/Render/Render.cpp
 			glUseProgram(0);
 			glBindVertexArray(0);
 

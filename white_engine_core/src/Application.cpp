@@ -12,28 +12,16 @@
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_glfw.h>
 
-<<<<<<< Updated upstream
-=======
-
 #include <GameObject/GameObject.h>
 #include <Component/RenderComponent.h>
 #include <Component/TransformComponent.h>
 
 
-#include "../Flipper.h"
-#include "../Parse.h"
 #include <glm/vec2.hpp>
 #include <glm/trigonometric.hpp>
 
->>>>>>> Stashed changes
-
 void Application::run()
 {
-
-	File* vsSrc = new File("..\\white_engine_core\\Shaders\\vsSrc.txt");
-
-	File* fsSrc = new File("..\\white_engine_core\\Shaders\\fsSrc.txt");
-	
 	glfwInit();
 
 	// Set context as OpenGL 4.6 Core, forward compat, with debug depending on build config
@@ -78,9 +66,6 @@ void Application::run()
 	ImGui_ImplOpenGL3_Init("#version 460");
 
 	Render* renderer = Render::getInstance();
-<<<<<<< Updated upstream
-	renderer->buildRectangle(vsSrc, fsSrc, 0, 0);
-=======
 	renderer->setShaders();
 
 	GameObject go = GameObject("",Rectangle);
@@ -94,8 +79,6 @@ void Application::run()
 	float y = 0;
 	int w, h;
 	glfwGetWindowSize(window, &w, &h);
->>>>>>> Stashed changes
-
 	do
 	{
 		glfwPollEvents();
@@ -105,8 +88,6 @@ void Application::run()
 
 		glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-<<<<<<< Updated upstream
-=======
 		if (rot > 360) {
 			rot = 0;
 		}
@@ -117,12 +98,9 @@ void Application::run()
 		x = x + 0.001;
 		go.GetComponent<TransformComponent>()->SetRotation(glm::radians(rot));
 		go.GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(x,y));
->>>>>>> Stashed changes
-
 		go.Update(0.0f);
 		//go2.Update(0.0f);
 		
-
 		go.GetComponent<RenderComponent>()->Draw(window);
 		DrawImgui();
 
@@ -139,8 +117,6 @@ void Application::run()
 	//glDeleteBuffers(2, buffers);
 	//buf.deleteBuffer();
 	//buf2.deleteBuffer();
-	delete vsSrc;
-	delete fsSrc;
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();

@@ -154,23 +154,14 @@
     <ClInclude Include="include\stb_truetype.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneManager.h" />
-<<<<<<< Updated upstream
-    <ClInclude Include="include\Windows.h" />
-  </ItemGroup>
-  <ItemGroup>
-=======
     <ClInclude Include="include\Matrix.h" />
-    <ClInclude Include="Parse.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Flipper.cpp" />
     <ClCompile Include="src\Component\IComponent.cpp" />
     <ClCompile Include="src\Component\RenderComponent.cpp" />
     <ClCompile Include="src\Component\TransformComponent.cpp" />
     <ClCompile Include="src\GameObject\GameObject.cpp" />
     <ClCompile Include="src\GameObject\Matrix.cpp" />
-    <ClCompile Include="Parse.cpp" />
->>>>>>> Stashed changes
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Render\Render.cpp" />
     <ClCompile Include="src\Render\Shader.cpp" />
