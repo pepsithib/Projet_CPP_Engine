@@ -46,6 +46,7 @@ Shader::Shader(File* vertexShaderFile, File* fragmentShaderFile)
 	glAttachShader(programId, fragmentShaderId);
 	glLinkProgram(programId);
 
+
 	// Check program
 	glGetProgramiv(programId, GL_LINK_STATUS, &Result);
 	glGetProgramiv(programId, GL_INFO_LOG_LENGTH, &InfoLogLength);
@@ -54,6 +55,12 @@ Shader::Shader(File* vertexShaderFile, File* fragmentShaderFile)
 		glGetProgramInfoLog(programId, InfoLogLength, NULL, &ProgramErrorMessage[0]);
 		printf("%s\n", &ProgramErrorMessage[0]);
 	}
+
+	positionLocation = glGetUniformLocation(programId, "uPosition");
+	rotationLocation = glGetUniformLocation(programId, "uRotation");
+	scaleLocation = glGetUniformLocation(programId, "uScale");
+	aspectRatioLocation = glGetUniformLocation(programId, "uAspectRatio");
+
 }
 
 Shader::~Shader()

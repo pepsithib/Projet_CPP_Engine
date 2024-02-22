@@ -1,7 +1,7 @@
 #pragma once
 
-#include <glm/vec2.hpp>
-#include <IComponent.h>
+#include <glm/glm.hpp>
+#include <Component/IComponent.h>
 
 
 class TransformComponent : public IComponent
@@ -37,6 +37,5 @@ private :
 	float Rotation;
 	glm::vec2 Scale;
 	glm::vec2 Size;
-	float* vertex;
 };
 

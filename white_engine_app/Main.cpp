@@ -3,13 +3,14 @@
 #include <crtdbg.h>
 #include <stdexcept>
 #include <vector>
-#include "Buffers.h"
-#include "Vao.h"
-#include "File.h"
 #include "Application.h"
 
+<<<<<<< Updated upstream
 #include <GLFW/glfw3.h>
 #include <GL/glew.h>
+=======
+
+>>>>>>> Stashed changes
 
 #ifdef _DEBUG
 #define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )

@@ -1,17 +1,31 @@
 #include "Application.h"
 #include <stdexcept>
 #include <vector>
-#include "Buffers.h"
-#include "Vao.h"
-#include "File.h"
-#include "Render.h"
 
-#include <GLFW/glfw3.h>
+#include "File.h"
+#include "Render/Render.h"
+
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_glfw.h>
 
+<<<<<<< Updated upstream
+=======
+
+#include <GameObject/GameObject.h>
+#include <Component/RenderComponent.h>
+#include <Component/TransformComponent.h>
+
+
+#include "../Flipper.h"
+#include "../Parse.h"
+#include <glm/vec2.hpp>
+#include <glm/trigonometric.hpp>
+
+>>>>>>> Stashed changes
 
 void Application::run()
 {
@@ -64,7 +78,23 @@ void Application::run()
 	ImGui_ImplOpenGL3_Init("#version 460");
 
 	Render* renderer = Render::getInstance();
+<<<<<<< Updated upstream
 	renderer->buildRectangle(vsSrc, fsSrc, 0, 0);
+=======
+	renderer->setShaders();
+
+	GameObject go = GameObject("",Rectangle);
+	//GameObject go2 = GameObject("", Triangle);
+	
+	go.GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
+	//go2.GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/dolphin.jpg");
+	//go2.GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(0.5, 0));
+	float rot = 0;
+	float x = 0;
+	float y = 0;
+	int w, h;
+	glfwGetWindowSize(window, &w, &h);
+>>>>>>> Stashed changes
 
 	do
 	{
@@ -75,8 +105,25 @@ void Application::run()
 
 		glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+<<<<<<< Updated upstream
+=======
+		if (rot > 360) {
+			rot = 0;
+		}
+		rot += 0.1;
+		if (x > float(w)/float(h) + 0.5) {
+			x = -(float(w) / float(h) + 0.5);
+		}
+		x = x + 0.001;
+		go.GetComponent<TransformComponent>()->SetRotation(glm::radians(rot));
+		go.GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(x,y));
+>>>>>>> Stashed changes
 
-		renderer->drawTriangle();
+		go.Update(0.0f);
+		//go2.Update(0.0f);
+		
+
+		go.GetComponent<RenderComponent>()->Draw(window);
 		DrawImgui();
 
 		ImGui::Render();
