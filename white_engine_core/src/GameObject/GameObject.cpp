@@ -1,13 +1,18 @@
-#include "GameObject.h"
-#include "IComponent.h"
-#include "RenderComponent.h"
-#include "TransformComponent.h"
+#include "GameObject/GameObject.h"
+#include "Component/IComponent.h"
+#include "Component/RenderComponent.h"
+#include "Component/TransformComponent.h"
 
-
-GameObject::GameObject(std::string friendlyName,float* matrix,Shape shape) : matrix(matrix),shape(shape)
+GameObject::GameObject(std::string friendlyName,Shape shape) : shape(shape)
 {
+	matrix = new Matrix();
+
 	AddComponent<TransformComponent>();
 	AddComponent<RenderComponent>();
+
+	GetComponent<TransformComponent>()->Start();
+	GetComponent<RenderComponent>()->Start();
+	
 	FriendlyName = friendlyName;
 }
 
@@ -52,14 +57,8 @@ Shape GameObject::GetShape()
 	return shape;
 }
 
-void GameObject::UpdateMatrix(float* vertex, int size)
-{
-	delete matrix;
-	matrix = new float[size]();
-	memcpy(matrix, vertex, sizeof(float) * size);
-}
 
-float* GameObject::GetMatrix()
+Matrix* GameObject::GetMatrix()
 {
 	return matrix;
 }

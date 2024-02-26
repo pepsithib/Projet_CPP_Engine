@@ -1,15 +1,31 @@
 #include "Application.h"
 #include <stdexcept>
+#include <vector>
 #include "Buffers.h"
 #include "Vao.h"
 #include "File.h"
 #include "Render.h"
 
-#include <GLFW/glfw3.h>
+#include "File.h"
+#include "Render/Render.h"
+
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_glfw.h>
+
+#include <GameObject/GameObject.h>
+#include <Component/RenderComponent.h>
+#include <Component/TransformComponent.h>
+
+
+#include <glm/vec2.hpp>
+#include <glm/trigonometric.hpp>
+#include <Component/PhysicComponent.h>
+#include <Component/ColliderComponent.h>
+
 #include "RenderComponent.h"
 #include "../Flipper.h"
 #include "../Parse.h"
@@ -94,19 +110,23 @@ void Application::run()
 #endif
 	ImGui_ImplOpenGL3_Init("#version 460");
 
-	GameObject* go = new GameObject("Castor",{},Triangle);
+	GameObject* go = new GameObject("Castor",Triangle);
 	Render* renderer = Render::getInstance();
 	renderer->setShaders();
 	go->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
 
-	GameObject* go2 = new GameObject("Pollux", {}, Triangle);
+	GameObject* go2 = new GameObject("Pollux", Triangle);
 	go2->GetComponent<TransformComponent>()->SetWorldPosition({ 0.5, 0.5 });
 	go2->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
 
 	std::vector<GameObject*> list = { go, go2 };
 
+	glfwGetWindowSize(window, &w, &h);
+	glfwSetTime(0.0);
 	do
 	{
+		double dTime = glfwGetTime();
+		glfwSetTime(0.0);
 		glfwPollEvents();
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -116,10 +136,9 @@ void Application::run()
 		
 		for (GameObject* i : list)
 		{
-			i->Update(0.0f);
+			i->Update(dTime);
 		}
 
-		renderer->drawTriangle();
 #ifdef _QA
 		DrawImgui(list);
 #endif

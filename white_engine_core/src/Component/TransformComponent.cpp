@@ -1,5 +1,5 @@
-#include "TransformComponent.h"
-#include "GameObject.h"	
+#include "Component/TransformComponent.h"
+#include "GameObject/GameObject.h"	
 #include <glm/trigonometric.hpp>
 #include <iostream>
 
@@ -46,117 +46,121 @@ glm::vec2 TransformComponent::GetScale()
 	return Scale;
 }
 
-void TransformComponent::Start()
+void TransformComponent::SetSize(glm::vec2 newSize)
 {
-
+	Size = newSize;
 }
 
-void TransformComponent::Update(float deltaTime)
+glm::vec2 TransformComponent::GetSize()
 {
+	return Size;
+}
 
-	int nb_of_dot = 0;
-	int size = 0;
+void TransformComponent::Start()
+{
+	unsigned int v_size = 0;
+	unsigned int i_size = 0;
 	switch (GetGameObject().GetShape()) {
 	case Triangle:
-		nb_of_dot = 3;
-		size = nb_of_dot * 7;
-		vertex = new float[21]();
+		v_size = 21;
+		i_size = 3;
+		break;
+	case Rectangle:
+		v_size = 28;
+		i_size = 6;
+		break;
+	case Circle:
+		v_size = 700;
+		i_size = 297;
+
+	default:
+		v_size = 0;
+		i_size = 0;
+	}
+	float* vertex = new float[v_size];
+	unsigned int* indices = new unsigned int[i_size];
+	switch (GetGameObject().GetShape()) {
+	case Triangle:
+		indices[0] = 0;
+		indices[1] = 1;
+		indices[2] = 2;
 		vertex[0] = 0.0f;
 		vertex[1] = 0.0f;
 		vertex[2] = 0.0f;//R
 		vertex[3] = 0.0f;//G
 		vertex[4] = 0.0f;//B
-		vertex[5] = 1.0f;//S1
+		vertex[5] = 0.0f;//S
 		vertex[6] = 1.0f;//T
 		vertex[7] = (vertex[0] + Size.x);
 		vertex[8] = vertex[1];
 		vertex[9] = 0.0f;//R
 		vertex[10] = 0.0f;//G
 		vertex[11] = 0.0f;//B
-		vertex[12] = 1.0f;//S1
+		vertex[12] = 0.0f;//S
 		vertex[13] = 0.0f;//T
 		vertex[14] = vertex[0];
 		vertex[15] = (vertex[1] - Size.y);
 		vertex[16] = 0.0f;//R
 		vertex[17] = 0.0f;//G
 		vertex[18] = 0.0f;//B
-		vertex[19] = 0.0f;//S1
+		vertex[19] = 1.0f;//S
 		vertex[20] = 0.0f;//T
 
 		break;
 	case Rectangle:
-		nb_of_dot = 4;
-		size = nb_of_dot * 7;
-		vertex = new float[28]();
+		indices[0] = 0;
+		indices[1] = 1;
+		indices[2] = 2;
+		indices[3] = 1;
+		indices[4] = 2;
+		indices[5] = 3;
 		vertex[0] = 0.0f;
 		vertex[1] = 0.0f;
 		vertex[2] = 0.0f;//R
 		vertex[3] = 0.0f;//G
 		vertex[4] = 0.0f;//B
-		vertex[5] = 1.0f;//S1
+		vertex[5] = 0.0f;//S1
 		vertex[6] = 1.0f;//T
-		vertex[7] = (vertex[0] + Size.x);
+		vertex[7] = vertex[0] + Size.x;
 		vertex[8] = vertex[1];
 		vertex[9] = 0.0f;//R
 		vertex[10] = 0.0f;//G
 		vertex[11] = 0.0f;//B
-		vertex[12] = 1.0f;//S1
+		vertex[12] = 0.0f;//S1
 		vertex[13] = 0.0f;//T
 		vertex[14] = vertex[0];
-		vertex[15] = (vertex[1] - Size.y);
+		vertex[15] = vertex[1] -Size.y;
 		vertex[16] = 0.0f;//R
 		vertex[17] = 0.0f;//G
 		vertex[18] = 0.0f;//B
-		vertex[19] = 0.0f;//S1
+		vertex[19] = 1.0f;//S1
 		vertex[20] = 0.0f;//T
-		vertex[21] = (vertex[0] + Size.x);
-		vertex[22] = (vertex[1] - Size.y);
+		vertex[21] = vertex[0] + Size.x;
+		vertex[22] = vertex[1] - Size.y;
 		vertex[23] = 0.0f;//R
 		vertex[24] = 0.0f;//G
 		vertex[25] = 0.0f;//B
-		vertex[26] = 0.0f;//S1
+		vertex[26] = 1.0f;//S1
 		vertex[27] = 1.0f;//T
 		break;
 	case Circle:
-		nb_of_dot = 100;
-		vertex = new float[nb_of_dot * 2]();
-		for (int i = 0; i < (nb_of_dot * 2) + 1; i=i+2) {
-			float currentAngle = 360.0f / nb_of_dot * i;
-			float x = (Size.x + cos(glm::radians(currentAngle)));
-			float y = (Size.y + sin(glm::radians(currentAngle)));
-			vertex[i] = x;
-			vertex[i + 1] = y;
-		}
 		break;
 	case None:
-		nb_of_dot = 0;
 		break;
 	default:
-		nb_of_dot = 0;
-		size = 0;
+		v_size = 0;
+		i_size = 0;
 		break;
 	}
-	//Translation with World Position
-	for (int i = 0; i < (nb_of_dot * 7); i = i + 7)
-	{
 
-		float x = vertex[i];
-		float y = vertex[i + 1];
-		vertex[i] = cos(Rotation) * x - sin(Rotation) * y;
-		vertex[i + 1] = sin(Rotation) * x + cos(Rotation) * y;
+	GetGameObject().GetMatrix()->SetVertex(vertex, v_size);
+	GetGameObject().GetMatrix()->SetIndices(indices, i_size);
+	delete[] vertex;
+	delete[] indices;
+}
 
-	}
-	for (int i = 0; i < (nb_of_dot * 7)-1; i += 7)
-	{
-		float x = vertex[i];
-		float y = vertex[i + 1];
-		vertex[i] = x + WorldPosition.x;
-		vertex[i + 1] = y + WorldPosition.y;
-	}
-	//Rotating with Rotation (in radiant)
-	
-	GetGameObject().UpdateMatrix(vertex,size);
-	delete vertex;
+void TransformComponent::Update(float deltaTime)
+{
 }
 
 void TransformComponent::Destroy()
