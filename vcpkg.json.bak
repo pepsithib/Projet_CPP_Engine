@@ -1,0 +1,11 @@
+{
+  "name": "flipper",
+  "dependencies": [
+    "glfw3",
+    "opengl",
+    "glm",
+    "glew",
+	"imgui",
+	"rapidxml"
+  ]
+}

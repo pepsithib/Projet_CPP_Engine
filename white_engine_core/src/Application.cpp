@@ -1,6 +1,10 @@
 #include "Application.h"
 #include <stdexcept>
 #include <vector>
+#include "Buffers.h"
+#include "Vao.h"
+#include "File.h"
+#include "Render.h"
 
 #include "File.h"
 #include "Render/Render.h"
@@ -22,8 +26,47 @@
 #include <Component/PhysicComponent.h>
 #include <Component/ColliderComponent.h>
 
+#include "RenderComponent.h"
+#include "../Flipper.h"
+#include "../Parse.h"
+#include "TransformComponent.h"
+#include <glm/trigonometric.hpp>
+#include "GameObject.h"
+#include "Render.h"
+
 void Application::run()
 {
+	// On crée un objet Flipper
+	//Flipper flipper(10.5f, 20.0f, 45.0f);
+
+	// Sérialisation en JSON
+	//json serializedFlipper = JSONParser::serializeFlipper(flipper);
+
+	// Affichage dans la console
+	//std::cout << "Serialized JSON:\n" << serializedFlipper.dump(4) << std::endl;
+
+	// Écriture dans un fichier
+	//std::ofstream file("flipper.json");
+	//file << serializedFlipper.dump(4);
+	//file.close();
+
+	// Lecture du fichier
+	//std::ifstream fileRead("flipper.json");
+	//json jsonRead;
+	//fileRead >> jsonRead;
+	//fileRead.close();
+
+	// Désérialisation de notre objet Flipper
+	//Flipper flipperDeserialized = JSONParser::deserializeFlipper(jsonRead);
+
+	// Affichage des données désérialisées
+	//std::cout << "\nDeserialized Flipper Data:\n"
+	//	<< "Position X: " << flipperDeserialized.getPositionX() << ", "
+	//	<< "Position Y: " << flipperDeserialized.getPositionY() << ", "
+	//	<< "Rotation: " << flipperDeserialized.getRotation() << std::endl;
+
+	//FIn test serialisation
+	
 	glfwInit();
 
 	// Set context as OpenGL 4.6 Core, forward compat, with debug depending on build config
@@ -67,26 +110,17 @@ void Application::run()
 #endif
 	ImGui_ImplOpenGL3_Init("#version 460");
 
+	GameObject* go = new GameObject("Castor",Triangle);
 	Render* renderer = Render::getInstance();
 	renderer->setShaders();
+	go->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
 
-	GameObject go = GameObject("",Rectangle);
-	GameObject go2 = GameObject("", Rectangle);
-	
-	go.GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
-	go2.GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/dolphin.jpg");
-	go2.GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(-1.0, -0.5));
-	go2.GetComponent<TransformComponent>()->SetScale(glm::vec2(10.0, 1.0));
-	float rot = 0;
-	float x = 0;
-	float y = 0;
-	int w, h;
+	GameObject* go2 = new GameObject("Pollux", Triangle);
+	go2->GetComponent<TransformComponent>()->SetWorldPosition({ 0.5, 0.5 });
+	go2->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
 
-	go.AddComponent<PhysicComponent>();
-	go.AddComponent<ColliderComponent>();
-	go2.AddComponent<ColliderComponent>();
-	go.GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(0.0, 0.0));
-	go.GetComponent<PhysicComponent>()->AddImpulse(glm::vec2(0.0, 3.0));
+	std::vector<GameObject*> list = { go, go2 };
+
 	glfwGetWindowSize(window, &w, &h);
 	glfwSetTime(0.0);
 	do
@@ -97,23 +131,17 @@ void Application::run()
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-
 		glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		y = go.GetComponent<TransformComponent>()->GetWorldPosition().y;
-		if (y < -(float(w) / float(h)) - 0.2) {
-			y = (float(w) / float(h)) + 0.2;
+		
+		for (GameObject* i : list)
+		{
+			i->Update(dTime);
 		}
 
-		go.GetComponent<PhysicComponent>()->AddForce(glm::vec2(0.0, 8.0));
-		go.GetComponent<TransformComponent>()->SetRotation(glm::radians(rot));
-		go.GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(go.GetComponent<TransformComponent>()->GetWorldPosition().x,y));
-		go.Update(dTime);
-		go2.Update(dTime);
-		std::cout << go.GetComponent<ColliderComponent>()->CollideWith(go2.GetComponent<ColliderComponent>()) << std::endl;
-		go.GetComponent<RenderComponent>()->Draw(window);
-		go2.GetComponent<RenderComponent>()->Draw(window);
-		DrawImgui();
+#ifdef _QA
+		DrawImgui(list);
+#endif
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -122,29 +150,117 @@ void Application::run()
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		glfwWindowShouldClose(window) == 0);
 
-	//glDeleteProgram(sp);
-	//glDeleteShader(fs);
-	//glDeleteShader(vs);
-	//glDeleteBuffers(2, buffers);
-	//buf.deleteBuffer();
-	//buf2.deleteBuffer();
+	for (int i = 0; i < list.size(); i++)
+	{
+		delete list[i];
+	}
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 
+
 	glfwDestroyWindow(window);
 	glfwTerminate();
 }
 
-void Application::DrawImgui()
-{
+void Application::DrawImgui(std::vector<GameObject*> &objects)
+{ 
+	/* Temporary variable to get value througth fields */
+
+
 	if (ImGui::Begin("Global"))
 	{
 		if (ImGui::BeginTabBar("Tabs"))
 		{
-			if (ImGui::BeginTabItem("Edit"))
+#ifdef _DEBUG
+			/* Editor section : use to modified a gameObject transform */
+			if (ImGui::BeginTabItem("Editor"))
 			{
+				for (int i = 0; i < objects.size(); i++)
+				{
+					if (ImGui::TreeNode(objects[i]->GetFriendlyName().c_str()))
+					{
+						glm::vec2 position = objects[i]->GetComponent<TransformComponent>()->GetWorldPosition();
+						float rotate = objects[i]->GetComponent<TransformComponent>()->GetRotation();
+						glm::vec2 scale = objects[i]->GetComponent<TransformComponent>()->GetScale();
+						char text[200] = "../white_engine_core/Texture/container.jpg";
+
+						/* Modified Position */
+						ImGui::InputFloat2("Position", &position.x);
+						objects[i]->GetComponent<TransformComponent>()->SetWorldPosition(position);
+
+						/* Modified Rotate */
+						ImGui::InputFloat("Rotate", &rotate);
+						objects[i]->GetComponent<TransformComponent>()->SetRotation(glm::radians(rotate));
+
+						/* Modified Scale */
+						ImGui::InputFloat2("Scale", &scale.x);
+						objects[i]->GetComponent<TransformComponent>()->SetScale(scale);
+
+						//ImGui::InputText("Texture", text, IM_ARRAYSIZE(text));
+						//if (ImGui::Button("Change Texture"))
+						//{
+						//	objects[i]ect->GetComponent<RenderComponent>()->setTexture(text);
+						//}
+
+						/* Delete this gameObject */
+						if (ImGui::Button("Delete Object"))
+						{
+							delete objects[i];
+							objects.erase(objects.begin()+i);
+						}
+
+						ImGui::TreePop();
+					}
+					ImGui::Separator();
+				}
+
+				/* Section to add a new game object to the scene */
+				if (ImGui::TreeNode("Add New gameObject"))
+				{
+					/* Enter the name of the object */
+					static char name[30] = "default";
+					ImGui::InputText("Name", name, IM_ARRAYSIZE(name));
+
+					/* Enter the position of the object */
+					static glm::vec2 position = { 0,0 };
+					ImGui::InputFloat2("Position", &position.x);
+
+					if (ImGui::Button("Add Object"))
+					{
+						GameObject* newGameObject = new GameObject(name, {}, Triangle);
+						newGameObject->GetComponent<TransformComponent>()->SetWorldPosition(position);
+						newGameObject->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
+						objects.push_back(newGameObject);
+					}
+					ImGui::TreePop();
+				}
+				
+				ImGui::EndTabItem();
+			}
+#endif
+			/* Info section : use to display debug info */
+			if (ImGui::BeginTabItem("Debug Info"))
+			{
+				for (int i = 0; i < objects.size(); i++)
+				{
+					char pos[DEBUG_INFO_SIZE];
+					char rot[DEBUG_INFO_SIZE];
+					char sca[DEBUG_INFO_SIZE];
+
+					snprintf(pos, DEBUG_INFO_SIZE, "Position : %3.2f, %3.2f", objects[i]->GetComponent<TransformComponent>()->GetWorldPosition().x, objects[i]->GetComponent<TransformComponent>()->GetWorldPosition().y);
+					snprintf(rot, DEBUG_INFO_SIZE, "Rotation : %3.2f", objects[i]->GetComponent<TransformComponent>()->GetRotation());
+					snprintf(sca, DEBUG_INFO_SIZE, "Scale : %3.2f, %3.2f", objects[i]->GetComponent<TransformComponent>()->GetScale().x, objects[i]->GetComponent<TransformComponent>()->GetScale().y);
+
+					if (ImGui::TreeNode(objects[i]->GetFriendlyName().c_str()))
+					{
+						ImGui::Text(pos);
+						ImGui::Text(rot);
+						ImGui::Text(sca);
+						ImGui::TreePop();
+					}
+				}
 				ImGui::EndTabItem();
 			}
 
@@ -153,3 +269,4 @@ void Application::DrawImgui()
 	}
 	ImGui::End();
 }
+

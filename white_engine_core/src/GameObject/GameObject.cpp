@@ -13,6 +13,7 @@ GameObject::GameObject(std::string friendlyName,Shape shape) : shape(shape)
 	GetComponent<TransformComponent>()->Start();
 	GetComponent<RenderComponent>()->Start();
 	
+	FriendlyName = friendlyName;
 }
 
 GameObject::~GameObject()

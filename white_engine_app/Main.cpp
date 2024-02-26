@@ -1,6 +1,6 @@
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
+//#define _CRTDBG_MAP_ALLOC
+//#include <stdlib.h>
+//#include <crtdbg.h>
 #include <stdexcept>
 #include "Application.h"
 
@@ -11,18 +11,13 @@
 #else
 #define DBG_NEW new
 #endif
+#include <GLFW/glfw3.h>
+#include <GL/glew.h>
+
 
 int main()
 {
 	Application* app = new Application();
 	app->run();
 	delete app;
-	_CrtDumpMemoryLeaks();
 }
-
-#ifdef NDEBUG
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
-{
-	return main(0, nullptr);
-}
-#endif /* NDEBUG */
