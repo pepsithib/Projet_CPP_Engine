@@ -188,6 +188,7 @@ void Application::DrawImgui(std::vector<GameObject*> &objects)
 						/* Delete this gameObject */
 						if (ImGui::Button("Delete Object"))
 						{
+							delete objects[i];
 							objects.erase(objects.begin()+i);
 						}
 
