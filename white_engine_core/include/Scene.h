@@ -3,17 +3,17 @@
 #include <vector>
 #include <RenderComponent.h>
 #include <GameObject.h>
-#include <Scene.h>
+#include <TransformComponent.h>
 
 class Scene {
 public:
     Scene();
     ~Scene();
 
-    void addEntity(GameObject* object);
-    void removeEntity(GameObject* object);
-    //void update();
-    //void render();
+    void AddEntity(GameObject* object);
+    void RemoveEntity(GameObject* object);
+    void Update(float deltaTime);
+    void Render();
 
 private:
     std::vector<GameObject*> objects;
