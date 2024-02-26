@@ -46,6 +46,16 @@ glm::vec2 TransformComponent::GetScale()
 	return Scale;
 }
 
+void TransformComponent::SetSize(glm::vec2 newSize)
+{
+	Size = newSize;
+}
+
+glm::vec2 TransformComponent::GetSize()
+{
+	return Size;
+}
+
 void TransformComponent::Start()
 {
 	unsigned int v_size = 0;
@@ -79,21 +89,21 @@ void TransformComponent::Start()
 		vertex[2] = 0.0f;//R
 		vertex[3] = 0.0f;//G
 		vertex[4] = 0.0f;//B
-		vertex[5] = 1.0f;//S
+		vertex[5] = 0.0f;//S
 		vertex[6] = 1.0f;//T
 		vertex[7] = (vertex[0] + Size.x);
 		vertex[8] = vertex[1];
 		vertex[9] = 0.0f;//R
 		vertex[10] = 0.0f;//G
 		vertex[11] = 0.0f;//B
-		vertex[12] = 1.0f;//S
+		vertex[12] = 0.0f;//S
 		vertex[13] = 0.0f;//T
 		vertex[14] = vertex[0];
 		vertex[15] = (vertex[1] - Size.y);
 		vertex[16] = 0.0f;//R
 		vertex[17] = 0.0f;//G
 		vertex[18] = 0.0f;//B
-		vertex[19] = 0.0f;//S
+		vertex[19] = 1.0f;//S
 		vertex[20] = 0.0f;//T
 
 		break;
@@ -109,28 +119,28 @@ void TransformComponent::Start()
 		vertex[2] = 0.0f;//R
 		vertex[3] = 0.0f;//G
 		vertex[4] = 0.0f;//B
-		vertex[5] = 1.0f;//S1
+		vertex[5] = 0.0f;//S1
 		vertex[6] = 1.0f;//T
-		vertex[7] = 0.2;
-		vertex[8] = 0.0;
+		vertex[7] = vertex[0] + Size.x;
+		vertex[8] = vertex[1];
 		vertex[9] = 0.0f;//R
 		vertex[10] = 0.0f;//G
 		vertex[11] = 0.0f;//B
-		vertex[12] = 1.0f;//S1
+		vertex[12] = 0.0f;//S1
 		vertex[13] = 0.0f;//T
-		vertex[14] = 0.0;
-		vertex[15] = -0.2;
+		vertex[14] = vertex[0];
+		vertex[15] = vertex[1] -Size.y;
 		vertex[16] = 0.0f;//R
 		vertex[17] = 0.0f;//G
 		vertex[18] = 0.0f;//B
-		vertex[19] = 0.0f;//S1
+		vertex[19] = 1.0f;//S1
 		vertex[20] = 0.0f;//T
-		vertex[21] = 0.2;
-		vertex[22] = -0.2;
+		vertex[21] = vertex[0] + Size.x;
+		vertex[22] = vertex[1] - Size.y;
 		vertex[23] = 0.0f;//R
 		vertex[24] = 0.0f;//G
 		vertex[25] = 0.0f;//B
-		vertex[26] = 0.0f;//S1
+		vertex[26] = 1.0f;//S1
 		vertex[27] = 1.0f;//T
 		break;
 	case Circle:

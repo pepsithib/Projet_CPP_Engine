@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Component\ColliderComponent.h" />
     <ClInclude Include="ImGui\imstb_rectpack.h" />
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
@@ -155,8 +156,11 @@
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneManager.h" />
     <ClInclude Include="include\Matrix.h" />
+    <ClInclude Include="include\Component\PhysicComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Component\ColliderComponent.cpp" />
+    <ClCompile Include="src\Component\PhysicComponent.cpp" />
     <ClCompile Include="src\Component\IComponent.cpp" />
     <ClCompile Include="src\Component\RenderComponent.cpp" />
     <ClCompile Include="src\Component\TransformComponent.cpp" />

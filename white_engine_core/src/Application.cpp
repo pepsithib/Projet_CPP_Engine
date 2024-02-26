@@ -19,6 +19,8 @@
 
 #include <glm/vec2.hpp>
 #include <glm/trigonometric.hpp>
+#include <Component/PhysicComponent.h>
+#include <Component/ColliderComponent.h>
 
 void Application::run()
 {
@@ -69,18 +71,28 @@ void Application::run()
 	renderer->setShaders();
 
 	GameObject go = GameObject("",Rectangle);
-	//GameObject go2 = GameObject("", Triangle);
+	GameObject go2 = GameObject("", Rectangle);
 	
 	go.GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
-	//go2.GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/dolphin.jpg");
-	//go2.GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(0.5, 0));
+	go2.GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/dolphin.jpg");
+	go2.GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(-1.0, -0.5));
+	go2.GetComponent<TransformComponent>()->SetScale(glm::vec2(10.0, 1.0));
 	float rot = 0;
 	float x = 0;
 	float y = 0;
 	int w, h;
+
+	go.AddComponent<PhysicComponent>();
+	go.AddComponent<ColliderComponent>();
+	go2.AddComponent<ColliderComponent>();
+	go.GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(0.0, 0.0));
+	go.GetComponent<PhysicComponent>()->AddImpulse(glm::vec2(0.0, 3.0));
 	glfwGetWindowSize(window, &w, &h);
+	glfwSetTime(0.0);
 	do
 	{
+		double dTime = glfwGetTime();
+		glfwSetTime(0.0);
 		glfwPollEvents();
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -88,20 +100,19 @@ void Application::run()
 
 		glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		if (rot > 360) {
-			rot = 0;
+		y = go.GetComponent<TransformComponent>()->GetWorldPosition().y;
+		if (y < -(float(w) / float(h)) - 0.2) {
+			y = (float(w) / float(h)) + 0.2;
 		}
-		rot += 0.1;
-		if (x > float(w)/float(h) + 0.5) {
-			x = -(float(w) / float(h) + 0.5);
-		}
-		x = x + 0.001;
+
+		go.GetComponent<PhysicComponent>()->AddForce(glm::vec2(0.0, 8.0));
 		go.GetComponent<TransformComponent>()->SetRotation(glm::radians(rot));
-		go.GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(x,y));
-		go.Update(0.0f);
-		//go2.Update(0.0f);
-		
+		go.GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(go.GetComponent<TransformComponent>()->GetWorldPosition().x,y));
+		go.Update(dTime);
+		go2.Update(dTime);
+		std::cout << go.GetComponent<ColliderComponent>()->CollideWith(go2.GetComponent<ColliderComponent>()) << std::endl;
 		go.GetComponent<RenderComponent>()->Draw(window);
+		go2.GetComponent<RenderComponent>()->Draw(window);
 		DrawImgui();
 
 		ImGui::Render();
