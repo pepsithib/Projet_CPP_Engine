@@ -1,5 +1,11 @@
 #include "Scene.h"
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+#include "GameObject/GameObject.h"
+#include "Component/RenderComponent.h"
+
 
 Scene::Scene() {}
 
@@ -24,9 +30,9 @@ void Scene::Update(float deltaTime) {
     }
 }
 
-void Scene::Render() {
+void Scene::Render(GLFWwindow* window) {
     for (GameObject* object : objects) {
-        object->Render();
+        object->GetComponent<RenderComponent>()->Draw(window);
     }
 }
 

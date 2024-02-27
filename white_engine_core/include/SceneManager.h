@@ -3,6 +3,7 @@
 #include <vector>
 
 class Scene;
+class GLFWwindow;
 
 class SceneManager {
 public:
@@ -12,7 +13,7 @@ public:
     void addScene(Scene* scene);
     void changeScene(size_t index);
     void update(float dt);
-    void render();
+    void render(GLFWwindow* window);
 
 private:
     std::vector<Scene*> scenes;

@@ -1,9 +1,9 @@
 #pragma once
 
 #include <vector>
-#include <Component/RenderComponent.h>
-#include <GameObject/GameObject.h>
-#include <Component/TransformComponent.h>
+
+class GameObject;
+class GLFWwindow;
 
 class Scene {
 public:
@@ -13,7 +13,7 @@ public:
     void AddEntity(GameObject* object);
     void RemoveEntity(GameObject* object);
     void Update(float deltaTime);
-    void Render();
+    void Render(GLFWwindow* window);
 
 private:
     std::vector<GameObject*> objects;

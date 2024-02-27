@@ -1,6 +1,9 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 SceneManager::SceneManager() : currentSceneIndex(0) {}
 
 SceneManager::~SceneManager() {
@@ -24,7 +27,7 @@ void SceneManager::update(float dt) {
         scenes[currentSceneIndex]->Update(dt);
 }
 
-void SceneManager::render() {
+void SceneManager::render(GLFWwindow* window) {
     if (currentSceneIndex < scenes.size())
-        scenes[currentSceneIndex]->Render();
+        scenes[currentSceneIndex]->Render(window);
 }
