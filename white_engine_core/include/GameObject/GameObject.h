@@ -2,8 +2,10 @@
 
 #include <string>
 #include <vector>
+#include "Matrix.h"
 
 class IComponent;
+
 
 enum Shape {
 
@@ -19,7 +21,7 @@ class GameObject
 
 public :
 	GameObject() = default;
-	GameObject(std::string friendlyName = "",float* matrix = {}, Shape shape = Shape::None);
+	GameObject(std::string friendlyName = "", Shape shape = Shape::None);
 	~GameObject();
 
 
@@ -41,15 +43,14 @@ public :
 	void ChangeShape(Shape shape);
 	Shape GetShape();
 
-	void UpdateMatrix(float *vertex, int size);
-	float* GetMatrix();
+	Matrix* GetMatrix();
 
 protected:
 
 	std::vector<IComponent*> Components;
 	std::string FriendlyName;
 	Shape shape;
-	float* matrix;
+	Matrix* matrix;
 };
 
 #include "GameObject.hxx"

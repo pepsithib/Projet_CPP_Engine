@@ -1,35 +1,39 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include "Render.h"
-#include "Buffers.h"
-#include "Shader.h"
-
-#include <GLFW/glfw3.h>
+#include "Render/Render.h"
+#include "Render/Buffers.h"
+#include "Render/Shader.h"
+#include "Render/Vao.h"
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include <glm/vec3.hpp>
 #include <glm/glm.hpp>
-#include <Texture.h>
+#include <Render/Texture.h>
+#include "Component/RenderComponent.h"
 
 Render::~Render()
 {
-	for (DataShape* shapeToDelete : m_drawList)
-	{
-		delete shapeToDelete;
-	}
 	m_drawList.clear();
 	delete vsSrc;
 	delete fsSrc;
 }
 
-void Render::buildTriangle(float* vertex,Texture* texture)
+void Render::setShaders()
 {
 
-	unsigned int indices[3] = { 0, 1, 2 };
+	vsSrc = new File("..\\white_engine_core\\Shaders\\vsSrc.txt");
+
+	fsSrc = new File("..\\white_engine_core\\Shaders\\fsSrc.txt");
+
+}
+
+void Render::build(float* vertex, unsigned int v_size, unsigned int* indices, unsigned int i_size,Texture* texture)
+{
 
 	/* Allocate brut memory on GPU */ 
 	Buffers* buf = new Buffers();
-	buf->storeData(vertex, 21 * sizeof(float));
+	buf->storeData(vertex, v_size * sizeof(float));
 	Buffers* buf2 = new Buffers();
-	buf2->storeData(indices, 3 * sizeof(unsigned int));
+	buf2->storeData(indices, i_size * sizeof(unsigned int));
 
 	/* Create the Vao */
 	Vao* vao = new Vao(0, buf->GetBuffer(), 0, 7 * sizeof(float));
@@ -46,7 +50,7 @@ void Render::buildTriangle(float* vertex,Texture* texture)
 	std::vector<Buffers*> *buffers = new std::vector<Buffers*>;
 	buffers->push_back(buf);
 	buffers->push_back(buf2);
-	m_drawList.push_back(new DataShape(vao, shader, 3, buffers,texture));
+	m_drawList.push_back(new DataShape(vao, shader, i_size, buffers,texture));
 }
 
 void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
@@ -105,75 +109,33 @@ void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
 	//m_drawList.push_back(new DataShape(vao, shader, vertices.size(), buffers));
 }
 
-void Render::buildRectangle(File* vsSrc, File* fsSrc, float x, float y)
+void Render::drawTriangle(GLFWwindow* window,DataShape& shapeToRender,glm::vec2 worldPosition, float Rotation, glm::vec2 Scale)
 {
-	float vertices[28] = {
-	 0.5f + x,  0.5f + y, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-	 0.5f + x,  -0.5f + y, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-	-0.5f + x, -0.5f + y, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-	 -0.5f + x,  0.5f + y, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f
-	};
+		
+			glBindTexture(GL_TEXTURE_2D, shapeToRender.texture->textureId);
+			glBindVertexArray(shapeToRender.shapeVertices->GetVaoId());
+			glUseProgram(shapeToRender.shaders->programId);
 
-	unsigned int indices[6] = { 0, 1, 3, 1, 2, 3 };
-
-	/* Allocate brut memory on GPU */
-	Buffers* buf = new Buffers();
-	buf->storeData(vertices, 28 * sizeof(float));
-	Buffers* buf2 = new Buffers();
-	buf2->storeData(indices, 6 * sizeof(unsigned int));
-
-	/* Create the Vao */
-	Vao* vao = new Vao(0, buf->GetBuffer(), 0, 7 * sizeof(float));
-
-	vao->MakeVao(0, 0, 2, GL_FLOAT, GL_FALSE, 0);
-	vao->MakeVao(1, 0, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(float));
-	vao->MakeVao(2, 0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float));
-
-	glVertexArrayElementBuffer(vao->GetVaoId(), buf2->GetBuffer());
-  
-  Shader* shader = new Shader(vsSrc, fsSrc);
-  
-	std::vector<Buffers*>* test = new std::vector<Buffers*>;
-	test->push_back(buf);
-	test->push_back(buf2);
-
-	//m_drawList.push_back(new DataShape(vao, shader, 6, buffers));
-}
-
-void Render::setShaders()
-{
-
-	vsSrc = new File("..\\white_engine_core\\Shaders\\vsSrc.txt");
-
-	fsSrc = new File("..\\white_engine_core\\Shaders\\fsSrc.txt");
-	
-}
-
-
-void Render::drawTriangle()
-{
-	for (DataShape* shapeToRender : m_drawList)
-	{
-			glBindTexture(GL_TEXTURE_2D, shapeToRender->texture->textureId);
-			glBindVertexArray(shapeToRender->shapeVertices->GetVaoId());
-			glUseProgram(shapeToRender->shaders->programId);
-			glDrawElements(GL_TRIANGLES, shapeToRender->count, GL_UNSIGNED_INT, nullptr);
+			int w, h;
+			glfwGetWindowSize(window, &w, &h);
+			glUniform1f(shapeToRender.shaders->aspectRatioLocation, float(w) / float(h));
+			glUniform2f(shapeToRender.shaders->positionLocation, worldPosition.x,worldPosition.y);
+			glUniform1f(shapeToRender.shaders->rotationLocation, Rotation);
+			glUniform2f(shapeToRender.shaders->scaleLocation, Scale.x, Scale.y);
+			glDrawElements(GL_TRIANGLES, shapeToRender.count, GL_UNSIGNED_INT, nullptr);
 			glUseProgram(0);
 			glBindVertexArray(0);
-			delete shapeToRender;
-	}
-	m_drawList.clear();
 
 }
-
-
-
 void Render::drawCircle()
 {
 	for (DataShape* shapeToRender : m_drawList)
 	{
 		glBindVertexArray(shapeToRender->shapeVertices->GetVaoId());
 		glUseProgram(shapeToRender->shaders->programId);
+
+		
+
 		glDrawArrays(GL_TRIANGLES, 0, shapeToRender->count);
 		glUseProgram(0);
 		glBindVertexArray(0);

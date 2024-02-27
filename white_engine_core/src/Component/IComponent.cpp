@@ -1,4 +1,4 @@
-#include "IComponent.h"
+#include "Component/IComponent.h"
 
 IComponent::IComponent(GameObject& GameObject) : Parent{ GameObject } {}
 
