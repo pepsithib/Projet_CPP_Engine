@@ -28,4 +28,5 @@ void Scene::Render() {
     for (GameObject* object : objects) {
         object->Render();
     }
+}
 

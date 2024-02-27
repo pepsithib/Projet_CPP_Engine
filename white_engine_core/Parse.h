@@ -7,14 +7,6 @@
 
 using json = nlohmann::json;
 
-class JSONParser {
-public:
-    static json serializeFlipper(const Flipper& flipper);
-    static Flipper deserializeFlipper(const json& j);
-};
-
-#endif // PARSE_H
-
 class Flipper {
 private:
     float positionX;
@@ -28,5 +20,15 @@ public:
     float getPositionY() const;
     float getRotation() const;
 };
+
+
+class JSONParser {
+public:
+    static json serializeFlipper(const Flipper& flipper);
+    static Flipper deserializeFlipper(const json& j);
+};
+
+#endif // PARSE_H
+
 
 

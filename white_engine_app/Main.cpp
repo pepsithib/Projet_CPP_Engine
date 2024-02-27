@@ -11,8 +11,7 @@
 #else
 #define DBG_NEW new
 #endif
-#include <GLFW/glfw3.h>
-#include <GL/glew.h>
+
 
 
 int main()

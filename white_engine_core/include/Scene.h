@@ -1,9 +1,9 @@
 #pragma once
 
 #include <vector>
-#include <RenderComponent.h>
-#include <GameObject.h>
-#include <TransformComponent.h>
+#include <Component/RenderComponent.h>
+#include <GameObject/GameObject.h>
+#include <Component/TransformComponent.h>
 
 class Scene {
 public:
