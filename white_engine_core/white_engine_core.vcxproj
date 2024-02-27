@@ -200,7 +200,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Component\ColliderComponent.h" />
-    <ClInclude Include="Flipper.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_impl_glfw.h" />
@@ -239,7 +238,6 @@
     <ClCompile Include="src\Component\TransformComponent.cpp" />
     <ClCompile Include="src\GameObject\GameObject.cpp" />
     <ClCompile Include="src\GameObject\Matrix.cpp" />
-    <ClCompile Include="Flipper.cpp" />
     <ClCompile Include="Parse.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Render\Render.cpp" />

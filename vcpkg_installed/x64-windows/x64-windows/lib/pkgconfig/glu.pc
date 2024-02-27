@@ -5,7 +5,7 @@ includedir=${prefix}/include
 
 Name: glu
 Description: OpenGL Utility Library
-Version: 10.0.22000
+Version: 10.0.19041
 Requires: opengl
 Libs: -L"${libdir}" -lGlU32
 Cflags: -I"${includedir}"

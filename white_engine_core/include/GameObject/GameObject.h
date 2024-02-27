@@ -24,6 +24,8 @@ public :
 	GameObject(std::string friendlyName = "", Shape shape = Shape::None);
 	~GameObject();
 
+
+
 	void Update(float deltaTime);
 
 	void Render();

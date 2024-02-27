@@ -1,16 +1,14 @@
 #include "Application.h"
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 #include <stdexcept>
 #include <vector>
-#include "Buffers.h"
-#include "Vao.h"
-#include "File.h"
-#include "Render.h"
 
 #include "File.h"
 #include "Render/Render.h"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>
@@ -26,13 +24,9 @@
 #include <Component/PhysicComponent.h>
 #include <Component/ColliderComponent.h>
 
-#include "RenderComponent.h"
-#include "../Flipper.h"
 #include "../Parse.h"
-#include "TransformComponent.h"
 #include <glm/trigonometric.hpp>
-#include "GameObject.h"
-#include "Render.h"
+
 
 void Application::run()
 {
@@ -110,9 +104,10 @@ void Application::run()
 #endif
 	ImGui_ImplOpenGL3_Init("#version 460");
 
-	GameObject* go = new GameObject("Castor",Triangle);
 	Render* renderer = Render::getInstance();
 	renderer->setShaders();
+
+	GameObject* go = new GameObject("Castor",Triangle);
 	go->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
 
 	GameObject* go2 = new GameObject("Pollux", Triangle);
@@ -120,6 +115,8 @@ void Application::run()
 	go2->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
 
 	std::vector<GameObject*> list = { go, go2 };
+
+	int w, h;
 
 	glfwGetWindowSize(window, &w, &h);
 	glfwSetTime(0.0);
@@ -137,6 +134,11 @@ void Application::run()
 		for (GameObject* i : list)
 		{
 			i->Update(dTime);
+		}
+
+		for (GameObject* i : list)
+		{
+			i->GetComponent<RenderComponent>()->Draw(window);
 		}
 
 #ifdef _QA
@@ -229,7 +231,7 @@ void Application::DrawImgui(std::vector<GameObject*> &objects)
 
 					if (ImGui::Button("Add Object"))
 					{
-						GameObject* newGameObject = new GameObject(name, {}, Triangle);
+						GameObject* newGameObject = new GameObject(name, Triangle);
 						newGameObject->GetComponent<TransformComponent>()->SetWorldPosition(position);
 						newGameObject->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
 						objects.push_back(newGameObject);

@@ -144,7 +144,19 @@
     <ClInclude Include="Parse.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Flipper.h">
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_glfw.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_opengl3.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_internal.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imconfig.h">
@@ -223,7 +235,7 @@
     <ClCompile Include="Parse.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Flipper.cpp">
+    <ClCompile Include="stb_truetype.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="stb_truetype.cpp">

@@ -21,10 +21,10 @@ void SceneManager::changeScene(size_t index) {
 
 void SceneManager::update(float dt) {
     if (currentSceneIndex < scenes.size())
-        scenes[currentSceneIndex]->update(dt);
+        scenes[currentSceneIndex]->Update(dt);
 }
 
 void SceneManager::render() {
     if (currentSceneIndex < scenes.size())
-        scenes[currentSceneIndex]->render();
+        scenes[currentSceneIndex]->Render();
 }
