@@ -117,13 +117,12 @@ void Application::run()
 	std::vector<GameObject*> list = { go, go2 };
 
 	int w, h;
+	float dTime = 0;
 
 	glfwGetWindowSize(window, &w, &h);
-	glfwSetTime(0.0);
 	do
 	{
-		double dTime = glfwGetTime();
-		glfwSetTime(0.0);
+		auto start = std::chrono::utc_clock::now();
 		glfwPollEvents();
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -149,6 +148,10 @@ void Application::run()
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		glfwSwapBuffers(window);
+
+		auto end = std::chrono::utc_clock::now();
+		dTime = std::chrono::duration<float, std::chrono::milliseconds::period>(end - start).count();
+
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		glfwWindowShouldClose(window) == 0);
 
