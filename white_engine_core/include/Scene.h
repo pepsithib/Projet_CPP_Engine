@@ -2,8 +2,10 @@
 
 #include <vector>
 
+#define DEBUG_INFO_SIZE 30
+
 class GameObject;
-class GLFWwindow;
+struct GLFWwindow;
 
 class Scene {
 public:
@@ -12,8 +14,15 @@ public:
 
     void AddEntity(GameObject* object);
     void RemoveEntity(GameObject* object);
-    void Update(float deltaTime);
-    void Render(GLFWwindow* window);
+    void UpdateScene(float deltaTime);
+    void RenderObjects(GLFWwindow* window);
+
+     /**
+     * \brief : Function that display the imgui windows for the editor DEBUG ONLY
+     * \param
+     *  object : list of Game object to edit : position, rotation, scale, texture can be edit, a gameObject can be delete to
+    */
+    void DrawDebug();
 
 private:
     std::vector<GameObject*> objects;
