@@ -8,6 +8,7 @@
 #include "Component/TransformComponent.h"
 #include <imgui.h>
 #include <glm/ext/vector_float2.hpp>
+#include <cmath>
 
 Scene::Scene() {}
 
@@ -62,7 +63,7 @@ void Scene::DrawDebug()
 					if (ImGui::TreeNode(objects[i]->GetFriendlyName().c_str()))
 					{
 						glm::vec2 position = objects[i]->GetComponent<TransformComponent>()->GetWorldPosition();
-						float rotate = objects[i]->GetComponent<TransformComponent>()->GetRotation();
+						float rotate = glm::degrees(objects[i]->GetComponent<TransformComponent>()->GetRotation());
 						glm::vec2 scale = objects[i]->GetComponent<TransformComponent>()->GetScale();
 						char text[200] = "../white_engine_core/Texture/container.jpg";
 
@@ -109,7 +110,7 @@ void Scene::DrawDebug()
 
 					if (ImGui::Button("Add Object"))
 					{
-						GameObject* newGameObject = new GameObject(name, Triangle);
+						GameObject* newGameObject = new GameObject(name, Shape::Triangle);
 						newGameObject->GetComponent<TransformComponent>()->SetWorldPosition(position);
 						newGameObject->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
 						objects.push_back(newGameObject);

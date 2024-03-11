@@ -7,7 +7,7 @@
 class IComponent;
 
 
-enum Shape {
+enum class Shape {
 
 	None,
 	Circle,

@@ -29,7 +29,6 @@
 #include <glm/trigonometric.hpp>
 
 
-
 void Application::run()
 {
 	// On crée un objet Flipper
@@ -112,12 +111,12 @@ void Application::run()
 	SceneManager* sceneList = new SceneManager();
 	Scene* scene = new Scene();
 
-	GameObject* go = new GameObject("Castor",Triangle);
+	GameObject* go = new GameObject("Castor", Shape::Triangle);
 	go->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
 
 	scene->AddEntity(go);
 
-	GameObject* go2 = new GameObject("Pollux", Triangle);
+	GameObject* go2 = new GameObject("Pollux", Shape::Triangle);
 	go2->GetComponent<TransformComponent>()->SetWorldPosition({ 0.5, 0.5 });
 	go2->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
 

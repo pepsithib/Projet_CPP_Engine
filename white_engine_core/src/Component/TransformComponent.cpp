@@ -61,15 +61,15 @@ void TransformComponent::Start()
 	unsigned int v_size = 0;
 	unsigned int i_size = 0;
 	switch (GetGameObject().GetShape()) {
-	case Triangle:
+	case Shape::Triangle:
 		v_size = 21;
 		i_size = 3;
 		break;
-	case Rectangle:
+	case Shape::Rectangle:
 		v_size = 28;
 		i_size = 6;
 		break;
-	case Circle:
+	case Shape::Circle:
 		v_size = 700;
 		i_size = 297;
 
@@ -80,7 +80,7 @@ void TransformComponent::Start()
 	float* vertex = new float[v_size];
 	unsigned int* indices = new unsigned int[i_size];
 	switch (GetGameObject().GetShape()) {
-	case Triangle:
+	case Shape::Triangle:
 		indices[0] = 0;
 		indices[1] = 1;
 		indices[2] = 2;
@@ -107,7 +107,7 @@ void TransformComponent::Start()
 		vertex[20] = 0.0f;//T
 
 		break;
-	case Rectangle:
+	case Shape::Rectangle:
 		indices[0] = 0;
 		indices[1] = 1;
 		indices[2] = 2;
@@ -143,9 +143,9 @@ void TransformComponent::Start()
 		vertex[26] = 1.0f;//S1
 		vertex[27] = 1.0f;//T
 		break;
-	case Circle:
+	case Shape::Circle:
 		break;
-	case None:
+	case Shape::None:
 		break;
 	default:
 		v_size = 0;
