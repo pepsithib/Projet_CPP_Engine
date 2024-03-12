@@ -24,10 +24,10 @@ void SceneManager::changeScene(size_t index) {
 
 void SceneManager::update(float dt) {
     if (currentSceneIndex < scenes.size())
-        scenes[currentSceneIndex]->Update(dt);
+        scenes[currentSceneIndex]->UpdateScene(dt);
 }
 
 void SceneManager::render(GLFWwindow* window) {
     if (currentSceneIndex < scenes.size())
-        scenes[currentSceneIndex]->Render(window);
+        scenes[currentSceneIndex]->RenderObjects(window);
 }

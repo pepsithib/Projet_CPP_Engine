@@ -3,7 +3,7 @@
 #include <vector>
 
 class Scene;
-class GLFWwindow;
+struct GLFWwindow;
 
 class SceneManager {
 public:
