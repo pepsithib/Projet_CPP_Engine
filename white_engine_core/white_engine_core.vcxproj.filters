@@ -1,255 +1,70 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Fichiers sources">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Fichiers de ressources">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Render">
-      <UniqueIdentifier>{e52c9ac4-ab89-42cc-ba75-65522a762f8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Component">
-      <UniqueIdentifier>{cbff6613-0cc5-4fd0-832f-de3465e3cd7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\GameObject">
-      <UniqueIdentifier>{3045c96e-2460-4e76-953a-e785de4251c0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Component">
-      <UniqueIdentifier>{8f2c2187-febd-43e2-9115-d963ea9ecb61}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Render">
-      <UniqueIdentifier>{802fd4ea-4310-4ba0-967b-f270c7093f78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\GameObject">
-      <UniqueIdentifier>{dac0b8f3-c771-41de-bad1-d79b79b1839b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Utils">
-      <UniqueIdentifier>{75ed96bf-9913-4193-924d-d0ac55a06b67}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Utils">
-      <UniqueIdentifier>{f4fc78d1-d3a3-4dd5-b4f2-381d0ed06383}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="src\Component\ColliderComponent.cpp" />
+    <ClCompile Include="src\Component\PhysicComponent.cpp" />
+    <ClCompile Include="src\Component\IComponent.cpp" />
+    <ClCompile Include="src\Component\RenderComponent.cpp" />
+    <ClCompile Include="src\Component\TransformComponent.cpp" />
+    <ClCompile Include="src\GameObject\GameObject.cpp" />
+    <ClCompile Include="src\GameObject\Matrix.cpp" />
+    <ClCompile Include="Parse.cpp" />
+    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Render\Render.cpp" />
+    <ClCompile Include="src\Render\Shader.cpp" />
+    <ClCompile Include="src\Render\Texture.cpp" />
+    <ClCompile Include="src\Render\Vao.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\SceneManager.cpp" />
+    <ClCompile Include="src\Buffers.cpp" />
+    <ClCompile Include="src\File.cpp" />
+    <ClCompile Include="src\Windows.cpp" />
+    <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="stb_truetype.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Scene.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SceneManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Application.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Scene.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SceneManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\stb_image.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Application.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Render\Windows.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Render\Buffers.h">
-      <Filter>Fichiers d%27en-tête\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GameObject\GameObject.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GameObject\GameObject.hxx">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Component\IComponent.h">
-      <Filter>Fichiers d%27en-tête\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Matrix.h">
-      <Filter>Fichiers d%27en-tête\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Render\Render.h">
-      <Filter>Fichiers d%27en-tête\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Component\RenderComponent.h">
-      <Filter>Fichiers d%27en-tête\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Render\Shader.h">
-      <Filter>Fichiers d%27en-tête\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Render\Texture.h">
-      <Filter>Fichiers d%27en-tête\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Component\TransformComponent.h">
-      <Filter>Fichiers d%27en-tête\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Render\Vao.h">
-      <Filter>Fichiers d%27en-tête\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imstb_rectpack.h">
-      <Filter>Fichiers d%27en-tête\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imstb_textedit.h">
-      <Filter>Fichiers d%27en-tête\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imstb_truetype.h">
-      <Filter>Fichiers d%27en-tête\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\stb_image.h">
-      <Filter>Fichiers d%27en-tête\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\stb_truetype.h">
-      <Filter>Fichiers d%27en-tête\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\File.h">
-      <Filter>Fichiers d%27en-tête\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Component\PhysicComponent.h">
-      <Filter>Fichiers d%27en-tête\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Component\ColliderComponent.h">
-      <Filter>Fichiers d%27en-tête\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Scene.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SceneManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Windows.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Texture.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\stb_image.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Render.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Application.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Parse.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imconfig.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_glfw.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_opengl3.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui_internal.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imconfig.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_glfw.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_opengl3.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui_internal.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
+    <ClInclude Include="include\Component\ColliderComponent.h" />
+    <ClInclude Include="ImGui\imconfig.h" />
+    <ClInclude Include="ImGui\imgui.h" />
+    <ClInclude Include="ImGui\imgui_impl_glfw.h" />
+    <ClInclude Include="ImGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="ImGui\imgui_internal.h" />
+    <ClInclude Include="ImGui\imstb_rectpack.h" />
+    <ClInclude Include="ImGui\imstb_textedit.h" />
+    <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="include\Application.h" />
+    <ClInclude Include="include\Component\IComponent.h" />
+    <ClInclude Include="include\Component\RenderComponent.h" />
+    <ClInclude Include="include\Component\TransformComponent.h" />
+    <ClInclude Include="include\File.h" />
+    <ClInclude Include="include\GameObject\GameObject.h" />
+    <ClInclude Include="include\GameObject\GameObject.hxx" />
+    <ClInclude Include="include\Render\Buffers.h" />
+    <ClInclude Include="include\Render\Render.h" />
+    <ClInclude Include="include\Render\Shader.h" />
+    <ClInclude Include="include\Render\Texture.h" />
+    <ClInclude Include="include\Render\Vao.h" />
+    <ClInclude Include="include\Render\Windows.h" />
+    <ClInclude Include="include\stb_image.h" />
+    <ClInclude Include="include\stb_truetype.h" />
+    <ClInclude Include="include\Scene.h" />
+    <ClInclude Include="include\SceneManager.h" />
+    <ClInclude Include="include\Matrix.h" />
+    <ClInclude Include="include\Component\PhysicComponent.h" />
+    <ClInclude Include="include\Windows.h" />
+    <ClInclude Include="Parse.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Scene.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SceneManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Windows.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameObject\GameObject.cpp">
-      <Filter>Fichiers sources\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="src\File.cpp">
-      <Filter>Fichiers sources\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Buffers.cpp">
-      <Filter>Fichiers sources\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Component\IComponent.cpp">
-      <Filter>Fichiers sources\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameObject\Matrix.cpp">
-      <Filter>Fichiers sources\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Render\Render.cpp">
-      <Filter>Fichiers sources\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Component\RenderComponent.cpp">
-      <Filter>Fichiers sources\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Render\Shader.cpp">
-      <Filter>Fichiers sources\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="stb_image.cpp">
-      <Filter>Fichiers sources\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="stb_truetype.cpp">
-      <Filter>Fichiers sources\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Application.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Render\Texture.cpp">
-      <Filter>Fichiers sources\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Component\TransformComponent.cpp">
-      <Filter>Fichiers sources\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Render\Vao.cpp">
-      <Filter>Fichiers sources\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Component\PhysicComponent.cpp">
-      <Filter>Fichiers sources\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Component\ColliderComponent.cpp">
-      <Filter>Fichiers sources\Component</Filter>
-    <ClCompile Include="Parse.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="stb_truetype.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="stb_truetype.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Texture\container.jpg">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
+    <Image Include="Texture\container.jpg" />
     <Image Include="Texture\Holstein.DDS" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Shaders\vsSrc.txt" />
     <Text Include="Shaders\fsSrc.txt" />
+    <Text Include="Shaders\vsSrc.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="SoLoud">
+      <UniqueIdentifier>{c4336e10-92f6-4328-966d-f2601e8432ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
