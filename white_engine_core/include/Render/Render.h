@@ -10,6 +10,7 @@ class File;
 struct GLFWwindow;
 
 struct DataShape;
+class TransformComponent;
 
 class Render
 {
@@ -27,13 +28,14 @@ public:
 	void build(float* vertex,unsigned int v_size,unsigned int* indices,unsigned int i_size,Texture* texture);
 	void buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc);
 	void setShaders();
-	void drawTriangle(GLFWwindow* window, DataShape& shapeToRender, glm::vec2 worldTransform, float Rotation, glm::vec2 Scale);
+	void drawTriangle(GLFWwindow* window, DataShape& shapeToRender,TransformComponent* transform);
 	void drawCircle();
 
 	static Render* getInstance();
 
 	File* vsSrc;
 	File* fsSrc;
+	File* fsSrc_Circle;
 
 	std::vector<DataShape*> m_drawList;
 

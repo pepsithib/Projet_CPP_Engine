@@ -9,6 +9,7 @@
 #include <glm/glm.hpp>
 #include <Render/Texture.h>
 #include "Component/RenderComponent.h"
+#include "Component/TransformComponent.h"
 
 Render::~Render()
 {
@@ -23,6 +24,8 @@ void Render::setShaders()
 	vsSrc = new File("..\\white_engine_core\\Shaders\\vsSrc.txt");
 
 	fsSrc = new File("..\\white_engine_core\\Shaders\\fsSrc.txt");
+
+	fsSrc_Circle = new File("..\\white_engine_core\\Shaders\\fsSrc_Circle.txt");
 
 }
 
@@ -109,7 +112,7 @@ void Render::buildCircle(float radius, int dotNumbers, File* vsSrc, File* fsSrc)
 	//m_drawList.push_back(new DataShape(vao, shader, vertices.size(), buffers));
 }
 
-void Render::drawTriangle(GLFWwindow* window,DataShape& shapeToRender,glm::vec2 worldPosition, float Rotation, glm::vec2 Scale)
+void Render::drawTriangle(GLFWwindow* window,DataShape& shapeToRender,TransformComponent* transform)
 {
 		
 			glBindTexture(GL_TEXTURE_2D, shapeToRender.texture->textureId);
@@ -119,9 +122,10 @@ void Render::drawTriangle(GLFWwindow* window,DataShape& shapeToRender,glm::vec2 
 			int w, h;
 			glfwGetWindowSize(window, &w, &h);
 			glUniform1f(shapeToRender.shaders->aspectRatioLocation, float(w) / float(h));
-			glUniform2f(shapeToRender.shaders->positionLocation, worldPosition.x,worldPosition.y);
-			glUniform1f(shapeToRender.shaders->rotationLocation, Rotation);
-			glUniform2f(shapeToRender.shaders->scaleLocation, Scale.x, Scale.y);
+			glUniform2f(shapeToRender.shaders->positionLocation, transform->GetWorldPosition().x, transform->GetWorldPosition().y);
+			glUniform1f(shapeToRender.shaders->rotationLocation, transform->GetRotation());
+			glUniform2f(shapeToRender.shaders->scaleLocation, transform->GetScale().x, transform->GetScale().y);
+			glUniform2f(shapeToRender.shaders->sizeLocation, transform->GetSize().x, transform->GetSize().y);
 			glDrawElements(GL_TRIANGLES, shapeToRender.count, GL_UNSIGNED_INT, nullptr);
 			glUseProgram(0);
 			glBindVertexArray(0);

@@ -35,7 +35,16 @@ void RenderComponent::Start()
 	/* Create Program */
 	glVertexArrayElementBuffer(vao->GetVaoId(), buf2->GetBuffer());
 
-	Shader* shader = new Shader(Render::getInstance()->vsSrc, Render::getInstance()->fsSrc);
+	Shader* shader;
+
+	switch (GetGameObject().GetShape()) {
+	case Circle:
+		shader = new Shader(Render::getInstance()->vsSrc, Render::getInstance()->fsSrc_Circle);
+		break;
+	default:
+		shader = new Shader(Render::getInstance()->vsSrc, Render::getInstance()->fsSrc);
+		break;
+	}
 
 	std::vector<Buffers*>* buffers = new std::vector<Buffers*>;
 	buffers->push_back(buf);
@@ -57,7 +66,7 @@ void RenderComponent::Destroy()
 void RenderComponent::Draw(GLFWwindow* window)
 {
 	TransformComponent* transform = GetGameObject().GetComponent<TransformComponent>();
-	Render::getInstance()->drawTriangle(window, *dataShape, transform->GetWorldPosition(), transform->GetRotation(), transform->GetScale());
+	Render::getInstance()->drawTriangle(window, *dataShape, transform);
 }
 
 const std::string RenderComponent::GetComponentName_Static()

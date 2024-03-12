@@ -60,7 +60,7 @@ Shader::Shader(File* vertexShaderFile, File* fragmentShaderFile)
 	rotationLocation = glGetUniformLocation(programId, "uRotation");
 	scaleLocation = glGetUniformLocation(programId, "uScale");
 	aspectRatioLocation = glGetUniformLocation(programId, "uAspectRatio");
-
+	sizeLocation = glGetUniformLocation(programId, "uSize");
 }
 
 Shader::~Shader()

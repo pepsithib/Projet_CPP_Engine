@@ -1,0 +1,35 @@
+#version 460 core
+out vec4 FragColor;
+  
+in vec3 vColor;
+in vec2 vTexCoord;
+in vec2 pointPos;
+uniform sampler2D ourTexture;
+uniform float uAspectRatio;
+uniform vec2 uPosition;
+uniform vec2 uScale;
+uniform vec2 uSize;
+
+
+float my_distance(vec2 p0,vec2 p1){
+
+	float distance = abs(sqrt(pow((p1.x-p0.x),2)+pow((p1.y-p0.y),2)));
+	return distance;
+}
+
+void main()
+{
+
+	float pct = 0.0;
+	pct = my_distance(pointPos,((uSize*0.5)*uScale + uPosition)/vec2(uAspectRatio,1));
+	if(pct>((uSize.x*0.5)*uScale.x)){
+		discard;
+
+
+	}else{
+		vec3 color = vec3(pct);
+    		FragColor = texture(ourTexture, vTexCoord);
+	}
+
+
+}
