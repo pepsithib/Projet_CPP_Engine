@@ -154,7 +154,7 @@ void Application::run()
 
 
 		auto end = std::chrono::utc_clock::now();
-		dTime = std::chrono::duration<float, std::chrono::milliseconds::period>(end - start).count();
+		dTime = std::chrono::duration<float, std::chrono::seconds::period>(end - start).count();
 
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		glfwWindowShouldClose(window) == 0);
