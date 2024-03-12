@@ -17,5 +17,6 @@ public :
 	GLuint rotationLocation;
 	GLuint scaleLocation;
 	GLuint aspectRatioLocation;
+	GLuint sizeLocation;
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "Component/IComponent.h"
-
+#include "vector"
 #include "glm/glm.hpp"	
 
 class TransformComponent;
@@ -27,14 +27,16 @@ public:
 	static const std::string GetComponentName_Static();
 	virtual const std::string GetComponentName() const;
 
-
+	std::vector<glm::vec2> m_vertex;
+	glm::vec2 center;
+	float radius;
 
 private:
 
+	bool polyLine(float x1, float y1, float x2, float y2);
+	bool lineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
 	bool _isStatic;
 	TransformComponent* transform;
-	glm::vec2 w;
-	glm::vec2 h;
-	float radius;
+	
 };
 
