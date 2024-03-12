@@ -39,7 +39,7 @@ float TransformComponent::GetRotation()
 void TransformComponent::SetScale(glm::vec2 newScale)
 {
 	switch(GetGameObject().GetShape()) {
-		case Circle:
+	case Shape::Circle:
 			Scale = glm::vec2(newScale.x);
 			break;
 		default:

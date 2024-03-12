@@ -38,7 +38,7 @@ void RenderComponent::Start()
 	Shader* shader;
 
 	switch (GetGameObject().GetShape()) {
-	case Circle:
+	case Shape::Circle:
 		shader = new Shader(Render::getInstance()->vsSrc, Render::getInstance()->fsSrc_Circle);
 		break;
 	default:
