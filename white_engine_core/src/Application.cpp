@@ -17,6 +17,7 @@
 #include <GameObject/GameObject.h>
 #include <Component/RenderComponent.h>
 #include <Component/TransformComponent.h>
+#include <Component/SoundManager.h>
 #include <Scene.h>
 #include <SceneManager.h>
 
@@ -27,6 +28,7 @@
 
 #include "../Parse.h"
 #include <glm/trigonometric.hpp>
+
 
 
 void Application::run()
@@ -113,6 +115,9 @@ void Application::run()
 
 	GameObject* go = new GameObject("Castor", Shape::Triangle);
 	go->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
+	go->AddComponent<SoundManager>();
+	go->GetComponent<SoundManager>()->addSound("../white_engine_core/Sounds/sound1.wav", "Test");
+	go->GetComponent<SoundManager>()->addSound("../white_engine_core/Sounds/Yeah.wav", "YEAH");
 
 	scene->AddEntity(go);
 
@@ -125,6 +130,8 @@ void Application::run()
 
 	int w, h;
 	float dTime = 0;
+
+	go->GetComponent<SoundManager>()->playSound("YEAH", false);
 
 	glfwGetWindowSize(window, &w, &h);
 	do
