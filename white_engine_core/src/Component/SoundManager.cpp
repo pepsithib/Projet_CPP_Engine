@@ -36,6 +36,7 @@ void SoundManager::deleteSound(std::string musicName)
 	{
 		if (soundList[i]->name == musicName)
 		{
+			delete soundList[i];
 			soundList.erase(soundList.begin()+i);
 			break;
 		}
