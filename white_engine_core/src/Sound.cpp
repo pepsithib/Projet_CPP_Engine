@@ -3,7 +3,11 @@
 Sound::Sound(std::string path, std::string musicName)
 {
 	if (!buffer.loadFromFile(path))
+	{
 		buffer.loadFromFile("../white_engine_core/Sounds/sound1.wav");
+		soundPath = "../white_engine_core/Sounds/sound1.wav";
+	}
+	soundPath = path;
 
 	if (musicName.empty())
 		musicName = "default";

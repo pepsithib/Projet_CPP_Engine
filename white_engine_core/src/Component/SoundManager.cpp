@@ -81,3 +81,8 @@ const std::string SoundManager::GetComponentName() const
 	return GetComponentName_Static();
 }
 
+std::vector<Sound*> SoundManager::getSoundList()
+{
+	return soundList;
+}
+

@@ -15,6 +15,7 @@ public:
 	void StopSound();
 	
 	std::string name;
+	std::string soundPath;
 private:
 	sf::SoundBuffer buffer;
 	sf::Sound sound;

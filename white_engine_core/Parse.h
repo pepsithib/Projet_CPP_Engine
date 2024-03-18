@@ -2,30 +2,21 @@
 #ifndef PARSE_H
 #define PARSE_H
 
-//#include "flipper.h"
 #include "nlohmann/json.hpp"
+#include <vector>
+class Scene;
 
 using json = nlohmann::json;
 
-class Flipper {
-private:
-    float positionX;
-    float positionY;
-    float rotation;
-
-public:
-    Flipper(float posX, float posY, float rot);
-
-    float getPositionX() const;
-    float getPositionY() const;
-    float getRotation() const;
-};
-
-
 class JSONParser {
 public:
-    static json serializeFlipper(const Flipper& flipper);
-    static Flipper deserializeFlipper(const json& j);
+    JSONParser() = default;
+    ~JSONParser() = default;
+
+    json serializeFlipper(Scene* flipper);
+    void deserializeFlipper(const json& j, Scene& flipper);
+private:
+    std::vector<std::string> gOnameList;
 };
 
 #endif // PARSE_H

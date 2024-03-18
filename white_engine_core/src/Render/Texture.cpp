@@ -9,6 +9,7 @@
 
 Texture::Texture(const char* texturePath)
 {
+    path = texturePath;
     glGenTextures(1, &textureId);
     glBindTexture(GL_TEXTURE_2D, textureId); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
     // set the texture wrapping parameters

@@ -45,6 +45,11 @@ void Scene::RenderObjects(GLFWwindow* window) {
     }
 }
 
+std::vector<GameObject*> Scene::getObjects()
+{
+	return objects;
+}
+
 void Scene::DrawDebug()
 {
 	/* Temporary variable to get value througth fields */

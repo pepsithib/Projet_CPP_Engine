@@ -24,6 +24,8 @@ public:
 	static const std::string GetComponentName_Static();
 	virtual const std::string GetComponentName() const override;
 
+	std::vector<Sound*> getSoundList();
+
 private:
 	std::vector<Sound*> soundList;
 };
