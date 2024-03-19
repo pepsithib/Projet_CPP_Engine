@@ -30,7 +30,6 @@
 #include <glm/trigonometric.hpp>
 
 
-
 void Application::run()
 {	
 	glfwInit();
@@ -98,22 +97,13 @@ void Application::run()
 	go2->GetComponent<SoundManager>()->addSound("../white_engine_core/Sounds/Yeah.wav", "YEAH");
 
 	scene->AddEntity(go2);
+	sceneList->addScene(scene);
 
-	JSONParser alu = JSONParser();
-
-	// Sérialisation en JSON
-	json serializedFlipper = alu.serializeFlipper(scene);
-
-	// Affichage dans la console
-	std::cout << "Serialized JSON:\n" << serializedFlipper.dump(4) << std::endl;
-
-	// Écriture dans un fichier
-	std::ofstream file("flipper.json");
-	file << serializedFlipper.dump(4);
-	file.close();
+	JSONParser parser = JSONParser();
 
 	int w, h;
 	float dTime = 0;
+	bool pressedOnce = false;
 
 	go->GetComponent<SoundManager>()->playSound("YEAH", false);
 
@@ -147,13 +137,24 @@ void Application::run()
 		auto end = std::chrono::utc_clock::now();
 		dTime = std::chrono::duration<float, std::chrono::seconds::period>(end - start).count();
 
-		if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
 		{
-			delete scene;
-			scene = new Scene();
-			alu.deserializeFlipper(serializedFlipper, *scene);
+			if (std::filesystem::exists("../white_engine_core/Save/save.json"))
+			{
+				delete scene;
+				scene = new Scene();
+				loadGame(*scene, parser);
+				sceneList->setScene(0, scene);
+			}
 		}
-		
+
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		{
+			saveGame(scene, parser);
+		}
+
+		pressedOnce = false;
+
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		glfwWindowShouldClose(window) == 0);
 
@@ -166,5 +167,25 @@ void Application::run()
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
+}
+
+void  Application::saveGame(Scene* sceneToSave, JSONParser &parser)
+{
+	/* Save in json variable */
+	json serializedFlipper = parser.serializeFlipper(sceneToSave);
+
+	/* Writing json variable into json file */
+	std::ofstream file("../white_engine_core/Save/save.json");
+	file << serializedFlipper.dump(4);
+	file.close();
+}
+
+void Application::loadGame(Scene& sceneToReload, JSONParser &parser)
+{
+	std::ifstream fileRead("../white_engine_core/Save/save.json");
+	json jsonRead = json::parse(fileRead);
+	fileRead.close();
+
+	parser.deserializeFlipper(jsonRead, sceneToReload);
 }
 

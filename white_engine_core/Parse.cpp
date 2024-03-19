@@ -9,11 +9,14 @@
 #include "Sound.h"
 #include <iostream>
 
-json JSONParser::serializeFlipper(Scene* flipper) {
-    json serializedFlipper;
-    for (GameObject* i : flipper->getObjects())
-    {
+json JSONParser::serializeFlipper(Scene* sceneToSave) {
 
+    json serializedFlipper;
+
+    /* Get all the gameObject in the scene */
+    for (GameObject* i : sceneToSave->getObjects())
+    {
+        /* Save the Transform Component */
         serializedFlipper["Scene"][i->GetFriendlyName()]["Transform"] = {
             {"PositionX", i->GetComponent<TransformComponent>()->GetWorldPosition().x},
             {"PositionY", i->GetComponent<TransformComponent>()->GetWorldPosition().y},
@@ -22,25 +25,34 @@ json JSONParser::serializeFlipper(Scene* flipper) {
             {"ScaleY", i->GetComponent<TransformComponent>()->GetScale().y}
         };
 
+        /* Save the Sound Component */
         if (i->GetComponent<SoundManager>() != nullptr)
         {
             std::vector<json> soundAttachToComponent = {};
+
+            /* Get all the sound attach to the gameObject */
             for (Sound* j : i->GetComponent<SoundManager>()->getSoundList())
             {
                 soundAttachToComponent.push_back({ j->name, j->soundPath });
             }
             serializedFlipper["Scene"][i->GetFriendlyName()]["Sounds"]["list"] = soundAttachToComponent;
+
+            /* if the gameObject as this component, set the state as enable */
             serializedFlipper["Scene"][i->GetFriendlyName()]["Sounds"]["state"] = "enable";
         }
         else
         {
+            /* if not set the state at disable */
             serializedFlipper["Scene"][i->GetFriendlyName()]["Sounds"]["state"] = "disable";
         }
 
+        /* Save the Physics Component */
         if (i->GetComponent<PhysicComponent>() != nullptr)
         {
             serializedFlipper["Scene"][i->GetFriendlyName()]["Physics"] = {
+                /* if the gameObject as this component, set the state as enable */
                 { "state", "enable" },
+
                 {"VelocityX", i->GetComponent<PhysicComponent>()->getVelocity().x},
                 {"VelocityY", i->GetComponent<PhysicComponent>()->getVelocity().y},
                 {"AccelerationX", i->GetComponent<PhysicComponent>()->getAcceleration().x},
@@ -49,34 +61,46 @@ json JSONParser::serializeFlipper(Scene* flipper) {
         }
         else
         {
+            /* if not set the state at disable */
             serializedFlipper["Scene"][i->GetFriendlyName()]["Physics"]["state"] = "disable";
         }
 
         if (i->GetComponent<ColliderComponent>() != nullptr)
         {
+            /* if the gameObject as this component, set the state as enable */
             serializedFlipper["Scene"][i->GetFriendlyName()]["Collider"]["state"] = "enable" ;
         }
         else
         {
+            /* if not set the state at disable */
             serializedFlipper["Scene"][i->GetFriendlyName()]["Collider"]["state"] =  "disable";
         }
 
+        /* Save the Texture path */
         serializedFlipper["Scene"][i->GetFriendlyName()]["Render"] = {
             {"Texture", i->GetComponent<RenderComponent>()->getTexturePath()}
         };
 
+        /* Save the gameObject Shape (circle, rectangle, triangle) */
         serializedFlipper["Scene"][i->GetFriendlyName()]["Shape"] = i->GetShape();
-
-        gOnameList.push_back(i->GetFriendlyName());
     }
 
+    /* return the json with the scene state */
     return serializedFlipper;
 }
 
-void JSONParser::deserializeFlipper(const json& save, Scene& flipper) {
+void JSONParser::deserializeFlipper(json& save, Scene& sceneToReload) {
+
+    /* Get all gameObject name */
+    for (auto i : save["Scene"].items())
+    {
+        gOnameList.push_back(i.key());
+    }
     
+    /* For all gameObject */
     for (int i = 0; i < gOnameList.size(); i++)
     {
+        /* Get the right shape with the number store */
         Shape shape = Shape::None;
         switch (save["Scene"][gOnameList[i]]["Shape"].template get<int>())
         {
@@ -94,16 +118,21 @@ void JSONParser::deserializeFlipper(const json& save, Scene& flipper) {
                 break;
         }
 
+        /* Create new gameObject */
         GameObject* go = new GameObject(gOnameList[i], shape);
         
+        /* Set Transform */
         go->GetComponent<TransformComponent>()->SetWorldPosition({ save["Scene"][gOnameList[i]]["Transform"]["PositionX"], save["Scene"][gOnameList[i]]["Transform"]["PositionY"] });
         go->GetComponent<TransformComponent>()->SetRotation(save["Scene"][gOnameList[i]]["Transform"]["Rotation"]);
         go->GetComponent<TransformComponent>()->SetScale({ save["Scene"][gOnameList[i]]["Transform"]["ScaleX"], save["Scene"][gOnameList[i]]["Transform"]["ScaleY"] });
 
+        /* Set Texture */
         go->GetComponent<RenderComponent>()->setTexture(save["Scene"][gOnameList[i]]["Render"]["Texture"]);
 
+        /* If this gameObject as the SoundManager Component, add it */
         if (save["Scene"][gOnameList[i]]["Sounds"]["state"] == "enable")
         {
+            /* Add each sound */
             go->AddComponent<SoundManager>();
             for (auto i : save["Scene"][gOnameList[i]]["Sounds"]["list"])
             {
@@ -111,6 +140,7 @@ void JSONParser::deserializeFlipper(const json& save, Scene& flipper) {
             }
         }
 
+        /* If this gameObject as the SoundManager Component, add it */
         if (save["Scene"][gOnameList[i]]["Physics"]["state"] == "enable")
         {
             go->AddComponent<PhysicComponent>();
@@ -118,11 +148,15 @@ void JSONParser::deserializeFlipper(const json& save, Scene& flipper) {
             go->GetComponent<PhysicComponent>()->setAcceleration({ save["Scene"][gOnameList[i]]["Physics"]["AccelerationX"], save["Scene"][gOnameList[i]]["Physics"]["AccelerationX"] });
         }
 
+        /* If this gameObject as the Collider Component, add it */
         if (save["Scene"][gOnameList[i]]["Collider"]["state"] == "enable")
         {
             go->AddComponent<ColliderComponent>();
         }
 
-        flipper.AddEntity(go);
+        /* Add the Entity to the new scene */
+        sceneToReload.AddEntity(go);
     }
+    
+    gOnameList.clear();
 }

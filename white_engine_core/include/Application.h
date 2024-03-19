@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <../Parse.h>
+#include "nlohmann/json.hpp"
 
 
 class GameObject;
@@ -11,5 +13,8 @@ public:
 	~Application() = default;
 
 	void run();
+
+	void saveGame(Scene* sceneToSave, JSONParser &parser);
+	void loadGame(Scene& sceneToReload, JSONParser &parser);
 };
 

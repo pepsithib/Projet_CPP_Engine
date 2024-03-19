@@ -113,6 +113,18 @@ void Scene::DrawDebug()
 					static glm::vec2 position = { 0,0 };
 					ImGui::InputFloat2("Position", &position.x);
 
+					/* Decide if the gameObject has a soundManager */
+					bool hasSound = false;
+					ImGui::Checkbox("soundManager", &hasSound);
+
+					/* Decide if the gameObject has a Collider */
+					bool hasCollider = false;
+					ImGui::Checkbox("Collider", &hasCollider);
+
+					/* Decide if the gameObject has a Physics */
+					bool hasPhysics = false;
+					ImGui::Checkbox("Physics", &hasPhysics);
+
 					if (ImGui::Button("Add Object"))
 					{
 						GameObject* newGameObject = new GameObject(name, Shape::Triangle);

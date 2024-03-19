@@ -31,3 +31,8 @@ void SceneManager::render(GLFWwindow* window) {
     if (currentSceneIndex < scenes.size())
         scenes[currentSceneIndex]->RenderObjects(window);
 }
+
+void SceneManager::setScene(int index, Scene* newScene)
+{
+    scenes[index] = newScene;
+}

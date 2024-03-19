@@ -45,7 +45,8 @@ Shader::Shader(File* vertexShaderFile, File* fragmentShaderFile)
 	glAttachShader(programId, vertexShaderId);
 	glAttachShader(programId, fragmentShaderId);
 	glLinkProgram(programId);
-
+	glDeleteShader(fragmentShaderId);
+	glDeleteShader(vertexShaderId);
 
 	// Check program
 	glGetProgramiv(programId, GL_LINK_STATUS, &Result);
@@ -66,6 +67,4 @@ Shader::Shader(File* vertexShaderFile, File* fragmentShaderFile)
 Shader::~Shader()
 {
 	glDeleteProgram(programId);
-	glDeleteShader(fragmentShaderId);
-	glDeleteShader(vertexShaderId);
 }
