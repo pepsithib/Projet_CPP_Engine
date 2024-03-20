@@ -27,6 +27,9 @@
 
 #include "../Parse.h"
 #include <glm/trigonometric.hpp>
+#include "../InputManager.h"
+#include "../EventSystem.h"
+
 
 
 void Application::run()
@@ -122,6 +125,23 @@ void Application::run()
 
 	scene->AddEntity(go2);
 
+	InputManager inputManager(window);
+	EventSystem eventSystem;
+
+	eventSystem.AddEventListener("LeftArrowPressed", [&]() 
+	{
+		std::cout << "Flèche gauche enfoncée" << std::endl;
+	});
+
+	eventSystem.AddEventListener("RightArrowPressed", [&]() 
+	{
+		std::cout << "Flèche droite enfoncée" << std::endl;
+	});
+
+	eventSystem.AddEventListener("SpaceBarPressed", [&]() 
+	{
+		std::cout << "Barre d'espace enfoncée" << std::endl;
+	});
 
 	int w, h;
 	float dTime = 0;
@@ -131,6 +151,28 @@ void Application::run()
 	{
 		auto start = std::chrono::utc_clock::now();
 		glfwPollEvents();
+
+		//test
+		
+		// Mise à jour des inputs
+		// 
+		// Déclencher l'événement pour la touche flèche gauche
+		if (inputManager.IsLeftArrowPressed()) {
+			eventSystem.TriggerEvent("LeftArrowPressed");
+		}
+		
+		// Déclencher l'événement pour la touche flèche droite
+		if (inputManager.IsRightArrowPressed()) {
+			eventSystem.TriggerEvent("RightArrowPressed");
+		}
+
+		// Déclencher l'événement pour la barre d'espace
+		if (inputManager.IsSpaceBarPressed()) {
+			eventSystem.TriggerEvent("SpaceBarPressed");
+		}
+
+		// fiun test
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -158,6 +200,7 @@ void Application::run()
 
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		glfwWindowShouldClose(window) == 0);
+
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();

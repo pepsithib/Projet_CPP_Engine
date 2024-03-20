@@ -199,6 +199,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EventSystem.h" />
     <ClInclude Include="include\Component\ColliderComponent.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
@@ -228,9 +229,12 @@
     <ClInclude Include="include\Matrix.h" />
     <ClInclude Include="include\Component\PhysicComponent.h" />
     <ClInclude Include="include\Windows.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Parse.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EventSystem.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="src\Component\ColliderComponent.cpp" />
     <ClCompile Include="src\Component\PhysicComponent.cpp" />
     <ClCompile Include="src\Component\IComponent.cpp" />
