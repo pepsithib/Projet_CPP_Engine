@@ -6,6 +6,9 @@
 #include "GameObject/GameObject.h"
 #include "Component/RenderComponent.h"
 #include "Component/TransformComponent.h"
+#include "Component/ColliderComponent.h"
+#include "Component/PhysicComponent.h"
+#include "Component/SoundManager.h"
 #include <imgui.h>
 #include <glm/ext/vector_float2.hpp>
 #include <cmath>
@@ -52,9 +55,7 @@ std::vector<GameObject*> Scene::getObjects()
 
 void Scene::DrawDebug()
 {
-	/* Temporary variable to get value througth fields */
-
-
+	/* Main ImGui window */
 	if (ImGui::Begin("Global"))
 	{
 		if (ImGui::BeginTabBar("Tabs"))
@@ -70,25 +71,94 @@ void Scene::DrawDebug()
 						glm::vec2 position = objects[i]->GetComponent<TransformComponent>()->GetWorldPosition();
 						float rotate = glm::degrees(objects[i]->GetComponent<TransformComponent>()->GetRotation());
 						glm::vec2 scale = objects[i]->GetComponent<TransformComponent>()->GetScale();
-						char text[200] = "../white_engine_core/Texture/container.jpg";
+						static char text[200] = "../white_engine_core/Texture/container.jpg";
 
-						/* Modified Position */
+						/* Modifie Position */
 						ImGui::InputFloat2("Position", &position.x);
 						objects[i]->GetComponent<TransformComponent>()->SetWorldPosition(position);
 
-						/* Modified Rotate */
+						/* Modifie Rotate */
 						ImGui::InputFloat("Rotate", &rotate);
 						objects[i]->GetComponent<TransformComponent>()->SetRotation(glm::radians(rotate));
 
-						/* Modified Scale */
+						/* Modifie Scale */
 						ImGui::InputFloat2("Scale", &scale.x);
 						objects[i]->GetComponent<TransformComponent>()->SetScale(scale);
 
-						//ImGui::InputText("Texture", text, IM_ARRAYSIZE(text));
-						//if (ImGui::Button("Change Texture"))
-						//{
-						//	objects[i]ect->GetComponent<RenderComponent>()->setTexture(text);
-						//}
+						/* Modifie Texture */
+						ImGui::InputText("Texture", text, IM_ARRAYSIZE(text));
+						if (ImGui::Button("Change Texture"))
+						{
+							objects[i]->GetComponent<RenderComponent>()->setTexture(text);
+						}
+
+						/* Modifie the soundManager if the object has this component */
+						if (objects[i]->GetComponent<SoundManager>())
+						{
+							if (ImGui::TreeNode("SoundManager"))
+							{
+
+								ImGui::Text("Add Sound");
+
+								/* Set the path and a name */
+								static char soundName[200] = "default";
+								if (ImGui::InputText("New Sound name", soundName, IM_ARRAYSIZE(soundName)));
+								static char soundPath[200] = { 0 };
+								ImGui::InputText("New Sound path", soundPath, IM_ARRAYSIZE(soundPath));
+
+								/* Push the new value */
+								if (ImGui::Button("Add Sound"))
+								{
+									objects[i]->GetComponent<SoundManager>()->addSound(soundPath, soundName);
+								}
+
+								ImGui::Text("Delete Sound");
+
+								static char deleteSoundName[200] = { 0 };
+								ImGui::InputText("Sound to delete", deleteSoundName, IM_ARRAYSIZE(deleteSoundName));
+
+								/* Remove the sound from this gameObject */
+								if (ImGui::Button("Remove Sound"))
+								{
+									objects[i]->GetComponent<SoundManager>()->deleteSound(deleteSoundName);
+								}
+
+								ImGui::Text("Play Sound");
+
+								/* Enter the name of the sound to play */
+								static char playSoundName[200] = { 0 };
+								ImGui::InputText("Sound to Play", playSoundName, IM_ARRAYSIZE(playSoundName));
+
+								/* Play that sound */
+								if (ImGui::Button("Play Sound"))
+								{
+									objects[i]->GetComponent<SoundManager>()->playSound(playSoundName, false);
+								}
+
+								ImGui::TreePop();
+							}
+						}
+
+						/* Modifie the PhysicComponent if the object has this component */
+						if (objects[i]->GetComponent<PhysicComponent>())
+						{
+							if (ImGui::TreeNode("Physic"))
+							{
+								/* Get the velocity and acceleration vector */
+								glm::vec2 velocity = objects[i]->GetComponent<PhysicComponent>()->getVelocity();
+								glm::vec2 acceleration = objects[i]->GetComponent<PhysicComponent>()->getAcceleration();
+
+								/* Modifie Velocity */
+								ImGui::InputFloat2("Velocity", &velocity.x);
+								objects[i]->GetComponent<PhysicComponent>()->setVelocity(velocity);
+
+								/* Modifie Acceleration */
+								ImGui::InputFloat2("Acceleration", &acceleration.x);
+								objects[i]->GetComponent<PhysicComponent>()->setAcceleration(acceleration);
+
+								ImGui::TreePop();
+							}
+						}
 
 						/* Delete this gameObject */
 						if (ImGui::Button("Delete Object"))
@@ -114,15 +184,11 @@ void Scene::DrawDebug()
 					ImGui::InputFloat2("Position", &position.x);
 
 					/* Decide if the gameObject has a soundManager */
-					bool hasSound = false;
+					static bool hasSound = false;
 					ImGui::Checkbox("soundManager", &hasSound);
 
-					/* Decide if the gameObject has a Collider */
-					bool hasCollider = false;
-					ImGui::Checkbox("Collider", &hasCollider);
-
 					/* Decide if the gameObject has a Physics */
-					bool hasPhysics = false;
+					static bool hasPhysics = false;
 					ImGui::Checkbox("Physics", &hasPhysics);
 
 					if (ImGui::Button("Add Object"))
@@ -130,6 +196,16 @@ void Scene::DrawDebug()
 						GameObject* newGameObject = new GameObject(name, Shape::Triangle);
 						newGameObject->GetComponent<TransformComponent>()->SetWorldPosition(position);
 						newGameObject->GetComponent<RenderComponent>()->setTexture("../white_engine_core/Texture/container.jpg");
+
+						if (hasSound)
+							newGameObject->AddComponent<SoundManager>();
+
+						if (hasPhysics)
+						{
+							newGameObject->AddComponent<PhysicComponent>();
+							newGameObject->AddComponent<ColliderComponent>();
+						}
+
 						objects.push_back(newGameObject);
 					}
 					ImGui::TreePop();
