@@ -9,18 +9,21 @@ class EventSystem
 public:
     using EventCallback = std::function<void()>;
 
-    // Ajouter un observateur à un événement spécifique
+    static EventSystem& getInstance(); // Méthode pour obtenir l'instance unique de EventSystem
+
     void AddEventListener(const std::string& eventName, const EventCallback& callback);
-
-    // Supprimer un observateur d'un événement spécifique
     void RemoveEventListener(const std::string& eventName, const EventCallback& callback);
-
-    // Déclenchement event
     void TriggerEvent(const std::string& eventName);
 
 private:
+    EventSystem() = default;
+    ~EventSystem() = default;
+    EventSystem(const EventSystem&) = delete;
+    EventSystem& operator=(const EventSystem&) = delete;
+
     std::unordered_map<std::string, std::vector<EventCallback>> eventListeners;
-    std::unordered_map<std::string, std::vector<EventCallback*>> callbackPointers;
+    std::unordered_map<std::string, std::vector<EventCallback*>> callbackPointers; 
+
 };
 
 

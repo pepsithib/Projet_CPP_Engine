@@ -125,8 +125,8 @@ void Application::run()
 
 	scene->AddEntity(go2);
 
-	InputManager inputManager(window);
-	EventSystem eventSystem;
+	EventSystem& eventSystem = EventSystem::getInstance();
+	InputManager& inputManager = InputManager::getInstance(window);
 
 	eventSystem.AddEventListener("LeftArrowPressed", [&]() 
 	{
@@ -155,21 +155,25 @@ void Application::run()
 		//test
 		
 		// Mise à jour des inputs
-		// 
-		// Déclencher l'événement pour la touche flèche gauche
-		if (inputManager.IsLeftArrowPressed()) {
-			eventSystem.TriggerEvent("LeftArrowPressed");
+		inputManager.updateInputState();
+
+		// Récupération de l'état des inputs
+		InputState inputState = inputManager.getInputState();
+
+		// Traitement des inputs
+		if (inputState.leftArrowPressed) {
+			// Action à effectuer lorsque la touche flèche gauche est enfoncée
+			std::cout << "Flèche gauche enfoncée" << std::endl;
 		}
-		
-		// Déclencher l'événement pour la touche flèche droite
-		if (inputManager.IsRightArrowPressed()) {
-			eventSystem.TriggerEvent("RightArrowPressed");
+		if (inputState.rightArrowPressed) {
+			// Action à effectuer lorsque la touche flèche droite est enfoncée
+			std::cout << "Flèche droite enfoncée" << std::endl;
+		}
+		if (inputState.spaceBarPressed) {
+			// Action à effectuer lorsque la barre d'espace est enfoncée
+			std::cout << "Barre d'espace enfoncée" << std::endl;
 		}
 
-		// Déclencher l'événement pour la barre d'espace
-		if (inputManager.IsSpaceBarPressed()) {
-			eventSystem.TriggerEvent("SpaceBarPressed");
-		}
 
 		// fiun test
 

@@ -2,17 +2,28 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-class InputManager
-{
-public:
-    InputManager(GLFWwindow* window); 
-    ~InputManager();
+struct InputState {
+    bool leftArrowPressed;
+    bool rightArrowPressed;
+    bool spaceBarPressed;
 
-    bool IsLeftArrowPressed(); // Flèche de gauche
-    bool IsRightArrowPressed(); // Flèche de droite
-    bool IsSpaceBarPressed(); // Barre espace
-
-private:
-    GLFWwindow* window;
+    InputState() : leftArrowPressed(false), rightArrowPressed(false), spaceBarPressed(false) {}
 };
 
+class InputManager {
+public:
+    static InputManager& getInstance(GLFWwindow* window);
+
+    void updateInputState();
+
+    const InputState& getInputState() const { return inputState; }
+
+private:
+    InputManager(GLFWwindow* window);
+    ~InputManager() = default;
+    InputManager(const InputManager&) = delete;
+    InputManager& operator=(const InputManager&) = delete;
+
+    GLFWwindow* window;
+    InputState inputState;
+};
