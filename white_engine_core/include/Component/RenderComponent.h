@@ -56,6 +56,7 @@ public:
     ~RenderComponent();
 
     void setTexture(std::string path);
+	std::string getTexturePath();
 
     virtual void Start() override;
 

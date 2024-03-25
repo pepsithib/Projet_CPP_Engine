@@ -17,6 +17,7 @@
 #include <GameObject/GameObject.h>
 #include <Component/RenderComponent.h>
 #include <Component/TransformComponent.h>
+#include <Component/SoundManager.h>
 #include <Scene.h>
 #include <SceneManager.h>
 
@@ -129,38 +130,7 @@ void Application::init(Scene* scene)
 }
 
 void Application::run()
-{
-	// On crée un objet Flipper
-	//Flipper flipper(10.5f, 20.0f, 45.0f);
-
-	// Sérialisation en JSON
-	//json serializedFlipper = JSONParser::serializeFlipper(flipper);
-
-	// Affichage dans la console
-	//std::cout << "Serialized JSON:\n" << serializedFlipper.dump(4) << std::endl;
-
-	// Écriture dans un fichier
-	//std::ofstream file("flipper.json");
-	//file << serializedFlipper.dump(4);
-	//file.close();
-
-	// Lecture du fichier
-	//std::ifstream fileRead("flipper.json");
-	//json jsonRead;
-	//fileRead >> jsonRead;
-	//fileRead.close();
-
-	// Désérialisation de notre objet Flipper
-	//Flipper flipperDeserialized = JSONParser::deserializeFlipper(jsonRead);
-
-	// Affichage des données désérialisées
-	//std::cout << "\nDeserialized Flipper Data:\n"
-	//	<< "Position X: " << flipperDeserialized.getPositionX() << ", "
-	//	<< "Position Y: " << flipperDeserialized.getPositionY() << ", "
-	//	<< "Rotation: " << flipperDeserialized.getRotation() << std::endl;
-
-	//FIn test serialisation
-	
+{	
 	glfwInit();
 
 	// Set context as OpenGL 4.6 Core, forward compat, with debug depending on build config
@@ -211,10 +181,15 @@ void Application::run()
 	SceneManager* sceneList = new SceneManager();
 	Scene* scene = new Scene();
 
+
 	init(scene);
+
 
 	EventSystem& eventSystem = EventSystem::getInstance();
 	InputManager& inputManager = InputManager::getInstance(window);
+
+
+	JSONParser parser = JSONParser();
 
 	eventSystem.AddEventListener("LeftArrowPressed", [&]() 
 	{
@@ -233,6 +208,9 @@ void Application::run()
 
 	int w, h;
 	float dTime = 0;
+	bool pressedOnce = false;
+
+	go->GetComponent<SoundManager>()->playSound("YEAH", false);
 
 	glfwGetWindowSize(window, &w, &h);
 	do
@@ -315,6 +293,24 @@ void Application::run()
 		auto end = std::chrono::utc_clock::now();
 		dTime = std::chrono::duration<float, std::chrono::seconds::period>(end - start).count();
 
+		if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+		{
+			if (std::filesystem::exists("../white_engine_core/Save/save.json"))
+			{
+				delete scene;
+				scene = new Scene();
+				loadGame(*scene, parser);
+				sceneList->setScene(0, scene);
+			}
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		{
+			saveGame(scene, parser);
+		}
+
+		pressedOnce = false;
+
 	} while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		glfwWindowShouldClose(window) == 0);
 
@@ -328,5 +324,25 @@ void Application::run()
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
+}
+
+void  Application::saveGame(Scene* sceneToSave, JSONParser &parser)
+{
+	/* Save in json variable */
+	json serializedFlipper = parser.serializeFlipper(sceneToSave);
+
+	/* Writing json variable into json file */
+	std::ofstream file("../white_engine_core/Save/save.json");
+	file << serializedFlipper.dump(4);
+	file.close();
+}
+
+void Application::loadGame(Scene& sceneToReload, JSONParser &parser)
+{
+	std::ifstream fileRead("../white_engine_core/Save/save.json");
+	json jsonRead = json::parse(fileRead);
+	fileRead.close();
+
+	parser.deserializeFlipper(jsonRead, sceneToReload);
 }
 

@@ -1,0 +1,68 @@
+{
+    "Scene": {
+        "Castor": {
+            "Collider": {
+                "state": "disable"
+            },
+            "Physics": {
+                "state": "disable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/container.jpg"
+            },
+            "Shape": 3,
+            "Sounds": {
+                "list": [
+                    [
+                        "Test",
+                        "../white_engine_core/Sounds/sound1.wav"
+                    ],
+                    [
+                        "YEAH",
+                        "../white_engine_core/Sounds/Yeah.wav"
+                    ]
+                ],
+                "state": "enable"
+            },
+            "Transform": {
+                "PositionX": 0.0,
+                "PositionY": 0.0,
+                "Rotation": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0
+            }
+        },
+        "Pollux": {
+            "Collider": {
+                "state": "disable"
+            },
+            "Physics": {
+                "state": "disable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/container.jpg"
+            },
+            "Shape": 3,
+            "Sounds": {
+                "list": [
+                    [
+                        "Test",
+                        "../white_engine_core/Sounds/sound1.wav"
+                    ],
+                    [
+                        "YEAH",
+                        "../white_engine_core/Sounds/Yeah.wav"
+                    ]
+                ],
+                "state": "enable"
+            },
+            "Transform": {
+                "PositionX": 0.5,
+                "PositionY": 0.5,
+                "Rotation": 0.0,
+                "ScaleX": 1.0,
+                "ScaleY": 1.0
+            }
+        }
+    }
+}

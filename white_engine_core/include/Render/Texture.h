@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 class Texture
 {
 public:
@@ -6,5 +8,6 @@ public:
 	~Texture();
 
 	unsigned int textureId;
+	std::string path;
 };
 

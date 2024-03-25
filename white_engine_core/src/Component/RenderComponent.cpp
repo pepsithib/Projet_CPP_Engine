@@ -17,6 +17,11 @@ void RenderComponent::setTexture(std::string path) {
 	dataShape->texture = new Texture(path.c_str());
 }
 
+std::string RenderComponent::getTexturePath()
+{
+	return dataShape->texture->path;
+}
+
 void RenderComponent::Start()
 {
 	Matrix* matrix = GetGameObject().GetMatrix();

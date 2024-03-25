@@ -19,6 +19,8 @@ public:
     void UpdateScene(float deltaTime);
     void RenderObjects(GLFWwindow* window);
 
+    std::vector<GameObject*> getObjects();
+
      /**
      * \brief : Function that display the imgui windows for the editor DEBUG ONLY
      * \param
@@ -28,5 +30,4 @@ public:
 
 private:
     std::vector<GameObject*> objects;
-
 };
