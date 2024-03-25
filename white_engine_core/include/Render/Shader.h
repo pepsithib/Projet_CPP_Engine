@@ -18,5 +18,6 @@ public :
 	GLuint scaleLocation;
 	GLuint aspectRatioLocation;
 	GLuint sizeLocation;
+	GLuint pivotLocation;
 };
 

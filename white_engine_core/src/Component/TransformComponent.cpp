@@ -10,6 +10,7 @@ TransformComponent::TransformComponent(GameObject& GameObject) : IComponent(Game
 	Scale = glm::vec2(1, 1);
 	Rotation = 0.0;
 	Size = glm::vec2(0.2, -0.2);
+	Pivot = glm::vec2(0.0, 0.0);
 }
 
 TransformComponent::~TransformComponent()
@@ -64,6 +65,17 @@ glm::vec2 TransformComponent::GetSize()
 	return Size;
 }
 
+void TransformComponent::SetPivot(glm::vec2 newPivot)
+{
+	Pivot = newPivot;
+}
+
+
+glm::vec2 TransformComponent::GetPivot()
+{
+	return Pivot;
+}
+
 void TransformComponent::Start()
 {
 	unsigned int v_size = 0;
@@ -92,8 +104,8 @@ void TransformComponent::Start()
 		indices[0] = 0;
 		indices[1] = 1;
 		indices[2] = 2;
-		vertex[0] = 0.0f;
-		vertex[1] = 0.0f;
+		vertex[0] = -.1f;
+		vertex[1] = .1f;
 		vertex[2] = 0.0f;//R
 		vertex[3] = 0.0f;//G
 		vertex[4] = 0.0f;//B
@@ -122,8 +134,8 @@ void TransformComponent::Start()
 		indices[3] = 1;
 		indices[4] = 2;
 		indices[5] = 3;
-		vertex[0] = 0.0f;
-		vertex[1] = 0.0f;
+		vertex[0] = -.1f;
+		vertex[1] = .1f;
 		vertex[2] = 0.0f;//R
 		vertex[3] = 0.0f;//G
 		vertex[4] = 0.0f;//B
@@ -158,8 +170,8 @@ void TransformComponent::Start()
 		indices[3] = 1;
 		indices[4] = 2;
 		indices[5] = 3;
-		vertex[0] = 0.0f;
-		vertex[1] = 0.0f;
+		vertex[0] = -.1f;
+		vertex[1] = .1f;
 		vertex[2] = 0.0f;//R
 		vertex[3] = 0.0f;//G
 		vertex[4] = 0.0f;//B

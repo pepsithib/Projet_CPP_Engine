@@ -2,6 +2,7 @@
 
 #include <vector>
 
+
 #define DEBUG_INFO_SIZE 30
 
 class GameObject;
@@ -14,6 +15,7 @@ public:
 
     void AddEntity(GameObject* object);
     void RemoveEntity(GameObject* object);
+    std::vector<GameObject*> GetObjects() { return objects; };
     void UpdateScene(float deltaTime);
     void RenderObjects(GLFWwindow* window);
 

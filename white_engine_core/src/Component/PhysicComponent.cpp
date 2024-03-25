@@ -8,6 +8,7 @@ PhysicComponent::PhysicComponent(GameObject& GameObject) : IComponent(GameObject
 	Velocity = glm::vec2(0, 0);
 	Acceleration = glm::vec2(0, 0);
 	AddForce(glm::vec2(0, 0));
+	_isStatic = false;
 }
 
 PhysicComponent::~PhysicComponent()
@@ -20,16 +21,18 @@ void PhysicComponent::Start()
 
 void PhysicComponent::Update(float deltaTime)
 {
-	TransformComponent* transform = GetGameObject().GetComponent<TransformComponent>();
-	glm::vec2 pos = transform->GetWorldPosition();
+	if (!_isStatic) {
+		TransformComponent* transform = GetGameObject().GetComponent<TransformComponent>();
+		glm::vec2 pos = transform->GetWorldPosition();
 
-	Velocity += Acceleration * deltaTime;
-	
-	pos = pos + (Velocity*deltaTime);
+		Velocity += Acceleration * deltaTime;
 
-	transform->SetWorldPosition(pos);
+		pos = pos + (Velocity * deltaTime);
 
-	Acceleration = glm::vec2(0.0, GRAVITY);
+		transform->SetWorldPosition(pos);
+
+		Acceleration = glm::vec2(0.0, GRAVITY);
+	}
 }
 
 void PhysicComponent::Destroy()
@@ -78,6 +81,21 @@ void PhysicComponent::setGravity()
 		_gravityEnabled = false;
 	else
 		_gravityEnabled = true;
+}
+
+bool PhysicComponent::getStatic()
+{
+	return _isStatic;
+}
+
+void PhysicComponent::setStatic()
+{
+	if (_isStatic) {
+		_isStatic = false;
+	}
+	else {
+		_isStatic = true;
+	}
 }
 
 const std::string PhysicComponent::GetComponentName_Static()
