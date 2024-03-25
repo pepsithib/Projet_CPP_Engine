@@ -57,6 +57,43 @@ Shape GameObject::GetShape()
 	return shape;
 }
 
+bool GameObject::AddTag(std::string newTag)
+{
+	for (std::string tag : tags) {
+		if (tag == newTag) {
+			return false;
+		}
+	}
+	tags.push_back(newTag);
+	return true;
+}
+
+void GameObject::RemoveTag(std::string TagToRemove)
+{
+	int i = 0;
+	for (std::string tag : tags) {
+		if (tag == TagToRemove) {
+			tags.erase(tags.begin() + i);
+		}
+		i++;
+	}
+}
+
+bool GameObject::ContainTag(std::string TagToCheck)
+{
+	for (std::string tag : tags) {
+		if (tag == TagToCheck) {
+			return true;
+		}
+	}
+	return false;
+}
+
+std::vector<std::string> GameObject::GetTags()
+{
+	return tags;
+}
+
 
 Matrix* GameObject::GetMatrix()
 {

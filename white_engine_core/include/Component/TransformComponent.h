@@ -25,6 +25,8 @@ public :
 	void SetSize(glm::vec2 newSize);
 	glm::vec2 GetSize();
 
+	void SetPivot(glm::vec2 newPivot);
+	glm::vec2 GetPivot();
 
 	virtual void Start() override;
 	virtual void Update(float deltaTime) override;
@@ -41,5 +43,6 @@ private :
 	float Rotation;
 	glm::vec2 Scale;
 	glm::vec2 Size;
+	glm::vec2 Pivot;
 };
 

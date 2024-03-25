@@ -1,16 +1,19 @@
 #include "Component/ColliderComponent.h"
 #include "GameObject/GameObject.h"
 #include "Component/TransformComponent.h"
+#include "Component/PhysicComponent.h"
 #include <iostream>
 
 ColliderComponent::ColliderComponent(GameObject& GameObject) : IComponent(GameObject)
 {
 	transform = GetGameObject().GetComponent<TransformComponent>();
+	physic = GetGameObject().GetComponent<PhysicComponent>();
 	glm::mat2 matRot(cos(transform->GetRotation()), -sin(transform->GetRotation()), sin(transform->GetRotation()), cos(transform->GetRotation()));
-	m_vertex.push_back(matRot * transform->GetWorldPosition());
-	m_vertex.push_back((matRot * transform->GetWorldPosition()) + glm::vec2(transform->GetSize().x, 0.0) * transform->GetScale());
-	m_vertex.push_back((matRot * transform->GetWorldPosition()) + glm::vec2(0.0, transform->GetSize().y) * transform->GetScale());
-	m_vertex.push_back((matRot * transform->GetWorldPosition()) + glm::vec2(transform->GetSize().x, transform->GetSize().y) * transform->GetScale());
+	m_vertex.push_back(glm::vec2(0.0));
+	m_vertex.push_back(glm::vec2(1.0));
+	m_vertex.push_back(glm::vec2(2.0));
+	m_vertex.push_back(glm::vec2(3.0));
+	_isStatic = false;
 }
 
 ColliderComponent::~ColliderComponent()
@@ -22,13 +25,19 @@ void ColliderComponent::Start()
 	
 }
 
+/*Update the current collision box to match the 4 point of the GameObject*/
 void ColliderComponent::Update(float deltaTime)
 {
-	glm::mat2 matRot(cos(transform->GetRotation()), -sin(transform->GetRotation()), sin(transform->GetRotation()), cos(transform->GetRotation()));
-	m_vertex.at(0) = (matRot * transform->GetWorldPosition());
-	m_vertex.at(1) = (matRot * transform->GetWorldPosition()) + glm::vec2(transform->GetSize().x,0.0) * transform->GetScale();
-	m_vertex.at(2) = (matRot * transform->GetWorldPosition()) + glm::vec2(0.0, transform->GetSize().y) * transform->GetScale();
-	m_vertex.at(3) = (matRot * transform->GetWorldPosition()) + glm::vec2(transform->GetSize().x, transform->GetSize().y) * transform->GetScale();
+
+	int width = 550;
+	int height = 800;
+	glm::mat2 matRot(cos(transform->GetRotation()), -sin(transform->GetRotation()), sin(transform->GetRotation()), cos(transform->GetRotation())); 
+
+	/*Take the transform and the physic to */
+	m_vertex.at(0) = (((matRot * ( glm::vec2(-.1,.1)		* transform->GetScale()		+ - transform->GetPivot())) - - transform->GetPivot())	+ (transform->GetWorldPosition()) + (physic->getVelocity() * deltaTime))	/ glm::vec2(float(width) / float(height), 1);
+	m_vertex.at(1) = (((matRot * ( glm::vec2(.1,.1)			* transform->GetScale()		+ - transform->GetPivot())) - - transform->GetPivot())	+ (transform->GetWorldPosition()) + (physic->getVelocity() * deltaTime))	/ glm::vec2(float(width) / float(height), 1);
+	m_vertex.at(2) = (((matRot * ( glm::vec2(.1,-.1)		* transform->GetScale()		+ - transform->GetPivot())) - - transform->GetPivot())	+ (transform->GetWorldPosition()) + (physic->getVelocity() * deltaTime))	/ glm::vec2(float(width) / float(height), 1);
+	m_vertex.at(3) = (((matRot * ( glm::vec2(-.1,-.1)		* transform->GetScale()		+ - transform->GetPivot())) - - transform->GetPivot())	+ (transform->GetWorldPosition()) + (physic->getVelocity() * deltaTime))	/ glm::vec2(float(width) / float(height), 1);
 }	
 void ColliderComponent::Destroy()
 {
@@ -115,8 +124,13 @@ bool ColliderComponent::lineLine(float x1, float y1, float x2, float y2, float x
 
 	// if uA and uB are between 0-1, lines are colliding
 	if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) {
+		glm::vec2 p1(x1, y1);
+		glm::vec2 p2(x2, y2);
+		glm::vec2 vector(x2 - x1, y2 - y1);
+		HitNormal = glm::normalize(glm::vec2(-vector.y, vector.x));
 		return true;
 	}
+	HitNormal = glm::vec2(0.0);
 	return false;
 }
 

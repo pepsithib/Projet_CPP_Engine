@@ -19,15 +19,14 @@ float my_distance(vec2 p0,vec2 p1){
 
 void main()
 {
+	float d = distance(vTexCoord, vec2(0.5));
 
-	float pct = 0.0;
-	pct = my_distance(pointPos,((uSize*0.5)*uScale + uPosition)/vec2(uAspectRatio,1));
-	if(pct>((uSize.x*0.5)*uScale.x)){
+	if(d>0.5){
 		discard;
 
 
 	}else{
-		vec3 color = vec3(pct);
+
     		FragColor = texture(ourTexture, vTexCoord);
 	}
 

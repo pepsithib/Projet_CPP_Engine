@@ -126,6 +126,7 @@ void Render::drawTriangle(GLFWwindow* window,DataShape& shapeToRender,TransformC
 			glUniform1f(shapeToRender.shaders->rotationLocation, transform->GetRotation());
 			glUniform2f(shapeToRender.shaders->scaleLocation, transform->GetScale().x, transform->GetScale().y);
 			glUniform2f(shapeToRender.shaders->sizeLocation, transform->GetSize().x, transform->GetSize().y);
+			glUniform2f(shapeToRender.shaders->pivotLocation, transform->GetPivot().x, transform->GetPivot().y);
 			glDrawElements(GL_TRIANGLES, shapeToRender.count, GL_UNSIGNED_INT, nullptr);
 			glUseProgram(0);
 			glBindVertexArray(0);

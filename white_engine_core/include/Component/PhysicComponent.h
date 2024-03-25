@@ -31,6 +31,9 @@ public:
 
 	void setGravity();
 
+	bool getStatic();
+	void setStatic();
+
 	static const std::string GetComponentName_Static();
 	virtual const std::string GetComponentName() const override;
 
@@ -39,6 +42,6 @@ private :
 	bool _gravityEnabled = true;
 	glm::vec2 Velocity;
 	glm::vec2 Acceleration;
-
+	bool _isStatic;
 };
 

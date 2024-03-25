@@ -8,6 +8,7 @@ out vec2 vTexCoord;
 out vec2 pointPos;
 
 uniform vec2  uPosition;
+uniform vec2 uPivot;
 uniform float uRotation;
 uniform vec2  uScale;
 uniform float uAspectRatio;
@@ -15,7 +16,9 @@ uniform float uAspectRatio;
 void main()
 {
 		mat2 rotMatrix = mat2(cos(uRotation), -sin(uRotation), sin(uRotation), cos(uRotation));
-		vec2 finalPos = ((rotMatrix * aPos) * uScale + uPosition) / vec2(uAspectRatio, 1.0);
+		vec2 scalePos = aPos * uScale;
+		vec2 rotPivot = (rotMatrix * (scalePos + -uPivot)) - -uPivot;
+		vec2 finalPos = (rotPivot + uPosition) / vec2(uAspectRatio, 1.0);
 
 
 		gl_Position = vec4(finalPos, 0.0, 1.0);

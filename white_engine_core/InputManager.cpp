@@ -1,8 +1,8 @@
 #include "InputManager.h"
 
-InputManager::InputManager(GLFWwindow* window) : window(window) {
-    // Initialisation de votre classe InputManager si nécessaire
-}
+
+InputManager::InputManager(GLFWwindow* window) : window(window) {}
+
 
 InputManager& InputManager::getInstance(GLFWwindow* window) {
     static InputManager instance(window); // Instance statique unique

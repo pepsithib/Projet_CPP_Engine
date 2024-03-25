@@ -43,10 +43,16 @@ public :
 	void ChangeShape(Shape shape);
 	Shape GetShape();
 
+	bool AddTag(std::string newTag);
+	void RemoveTag(std::string TagToRemove);
+	bool ContainTag(std::string TagToCheck);
+	std::vector<std::string> GetTags();
+
 	Matrix* GetMatrix();
 
 protected:
 
+	std::vector<std::string> tags;
 	std::vector<IComponent*> Components;
 	std::string FriendlyName;
 	Shape shape;
