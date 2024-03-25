@@ -210,7 +210,6 @@ void Application::run()
 	float dTime = 0;
 	bool pressedOnce = false;
 
-	go->GetComponent<SoundManager>()->playSound("YEAH", false);
 
 	glfwGetWindowSize(window, &w, &h);
 	do

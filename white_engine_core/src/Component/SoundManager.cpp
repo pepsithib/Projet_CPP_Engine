@@ -1,4 +1,4 @@
-#include "../Component/SoundManager.h"
+#include "Component/SoundManager.h"
 #include "Sound.h"
 
 SoundManager::SoundManager(GameObject& GameObject) : IComponent(GameObject)

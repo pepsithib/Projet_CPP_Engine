@@ -23,6 +23,8 @@
     <ClCompile Include="stb_truetype.cpp" />
     <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="src\Component\SoundManager.cpp" />
+    <ClCompile Include="src\Sound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Component\ColliderComponent.h" />
@@ -57,6 +59,8 @@
     <ClInclude Include="Parse.h" />
     <ClInclude Include="EventSystem.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="include\Component\SoundManager.h" />
+    <ClInclude Include="include\Sound.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Texture\container.jpg" />

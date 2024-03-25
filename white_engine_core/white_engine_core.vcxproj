@@ -212,6 +212,7 @@
     <ClInclude Include="include\Application.h" />
     <ClInclude Include="include\Component\IComponent.h" />
     <ClInclude Include="include\Component\RenderComponent.h" />
+    <ClInclude Include="include\Component\SoundManager.h" />
     <ClInclude Include="include\Component\TransformComponent.h" />
     <ClInclude Include="include\File.h" />
     <ClInclude Include="include\GameObject\GameObject.h" />
@@ -222,6 +223,7 @@
     <ClInclude Include="include\Render\Texture.h" />
     <ClInclude Include="include\Render\Vao.h" />
     <ClInclude Include="include\Render\Windows.h" />
+    <ClInclude Include="include\Sound.h" />
     <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="include\stb_truetype.h" />
     <ClInclude Include="include\Scene.h" />
@@ -239,6 +241,7 @@
     <ClCompile Include="src\Component\PhysicComponent.cpp" />
     <ClCompile Include="src\Component\IComponent.cpp" />
     <ClCompile Include="src\Component\RenderComponent.cpp" />
+    <ClCompile Include="src\Component\SoundManager.cpp" />
     <ClCompile Include="src\Component\TransformComponent.cpp" />
     <ClCompile Include="src\GameObject\GameObject.cpp" />
     <ClCompile Include="src\GameObject\Matrix.cpp" />
@@ -252,6 +255,7 @@
     <ClCompile Include="src\SceneManager.cpp" />
     <ClCompile Include="src\Buffers.cpp" />
     <ClCompile Include="src\File.cpp" />
+    <ClCompile Include="src\Sound.cpp" />
     <ClCompile Include="src\Windows.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="stb_truetype.cpp" />
