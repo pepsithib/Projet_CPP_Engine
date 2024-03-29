@@ -1,67 +1,341 @@
 {
     "Scene": {
-        "Castor": {
+        "Ball": {
             "Collider": {
-                "state": "disable"
-            },
-            "Physics": {
-                "state": "disable"
-            },
-            "Render": {
-                "Texture": "../white_engine_core/Texture/container.jpg"
-            },
-            "Shape": 3,
-            "Sounds": {
-                "list": [
-                    [
-                        "Test",
-                        "../white_engine_core/Sounds/sound1.wav"
-                    ],
-                    [
-                        "YEAH",
-                        "../white_engine_core/Sounds/Yeah.wav"
-                    ]
-                ],
                 "state": "enable"
             },
+            "Physics": {
+                "AccelerationX": 0.0,
+                "AccelerationY": -9.8100004196167,
+                "VelocityX": 0.0,
+                "VelocityY": -0.3688673973083496,
+                "state": "enable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/Ball.jpg"
+            },
+            "Shape": 1,
+            "Sounds": {
+                "state": "disable"
+            },
             "Transform": {
-                "PositionX": 0.0,
-                "PositionY": 0.0,
+                "PositionX": 0.5299999713897705,
+                "PositionY": -0.5690765976905823,
+                "Rotation": 0.0,
+                "ScaleX": 0.5,
+                "ScaleY": 0.5
+            }
+        },
+        "Bumper1": {
+            "Collider": {
+                "state": "enable"
+            },
+            "Physics": {
+                "AccelerationX": 0.0,
+                "AccelerationY": 0.0,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
+                "state": "enable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/dolphin.jpg"
+            },
+            "Shape": 1,
+            "Sounds": {
+                "state": "disable"
+            },
+            "Transform": {
+                "PositionX": 0.20000000298023224,
+                "PositionY": 0.20000000298023224,
                 "Rotation": 0.0,
                 "ScaleX": 1.0,
                 "ScaleY": 1.0
             }
         },
-        "Pollux": {
+        "ball_launcher": {
             "Collider": {
-                "state": "disable"
+                "state": "enable"
             },
             "Physics": {
-                "state": "disable"
+                "AccelerationX": 0.0,
+                "AccelerationY": 0.0,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
+                "state": "enable"
             },
             "Render": {
                 "Texture": "../white_engine_core/Texture/container.jpg"
             },
-            "Shape": 3,
+            "Shape": 2,
             "Sounds": {
-                "list": [
-                    [
-                        "Test",
-                        "../white_engine_core/Sounds/sound1.wav"
-                    ],
-                    [
-                        "YEAH",
-                        "../white_engine_core/Sounds/Yeah.wav"
-                    ]
-                ],
+                "state": "disable"
+            },
+            "Transform": {
+                "PositionX": 0.44999998807907104,
+                "PositionY": -0.30000001192092896,
+                "Rotation": 0.0,
+                "ScaleX": 0.20000000298023224,
+                "ScaleY": 4.0
+            }
+        },
+        "ball_launcher_b": {
+            "Collider": {
                 "state": "enable"
+            },
+            "Physics": {
+                "AccelerationX": 0.0,
+                "AccelerationY": 0.0,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
+                "state": "enable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/container.jpg"
+            },
+            "Shape": 2,
+            "Sounds": {
+                "state": "disable"
+            },
+            "Transform": {
+                "PositionX": 0.6499999761581421,
+                "PositionY": -0.6399999856948853,
+                "Rotation": 0.0,
+                "ScaleX": 2.0,
+                "ScaleY": 0.20000000298023224
+            }
+        },
+        "l_funnel": {
+            "Collider": {
+                "state": "enable"
+            },
+            "Physics": {
+                "AccelerationX": 0.0,
+                "AccelerationY": 0.0,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
+                "state": "enable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/container.jpg"
+            },
+            "Shape": 2,
+            "Sounds": {
+                "state": "disable"
+            },
+            "Transform": {
+                "PositionX": -0.6000000238418579,
+                "PositionY": -0.8999999761581421,
+                "Rotation": 0.1745329201221466,
+                "ScaleX": 2.5,
+                "ScaleY": 2.5
+            }
+        },
+        "l_paddle": {
+            "Collider": {
+                "state": "enable"
+            },
+            "Physics": {
+                "AccelerationX": 0.0,
+                "AccelerationY": 0.0,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
+                "state": "enable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/container.jpg"
+            },
+            "Shape": 2,
+            "Sounds": {
+                "state": "disable"
+            },
+            "Transform": {
+                "PositionX": -0.23000000417232513,
+                "PositionY": -0.7300000190734863,
+                "Rotation": 0.7853981852531433,
+                "ScaleX": 1.2000000476837158,
+                "ScaleY": 0.20000000298023224
+            }
+        },
+        "l_side": {
+            "Collider": {
+                "state": "enable"
+            },
+            "Physics": {
+                "AccelerationX": 0.0,
+                "AccelerationY": 0.0,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
+                "state": "enable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/container.jpg"
+            },
+            "Shape": 2,
+            "Sounds": {
+                "state": "disable"
+            },
+            "Transform": {
+                "PositionX": -0.6499999761581421,
+                "PositionY": 0.0,
+                "Rotation": 0.0,
+                "ScaleX": 0.5,
+                "ScaleY": 10.0
+            }
+        },
+        "r_funnel": {
+            "Collider": {
+                "state": "enable"
+            },
+            "Physics": {
+                "AccelerationX": 0.0,
+                "AccelerationY": 0.0,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
+                "state": "enable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/container.jpg"
+            },
+            "Shape": 2,
+            "Sounds": {
+                "state": "disable"
             },
             "Transform": {
                 "PositionX": 0.5,
-                "PositionY": 0.5,
+                "PositionY": -0.8999999761581421,
+                "Rotation": -0.1745329201221466,
+                "ScaleX": 2.5,
+                "ScaleY": 2.5
+            }
+        },
+        "r_paddle": {
+            "Collider": {
+                "state": "enable"
+            },
+            "Physics": {
+                "AccelerationX": 0.0,
+                "AccelerationY": 0.0,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
+                "state": "enable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/container.jpg"
+            },
+            "Shape": 2,
+            "Sounds": {
+                "state": "disable"
+            },
+            "Transform": {
+                "PositionX": 0.12999999523162842,
+                "PositionY": -0.7300000190734863,
+                "Rotation": -0.7853981852531433,
+                "ScaleX": 1.2000000476837158,
+                "ScaleY": 0.20000000298023224
+            }
+        },
+        "r_side": {
+            "Collider": {
+                "state": "enable"
+            },
+            "Physics": {
+                "AccelerationX": 0.0,
+                "AccelerationY": 0.0,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
+                "state": "enable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/container.jpg"
+            },
+            "Shape": 2,
+            "Sounds": {
+                "state": "disable"
+            },
+            "Transform": {
+                "PositionX": 0.6499999761581421,
+                "PositionY": 0.0,
                 "Rotation": 0.0,
-                "ScaleX": 1.0,
-                "ScaleY": 1.0
+                "ScaleX": 0.5,
+                "ScaleY": 10.0
+            }
+        },
+        "t1_side": {
+            "Collider": {
+                "state": "enable"
+            },
+            "Physics": {
+                "AccelerationX": 0.0,
+                "AccelerationY": 0.0,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
+                "state": "enable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/container.jpg"
+            },
+            "Shape": 2,
+            "Sounds": {
+                "state": "disable"
+            },
+            "Transform": {
+                "PositionX": 0.550000011920929,
+                "PositionY": 0.5,
+                "Rotation": -0.3490658402442932,
+                "ScaleX": 0.5,
+                "ScaleY": 5.0
+            }
+        },
+        "t2_side": {
+            "Collider": {
+                "state": "enable"
+            },
+            "Physics": {
+                "AccelerationX": 0.0,
+                "AccelerationY": 0.0,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
+                "state": "enable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/container.jpg"
+            },
+            "Shape": 2,
+            "Sounds": {
+                "state": "disable"
+            },
+            "Transform": {
+                "PositionX": -0.550000011920929,
+                "PositionY": 0.5,
+                "Rotation": 0.3490658402442932,
+                "ScaleX": 0.5,
+                "ScaleY": 5.0
+            }
+        },
+        "t_side": {
+            "Collider": {
+                "state": "enable"
+            },
+            "Physics": {
+                "AccelerationX": 0.0,
+                "AccelerationY": 0.0,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
+                "state": "enable"
+            },
+            "Render": {
+                "Texture": "../white_engine_core/Texture/container.jpg"
+            },
+            "Shape": 2,
+            "Sounds": {
+                "state": "disable"
+            },
+            "Transform": {
+                "PositionX": 0.0,
+                "PositionY": 0.949999988079071,
+                "Rotation": 0.0,
+                "ScaleX": 7.0,
+                "ScaleY": 0.5
             }
         }
     }

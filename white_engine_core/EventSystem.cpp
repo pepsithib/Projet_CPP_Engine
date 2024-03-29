@@ -40,7 +40,7 @@ void EventSystem::TriggerEvent(const std::string& eventName) {
     }
 }
 
-EventSystem& EventSystem::getInstance() {
+EventSystem* EventSystem::getInstance() {
     static EventSystem instance; 
-    return instance;
+    return &instance;
 }

@@ -11,6 +11,9 @@ TransformComponent::TransformComponent(GameObject& GameObject) : IComponent(Game
 	Rotation = 0.0;
 	Size = glm::vec2(0.2, -0.2);
 	Pivot = glm::vec2(0.0, 0.0);
+	rotateTransfo = 0.0;
+	timeLeft = 0.0;
+	timeSinceLastRot = 1.0;
 }
 
 TransformComponent::~TransformComponent()
@@ -22,6 +25,7 @@ void TransformComponent::SetWorldPosition(glm::vec2 newPosition)
 	WorldPosition = newPosition;
 }
 
+
 glm::vec2 TransformComponent::GetWorldPosition()
 {
 	return WorldPosition;
@@ -30,6 +34,29 @@ glm::vec2 TransformComponent::GetWorldPosition()
 void TransformComponent::SetRotation(float newRotation)
 {
 	Rotation = newRotation;
+}
+
+void TransformComponent::SetRotationOverTime(float newRotation, float time)
+{
+	rotateTransfo = newRotation;
+	timeLeft = time;
+	timeSinceLastRot = 0.0;
+}
+
+
+ /* doesnt work */
+void TransformComponent::RotateOverTime(float deltaTime)
+{
+	if (timeSinceLastRot < timeLeft) {
+		float curRot = (timeSinceLastRot / timeLeft) * rotateTransfo;
+		Rotation += curRot;
+		timeSinceLastRot += deltaTime;
+	}
+	else {
+		rotateTransfo = 0;
+		timeSinceLastRot = 1;
+		timeLeft = 0;
+	}
 }
 
 float TransformComponent::GetRotation()
@@ -215,6 +242,7 @@ void TransformComponent::Start()
 
 void TransformComponent::Update(float deltaTime)
 {
+	RotateOverTime(deltaTime);
 }
 
 void TransformComponent::Destroy()

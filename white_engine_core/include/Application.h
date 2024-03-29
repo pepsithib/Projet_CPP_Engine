@@ -6,7 +6,8 @@
 
 class GameObject;
 class Scene;
-
+class InputManager;
+class EventSystem;
 
 class Application
 {
@@ -14,7 +15,7 @@ public:
 	Application() = default;
 	~Application() = default;
 
-	void init(Scene* scene);
+	void init(Scene* scene, InputManager* IM, EventSystem* ES);
 
 	void run();
 

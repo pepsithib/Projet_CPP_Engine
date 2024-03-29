@@ -17,6 +17,8 @@ public :
 	glm::vec2 GetWorldPosition();
 
 	void SetRotation(float newRotation);
+	void SetRotationOverTime(float newRotation, float time);
+	void RotateOverTime(float deltaTime);
 	float GetRotation();
 
 	void SetScale(glm::vec2 newScale);
@@ -37,6 +39,10 @@ public :
 	static const std::string GetComponentName_Static();
 	virtual const std::string GetComponentName() const override;
 
+	float rotateTransfo;
+	float timeLeft;
+	float timeSinceLastRot;
+
 private :
 
 	glm::vec2 WorldPosition;
@@ -44,5 +50,6 @@ private :
 	glm::vec2 Scale;
 	glm::vec2 Size;
 	glm::vec2 Pivot;
+	
 };
 

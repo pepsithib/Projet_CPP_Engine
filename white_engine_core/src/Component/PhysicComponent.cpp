@@ -25,7 +25,7 @@ void PhysicComponent::Update(float deltaTime)
 		TransformComponent* transform = GetGameObject().GetComponent<TransformComponent>();
 		glm::vec2 pos = transform->GetWorldPosition();
 
-		Velocity += Acceleration * deltaTime;
+		Velocity += (Acceleration  - (Velocity * FRICTION)) * deltaTime;
 
 		pos = pos + (Velocity * deltaTime);
 

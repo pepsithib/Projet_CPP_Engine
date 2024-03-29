@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-
+#include <string>
 
 #define DEBUG_INFO_SIZE 30
 
@@ -16,6 +16,7 @@ public:
     void AddEntity(GameObject* object);
     void RemoveEntity(GameObject* object);
     std::vector<GameObject*> GetObjects() { return objects; };
+    GameObject* GetObject(std::string Name);
     void UpdateScene(float deltaTime);
     void RenderObjects(GLFWwindow* window);
 

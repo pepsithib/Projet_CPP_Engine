@@ -9,7 +9,7 @@ class EventSystem
 public:
     using EventCallback = std::function<void()>;
 
-    static EventSystem& getInstance(); // Méthode pour obtenir l'instance unique de EventSystem
+    static EventSystem* getInstance(); // Méthode pour obtenir l'instance unique de EventSystem
 
     void AddEventListener(const std::string& eventName, const EventCallback& callback);
     void RemoveEventListener(const std::string& eventName, const EventCallback& callback);

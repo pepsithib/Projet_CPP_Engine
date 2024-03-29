@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 
 constexpr auto GRAVITY = -9.81;
+constexpr auto FRICTION = 1.f;
 
 class PhysicComponent :
     public IComponent

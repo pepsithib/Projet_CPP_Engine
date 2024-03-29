@@ -35,6 +35,16 @@ void Scene::RemoveEntity(GameObject* object) {
 }
 
 
+GameObject* Scene::GetObject(std::string Name)
+{
+	for (GameObject* object : objects) {
+		if (object->GetFriendlyName() == Name) {
+			return object;
+		}
+	}
+	return nullptr;
+}
+
 void Scene::UpdateScene(float deltaTime) {
     // Mettre à jour chaque GameObject dans la scène
     for (GameObject* gameObject : objects) {
