@@ -2,13 +2,16 @@
     "Scene": {
         "Ball": {
             "Collider": {
+                "IsStatic": false,
                 "state": "enable"
             },
+            "Order": 12,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": -9.8100004196167,
-                "VelocityX": 0.0,
-                "VelocityY": -0.3688673973083496,
+                "IsStatic": false,
+                "VelocityX": -0.10488670319318771,
+                "VelocityY": 0.4819336533546448,
                 "state": "enable"
             },
             "Render": {
@@ -19,8 +22,10 @@
                 "state": "disable"
             },
             "Transform": {
-                "PositionX": 0.5299999713897705,
-                "PositionY": -0.5690765976905823,
+                "PivotX": 0.0,
+                "PivotY": 0.0,
+                "PositionX": 0.5415541529655457,
+                "PositionY": -0.5580906867980957,
                 "Rotation": 0.0,
                 "ScaleX": 0.5,
                 "ScaleY": 0.5
@@ -28,11 +33,14 @@
         },
         "Bumper1": {
             "Collider": {
+                "IsStatic": true,
                 "state": "enable"
             },
+            "Order": 11,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": 0.0,
+                "IsStatic": true,
                 "VelocityX": 0.0,
                 "VelocityY": 0.0,
                 "state": "enable"
@@ -45,6 +53,8 @@
                 "state": "disable"
             },
             "Transform": {
+                "PivotX": 0.0,
+                "PivotY": 0.0,
                 "PositionX": 0.20000000298023224,
                 "PositionY": 0.20000000298023224,
                 "Rotation": 0.0,
@@ -54,11 +64,14 @@
         },
         "ball_launcher": {
             "Collider": {
+                "IsStatic": true,
                 "state": "enable"
             },
+            "Order": 7,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": 0.0,
+                "IsStatic": true,
                 "VelocityX": 0.0,
                 "VelocityY": 0.0,
                 "state": "enable"
@@ -71,6 +84,8 @@
                 "state": "disable"
             },
             "Transform": {
+                "PivotX": 0.0,
+                "PivotY": 0.0,
                 "PositionX": 0.44999998807907104,
                 "PositionY": -0.30000001192092896,
                 "Rotation": 0.0,
@@ -80,11 +95,14 @@
         },
         "ball_launcher_b": {
             "Collider": {
+                "IsStatic": true,
                 "state": "enable"
             },
+            "Order": 8,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": 0.0,
+                "IsStatic": true,
                 "VelocityX": 0.0,
                 "VelocityY": 0.0,
                 "state": "enable"
@@ -97,6 +115,8 @@
                 "state": "disable"
             },
             "Transform": {
+                "PivotX": 0.0,
+                "PivotY": 0.0,
                 "PositionX": 0.6499999761581421,
                 "PositionY": -0.6399999856948853,
                 "Rotation": 0.0,
@@ -106,11 +126,14 @@
         },
         "l_funnel": {
             "Collider": {
+                "IsStatic": true,
                 "state": "enable"
             },
+            "Order": 5,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": 0.0,
+                "IsStatic": true,
                 "VelocityX": 0.0,
                 "VelocityY": 0.0,
                 "state": "enable"
@@ -123,6 +146,8 @@
                 "state": "disable"
             },
             "Transform": {
+                "PivotX": 0.0,
+                "PivotY": 0.0,
                 "PositionX": -0.6000000238418579,
                 "PositionY": -0.8999999761581421,
                 "Rotation": 0.1745329201221466,
@@ -132,11 +157,14 @@
         },
         "l_paddle": {
             "Collider": {
+                "IsStatic": true,
                 "state": "enable"
             },
+            "Order": 9,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": 0.0,
+                "IsStatic": true,
                 "VelocityX": 0.0,
                 "VelocityY": 0.0,
                 "state": "enable"
@@ -146,9 +174,17 @@
             },
             "Shape": 2,
             "Sounds": {
-                "state": "disable"
+                "list": [
+                    [
+                        "Clonk",
+                        "../white_engine_core/Sounds/PaddleSound.wav"
+                    ]
+                ],
+                "state": "enable"
             },
             "Transform": {
+                "PivotX": -0.10000000149011612,
+                "PivotY": 0.0,
                 "PositionX": -0.23000000417232513,
                 "PositionY": -0.7300000190734863,
                 "Rotation": 0.7853981852531433,
@@ -158,11 +194,14 @@
         },
         "l_side": {
             "Collider": {
+                "IsStatic": true,
                 "state": "enable"
             },
+            "Order": 0,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": 0.0,
+                "IsStatic": true,
                 "VelocityX": 0.0,
                 "VelocityY": 0.0,
                 "state": "enable"
@@ -175,6 +214,8 @@
                 "state": "disable"
             },
             "Transform": {
+                "PivotX": 0.0,
+                "PivotY": 0.0,
                 "PositionX": -0.6499999761581421,
                 "PositionY": 0.0,
                 "Rotation": 0.0,
@@ -184,11 +225,14 @@
         },
         "r_funnel": {
             "Collider": {
+                "IsStatic": true,
                 "state": "enable"
             },
+            "Order": 6,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": 0.0,
+                "IsStatic": true,
                 "VelocityX": 0.0,
                 "VelocityY": 0.0,
                 "state": "enable"
@@ -201,6 +245,8 @@
                 "state": "disable"
             },
             "Transform": {
+                "PivotX": 0.0,
+                "PivotY": 0.0,
                 "PositionX": 0.5,
                 "PositionY": -0.8999999761581421,
                 "Rotation": -0.1745329201221466,
@@ -210,11 +256,14 @@
         },
         "r_paddle": {
             "Collider": {
+                "IsStatic": true,
                 "state": "enable"
             },
+            "Order": 10,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": 0.0,
+                "IsStatic": true,
                 "VelocityX": 0.0,
                 "VelocityY": 0.0,
                 "state": "enable"
@@ -224,9 +273,17 @@
             },
             "Shape": 2,
             "Sounds": {
-                "state": "disable"
+                "list": [
+                    [
+                        "Clonk",
+                        "../white_engine_core/Sounds/PaddleSound.wav"
+                    ]
+                ],
+                "state": "enable"
             },
             "Transform": {
+                "PivotX": 0.10000000149011612,
+                "PivotY": 0.0,
                 "PositionX": 0.12999999523162842,
                 "PositionY": -0.7300000190734863,
                 "Rotation": -0.7853981852531433,
@@ -236,11 +293,14 @@
         },
         "r_side": {
             "Collider": {
+                "IsStatic": true,
                 "state": "enable"
             },
+            "Order": 1,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": 0.0,
+                "IsStatic": true,
                 "VelocityX": 0.0,
                 "VelocityY": 0.0,
                 "state": "enable"
@@ -253,6 +313,8 @@
                 "state": "disable"
             },
             "Transform": {
+                "PivotX": 0.0,
+                "PivotY": 0.0,
                 "PositionX": 0.6499999761581421,
                 "PositionY": 0.0,
                 "Rotation": 0.0,
@@ -262,11 +324,14 @@
         },
         "t1_side": {
             "Collider": {
+                "IsStatic": true,
                 "state": "enable"
             },
+            "Order": 3,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": 0.0,
+                "IsStatic": true,
                 "VelocityX": 0.0,
                 "VelocityY": 0.0,
                 "state": "enable"
@@ -279,6 +344,8 @@
                 "state": "disable"
             },
             "Transform": {
+                "PivotX": 0.0,
+                "PivotY": 0.0,
                 "PositionX": 0.550000011920929,
                 "PositionY": 0.5,
                 "Rotation": -0.3490658402442932,
@@ -288,11 +355,14 @@
         },
         "t2_side": {
             "Collider": {
+                "IsStatic": true,
                 "state": "enable"
             },
+            "Order": 4,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": 0.0,
+                "IsStatic": true,
                 "VelocityX": 0.0,
                 "VelocityY": 0.0,
                 "state": "enable"
@@ -305,6 +375,8 @@
                 "state": "disable"
             },
             "Transform": {
+                "PivotX": 0.0,
+                "PivotY": 0.0,
                 "PositionX": -0.550000011920929,
                 "PositionY": 0.5,
                 "Rotation": 0.3490658402442932,
@@ -314,11 +386,14 @@
         },
         "t_side": {
             "Collider": {
+                "IsStatic": true,
                 "state": "enable"
             },
+            "Order": 2,
             "Physics": {
                 "AccelerationX": 0.0,
                 "AccelerationY": 0.0,
+                "IsStatic": true,
                 "VelocityX": 0.0,
                 "VelocityY": 0.0,
                 "state": "enable"
@@ -331,6 +406,8 @@
                 "state": "disable"
             },
             "Transform": {
+                "PivotX": 0.0,
+                "PivotY": 0.0,
                 "PositionX": 0.0,
                 "PositionY": 0.949999988079071,
                 "Rotation": 0.0,

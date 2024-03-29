@@ -128,6 +128,12 @@ void Application::init(Scene* scene,InputManager* IM,EventSystem* ES)
 	l_Paddle->AddTag("Paddle");
 	r_Paddle->AddTag("Paddle");
 
+	l_Paddle->AddComponent<SoundManager>();
+	l_Paddle->GetComponent<SoundManager>()->addSound("../white_engine_core/Sounds/PaddleSound.wav", "Clonk");
+
+	r_Paddle->AddComponent<SoundManager>();
+	r_Paddle->GetComponent<SoundManager>()->addSound("../white_engine_core/Sounds/PaddleSound.wav", "Clonk");
+
 	Bumper1->GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(.2, .2));
 
 	Bumper1->AddTag("Bumper");
@@ -233,6 +239,7 @@ void Application::run()
 			GameObject* paddle = scene->GetObject("l_paddle");
 			if (paddle->GetComponent<TransformComponent>()->GetRotation() < glm::radians(25.f)) {
 				paddle->GetComponent<TransformComponent>()->SetRotation(paddle->GetComponent<TransformComponent>()->GetRotation() + glm::radians(1.f));
+				paddle->GetComponent<SoundManager>()->playSound("Clonk", false);
 			}
 			
 		});
@@ -243,6 +250,7 @@ void Application::run()
 			GameObject* paddle = scene->GetObject("r_paddle");
 			if (paddle->GetComponent<TransformComponent>()->GetRotation() < glm::radians(25.f)) {
 				paddle->GetComponent<TransformComponent>()->SetRotation(paddle->GetComponent<TransformComponent>()->GetRotation() + glm::radians(1.f));
+				paddle->GetComponent<SoundManager>()->playSound("Clonk", false);
 			}
 
 		});
@@ -313,6 +321,7 @@ void Application::run()
 				scene = new Scene();
 				loadGame(*scene, parser);
 				sceneList->setScene(0, scene);
+				can_launch_ball = true;
 			}
 		}
 
@@ -387,22 +396,6 @@ void Application::run()
 
 		auto end = std::chrono::utc_clock::now();
 		dTime = std::chrono::duration<float, std::chrono::seconds::period>(end - start).count();
-
-		/*if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
-		{
-			if (std::filesystem::exists("../white_engine_core/Save/save.json"))
-			{
-				delete scene;
-				scene = new Scene();
-				loadGame(*scene, parser);
-				sceneList->setScene(0, scene);
-			}
-		}
-
-		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		{
-			saveGame(scene, parser);
-		}*/
 
 		pressedOnce = false;
 
