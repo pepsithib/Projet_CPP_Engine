@@ -7,7 +7,7 @@ InputManager::InputManager(GLFWwindow* window) : window(window) {
 
 
 InputManager* InputManager::getInstance(GLFWwindow* window) {
-    static InputManager instance(window); // Instance statique unique
+    static InputManager instance(window); /* Unique staique instance */
     return &instance;
 }
 

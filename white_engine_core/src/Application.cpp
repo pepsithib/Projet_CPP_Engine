@@ -289,10 +289,8 @@ void Application::run()
 	{
 		auto start = std::chrono::utc_clock::now();
 		glfwPollEvents();
-
-		//test
 		
-		// Mise à jour des inputs
+		/* Input Update */
 		inputManager->updateInputState();
 
 		if (inputManager->CheckInput(InputKey::Q) || inputManager->CheckInput(InputKey::LEFT)) {
@@ -327,8 +325,6 @@ void Application::run()
 			}
 		}
 
-		// fiun test
-
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -336,10 +332,10 @@ void Application::run()
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		for (GameObject* object : scene->GetObjects()) {
-			for (GameObject* object2 : scene->GetObjects()) { //double boucle pour tester chaque object avec chaque object
-				if (object != object2) { // si l'objet et different de lui meme, sinon on skip
-					if (object->GetComponent<ColliderComponent>()->CollideWith(object2->GetComponent<ColliderComponent>())) { // on test les collisions
-						if (object->GetComponent<PhysicComponent>()) { // si l'object contient un physic
+			for (GameObject* object2 : scene->GetObjects()) { /* Double loop to test collisions beetween each objects */
+				if (object != object2) { /* If same object, skip */
+					if (object->GetComponent<ColliderComponent>()->CollideWith(object2->GetComponent<ColliderComponent>())) { /* Collision test */
+						if (object->GetComponent<PhysicComponent>()) { /* If object as physic */
 							std::cout << object2->GetFriendlyName() << std::endl;
 							glm::vec2 oVel = object->GetComponent<PhysicComponent>()->getVelocity();
 							object->GetComponent<PhysicComponent>()->setVelocity(glm::vec2(0.0, 0.0));

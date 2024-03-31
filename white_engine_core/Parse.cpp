@@ -115,12 +115,7 @@ json JSONParser::serializeFlipper(Scene* sceneToSave) {
 }
 
 void JSONParser::deserializeFlipper(json& save, Scene& sceneToReload) {
-    /* Get all gameObject name */
-    //for (auto i : save["Scene"].items())
-    //{
-    //    gOnameList.push_back(i.key());
-    //}
-
+    /* Get all gameObject name and order */
     for (int inc = 0; inc < 13; inc++)
     {
         for (auto j : save["Scene"].items())

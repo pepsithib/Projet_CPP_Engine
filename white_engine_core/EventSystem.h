@@ -9,10 +9,21 @@ class EventSystem
 public:
     using EventCallback = std::function<void()>;
 
-    static EventSystem* getInstance(); // Méthode pour obtenir l'instance unique de EventSystem
+    static EventSystem* getInstance();
 
+    /**
+    * \brief : Function to add an event
+    * \param : 
+    * eventName : Name tie to an event
+    * callback : function call when the event his trigger
+    */
     void AddEventListener(const std::string& eventName, const EventCallback& callback);
-    void RemoveEventListener(const std::string& eventName, const EventCallback& callback);
+
+    /**
+    * \brief : Function to add an event
+    * \param :
+    * eventName : Name tie to an event
+    */
     void TriggerEvent(const std::string& eventName);
 
 private:
