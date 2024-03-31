@@ -19,6 +19,21 @@ json JSONParser::serializeFlipper(Scene* sceneToSave) {
     {
         serializedFlipper["Scene"][i->GetFriendlyName()]["Order"] = order;
         order++;
+        
+        /* Save Tags */
+        if (!i->GetTags().empty())
+        {
+            serializedFlipper["Scene"][i->GetFriendlyName()]["Tags"] =
+            {
+                {"state", "enable"},
+                {"TagsList", i->GetTags()},
+            };
+            
+        }
+        else
+        {
+            serializedFlipper["Scene"][i->GetFriendlyName()]["Tags"]["state"] = "disable";
+        }
 
         /* Save the Transform Component */
         serializedFlipper["Scene"][i->GetFriendlyName()]["Transform"] = {
@@ -177,6 +192,16 @@ void JSONParser::deserializeFlipper(json& save, Scene& sceneToReload) {
             go->AddComponent<ColliderComponent>();
             if (save["Scene"][gOnameList[i]]["Collider"]["IsStatic"] == true)
                 go->GetComponent<ColliderComponent>()->setStatic();
+        }
+
+        /* If the gameObject as tags, set them */
+        if (save["Scene"][gOnameList[i]]["Tags"]["state"] == "enable")
+        {
+            for (auto y : save["Scene"][gOnameList[i]]["Tags"]["TagsList"])
+            {
+                go->AddTag(y);
+            }
+
         }
 
         /* Add the Entity to the new scene */

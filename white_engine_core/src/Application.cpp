@@ -135,6 +135,8 @@ void Application::init(Scene* scene,InputManager* IM,EventSystem* ES)
 	r_Paddle->GetComponent<SoundManager>()->addSound("../white_engine_core/Sounds/PaddleSound.wav", "Clonk");
 
 	Bumper1->GetComponent<TransformComponent>()->SetWorldPosition(glm::vec2(.2, .2));
+	Bumper1->AddComponent<SoundManager>();
+	Bumper1->GetComponent<SoundManager>()->addSound("../white_engine_core/Sounds/ding.wav", "Ding");
 
 	Bumper1->AddTag("Bumper");
 	Ball->AddTag("Ball");
@@ -342,14 +344,15 @@ void Application::run()
 							glm::vec2 oVel = object->GetComponent<PhysicComponent>()->getVelocity();
 							object->GetComponent<PhysicComponent>()->setVelocity(glm::vec2(0.0, 0.0));
 							if (object2->GetFriendlyName() == "l_paddle" && paddle_l_launch) {
-								object->GetComponent<PhysicComponent>()->AddImpulse(glm::vec2(0.0, 5.0));
+								object->GetComponent<PhysicComponent>()->AddImpulse(glm::vec2(oVel.x, 5.0));
 								
 							}
 							else if(object2->GetFriendlyName() == "r_paddle" && paddle_r_launch){
-								object->GetComponent<PhysicComponent>()->AddImpulse(glm::vec2(0.0, 5.0));
+								object->GetComponent<PhysicComponent>()->AddImpulse(glm::vec2(oVel.x, 5.0));
 							}
 							else if (object2->ContainTag("Bumper")) {
-								object->GetComponent<PhysicComponent>()->AddImpulse(glm::vec2(0.0,5.0));
+								object->GetComponent<PhysicComponent>()->AddImpulse(glm::vec2(oVel.x,5.0));
+								object2->GetComponent<SoundManager>()->playSound("Ding", false);
 								score++;
 							}
 							else {
@@ -385,7 +388,7 @@ void Application::run()
 		scene->RenderObjects(window);
 
 #ifdef _QA
-		scene->DrawDebug();
+		scene->DrawDebug(score);
 #endif
 
 		ImGui::Render();
@@ -408,7 +411,6 @@ void Application::run()
 	ImGui::DestroyContext();
 
 	delete sceneList;
-	delete scene;
 
 	glfwDestroyWindow(window);
 	glfwTerminate();

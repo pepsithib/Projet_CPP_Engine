@@ -10,8 +10,8 @@
                 "AccelerationX": 0.0,
                 "AccelerationY": -9.8100004196167,
                 "IsStatic": false,
-                "VelocityX": -0.10488670319318771,
-                "VelocityY": 0.4819336533546448,
+                "VelocityX": 0.0,
+                "VelocityY": 0.0,
                 "state": "enable"
             },
             "Render": {
@@ -21,11 +21,17 @@
             "Sounds": {
                 "state": "disable"
             },
+            "Tags": {
+                "TagsList": [
+                    "Ball"
+                ],
+                "state": "enable"
+            },
             "Transform": {
                 "PivotX": 0.0,
                 "PivotY": 0.0,
-                "PositionX": 0.5415541529655457,
-                "PositionY": -0.5580906867980957,
+                "PositionX": 0.5498321056365967,
+                "PositionY": -0.5700671076774597,
                 "Rotation": 0.0,
                 "ScaleX": 0.5,
                 "ScaleY": 0.5
@@ -51,6 +57,12 @@
             "Shape": 1,
             "Sounds": {
                 "state": "disable"
+            },
+            "Tags": {
+                "TagsList": [
+                    "Bumper"
+                ],
+                "state": "enable"
             },
             "Transform": {
                 "PivotX": 0.0,
@@ -81,6 +93,9 @@
             },
             "Shape": 2,
             "Sounds": {
+                "state": "disable"
+            },
+            "Tags": {
                 "state": "disable"
             },
             "Transform": {
@@ -114,6 +129,9 @@
             "Sounds": {
                 "state": "disable"
             },
+            "Tags": {
+                "state": "disable"
+            },
             "Transform": {
                 "PivotX": 0.0,
                 "PivotY": 0.0,
@@ -143,6 +161,9 @@
             },
             "Shape": 2,
             "Sounds": {
+                "state": "disable"
+            },
+            "Tags": {
                 "state": "disable"
             },
             "Transform": {
@@ -182,6 +203,12 @@
                 ],
                 "state": "enable"
             },
+            "Tags": {
+                "TagsList": [
+                    "Paddle"
+                ],
+                "state": "enable"
+            },
             "Transform": {
                 "PivotX": -0.10000000149011612,
                 "PivotY": 0.0,
@@ -213,6 +240,9 @@
             "Sounds": {
                 "state": "disable"
             },
+            "Tags": {
+                "state": "disable"
+            },
             "Transform": {
                 "PivotX": 0.0,
                 "PivotY": 0.0,
@@ -242,6 +272,9 @@
             },
             "Shape": 2,
             "Sounds": {
+                "state": "disable"
+            },
+            "Tags": {
                 "state": "disable"
             },
             "Transform": {
@@ -281,6 +314,12 @@
                 ],
                 "state": "enable"
             },
+            "Tags": {
+                "TagsList": [
+                    "Paddle"
+                ],
+                "state": "enable"
+            },
             "Transform": {
                 "PivotX": 0.10000000149011612,
                 "PivotY": 0.0,
@@ -310,6 +349,9 @@
             },
             "Shape": 2,
             "Sounds": {
+                "state": "disable"
+            },
+            "Tags": {
                 "state": "disable"
             },
             "Transform": {
@@ -343,6 +385,9 @@
             "Sounds": {
                 "state": "disable"
             },
+            "Tags": {
+                "state": "disable"
+            },
             "Transform": {
                 "PivotX": 0.0,
                 "PivotY": 0.0,
@@ -374,6 +419,9 @@
             "Sounds": {
                 "state": "disable"
             },
+            "Tags": {
+                "state": "disable"
+            },
             "Transform": {
                 "PivotX": 0.0,
                 "PivotY": 0.0,
@@ -403,6 +451,9 @@
             },
             "Shape": 2,
             "Sounds": {
+                "state": "disable"
+            },
+            "Tags": {
                 "state": "disable"
             },
             "Transform": {
