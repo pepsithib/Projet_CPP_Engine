@@ -5,7 +5,6 @@
 
 TransformComponent::TransformComponent(GameObject& GameObject) : IComponent(GameObject)
 {
-	
 	WorldPosition = glm::vec2(0,  0);
 	Scale = glm::vec2(1, 1);
 	Rotation = 0.0;
@@ -102,7 +101,12 @@ glm::vec2 TransformComponent::GetPivot()
 {
 	return Pivot;
 }
-
+/** TranformComponent::Start() :
+* Define the Vertex array to use to give the Object it's shape and send it to the gameObject
+* Triangle = 3 Vertex
+* Rectangle = 4 Vertex
+* Circle = 4 Vertex (drawn as a Circle in the Fragment Shader)
+*/
 void TransformComponent::Start()
 {
 	unsigned int v_size = 0;
@@ -242,7 +246,6 @@ void TransformComponent::Start()
 
 void TransformComponent::Update(float deltaTime)
 {
-	RotateOverTime(deltaTime);
 }
 
 void TransformComponent::Destroy()

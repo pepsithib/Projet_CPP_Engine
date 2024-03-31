@@ -22,6 +22,11 @@ std::string RenderComponent::getTexturePath()
 	return dataShape->texture->path;
 }
 
+/**RenderComponent::Start():
+* Setup the necessary step to create buffers and stuff to drawn the Object on the screen
+* Fragment Shaders change between a Rectangle/Triangle and a Circle
+* 
+*/
 void RenderComponent::Start()
 {
 	Matrix* matrix = GetGameObject().GetMatrix();
@@ -68,6 +73,11 @@ void RenderComponent::Destroy()
 	delete dataShape;
 }
 
+
+/**
+* Draw():
+* Call the drawTriangle from the Render Singleton
+*/
 void RenderComponent::Draw(GLFWwindow* window)
 {
 	TransformComponent* transform = GetGameObject().GetComponent<TransformComponent>();

@@ -3,6 +3,9 @@
 #include <iostream>
 #include <map>
 
+/*
+* Contain nearly all of GLFW key
+*/
 enum InputKey
 {
     SPACE = 32,

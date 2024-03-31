@@ -18,7 +18,13 @@ PhysicComponent::~PhysicComponent()
 void PhysicComponent::Start()
 {
 }
-
+/*
+* Update(float deltaTime) :
+* if the object isn't static, apply velocity over time to the position
+* 
+* velocity is acceleration over time
+* 
+*/
 void PhysicComponent::Update(float deltaTime)
 {
 	if (!_isStatic) {
@@ -75,6 +81,10 @@ bool PhysicComponent::getGravityEnabled()
 	return _gravityEnabled;
 }
 
+
+/**
+* Doesn't do anything
+*/
 void PhysicComponent::setGravity()
 {
 	if (_gravityEnabled)

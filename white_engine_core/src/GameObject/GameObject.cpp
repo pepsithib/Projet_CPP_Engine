@@ -56,7 +56,9 @@ Shape GameObject::GetShape()
 {
 	return shape;
 }
-
+/**
+* Add a tag to the tag vector, if the tag is already present, return false
+*/
 bool GameObject::AddTag(std::string newTag)
 {
 	for (std::string tag : tags) {

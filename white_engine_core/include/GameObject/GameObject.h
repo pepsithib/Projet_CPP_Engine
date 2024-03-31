@@ -43,6 +43,9 @@ public :
 	void ChangeShape(Shape shape);
 	Shape GetShape();
 
+	/*
+	* Adding tag to an object make groups event simplier than just using a unique name
+	*/
 	bool AddTag(std::string newTag);
 	void RemoveTag(std::string TagToRemove);
 	bool ContainTag(std::string TagToCheck);
