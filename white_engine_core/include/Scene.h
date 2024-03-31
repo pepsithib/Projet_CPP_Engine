@@ -25,9 +25,9 @@ public:
      /**
      * \brief : Function that display the imgui windows for the editor DEBUG ONLY
      * \param
-     *  object : list of Game object to edit : position, rotation, scale, texture can be edit, a gameObject can be delete to
+     *  int score : the score to display
     */
-    void DrawDebug();
+    void DrawDebug(int score);
 
 private:
     std::vector<GameObject*> objects;

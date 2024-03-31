@@ -12,17 +12,38 @@
 json JSONParser::serializeFlipper(Scene* sceneToSave) {
 
     json serializedFlipper;
+    int order = 0;
 
     /* Get all the gameObject in the scene */
     for (GameObject* i : sceneToSave->getObjects())
     {
+        serializedFlipper["Scene"][i->GetFriendlyName()]["Order"] = order;
+        order++;
+        
+        /* Save Tags */
+        if (!i->GetTags().empty())
+        {
+            serializedFlipper["Scene"][i->GetFriendlyName()]["Tags"] =
+            {
+                {"state", "enable"},
+                {"TagsList", i->GetTags()},
+            };
+            
+        }
+        else
+        {
+            serializedFlipper["Scene"][i->GetFriendlyName()]["Tags"]["state"] = "disable";
+        }
+
         /* Save the Transform Component */
         serializedFlipper["Scene"][i->GetFriendlyName()]["Transform"] = {
             {"PositionX", i->GetComponent<TransformComponent>()->GetWorldPosition().x},
             {"PositionY", i->GetComponent<TransformComponent>()->GetWorldPosition().y},
             {"Rotation", i->GetComponent<TransformComponent>()->GetRotation()},
             {"ScaleX", i->GetComponent<TransformComponent>()->GetScale().x},
-            {"ScaleY", i->GetComponent<TransformComponent>()->GetScale().y}
+            {"ScaleY", i->GetComponent<TransformComponent>()->GetScale().y},
+            {"PivotX", i->GetComponent<TransformComponent>()->GetPivot().x},
+            {"PivotY", i->GetComponent<TransformComponent>()->GetPivot().y},
         };
 
         /* Save the Sound Component */
@@ -57,6 +78,7 @@ json JSONParser::serializeFlipper(Scene* sceneToSave) {
                 {"VelocityY", i->GetComponent<PhysicComponent>()->getVelocity().y},
                 {"AccelerationX", i->GetComponent<PhysicComponent>()->getAcceleration().x},
                 {"AccelerationY", i->GetComponent<PhysicComponent>()->getAcceleration().y},
+                {"IsStatic", i->GetComponent<PhysicComponent>()->getStatic()},
             };
         }
         else
@@ -68,7 +90,10 @@ json JSONParser::serializeFlipper(Scene* sceneToSave) {
         if (i->GetComponent<ColliderComponent>() != nullptr)
         {
             /* if the gameObject as this component, set the state as enable */
-            serializedFlipper["Scene"][i->GetFriendlyName()]["Collider"]["state"] = "enable" ;
+            serializedFlipper["Scene"][i->GetFriendlyName()]["Collider"] = {
+                {"state" , "enable"},
+                {"IsStatic", i->GetComponent<ColliderComponent>()->isStatic()},
+            };
         }
         else
         {
@@ -90,11 +115,20 @@ json JSONParser::serializeFlipper(Scene* sceneToSave) {
 }
 
 void JSONParser::deserializeFlipper(json& save, Scene& sceneToReload) {
-
     /* Get all gameObject name */
-    for (auto i : save["Scene"].items())
+    //for (auto i : save["Scene"].items())
+    //{
+    //    gOnameList.push_back(i.key());
+    //}
+
+    for (int inc = 0; inc < 13; inc++)
     {
-        gOnameList.push_back(i.key());
+        for (auto j : save["Scene"].items())
+        {
+            if (save["Scene"][j.key()]["Order"].template get<int>() == inc) {
+                gOnameList.push_back(j.key());
+            }
+        }
     }
     
     /* For all gameObject */
@@ -125,6 +159,7 @@ void JSONParser::deserializeFlipper(json& save, Scene& sceneToReload) {
         go->GetComponent<TransformComponent>()->SetWorldPosition({ save["Scene"][gOnameList[i]]["Transform"]["PositionX"], save["Scene"][gOnameList[i]]["Transform"]["PositionY"] });
         go->GetComponent<TransformComponent>()->SetRotation(save["Scene"][gOnameList[i]]["Transform"]["Rotation"]);
         go->GetComponent<TransformComponent>()->SetScale({ save["Scene"][gOnameList[i]]["Transform"]["ScaleX"], save["Scene"][gOnameList[i]]["Transform"]["ScaleY"] });
+        go->GetComponent<TransformComponent>()->SetPivot({ save["Scene"][gOnameList[i]]["Transform"]["PivotX"], save["Scene"][gOnameList[i]]["Transform"]["PivotY"] });
 
         /* Set Texture */
         go->GetComponent<RenderComponent>()->setTexture(save["Scene"][gOnameList[i]]["Render"]["Texture"]);
@@ -146,12 +181,27 @@ void JSONParser::deserializeFlipper(json& save, Scene& sceneToReload) {
             go->AddComponent<PhysicComponent>();
             go->GetComponent<PhysicComponent>()->setVelocity({ save["Scene"][gOnameList[i]]["Physics"]["VelocityX"], save["Scene"][gOnameList[i]]["Physics"]["VelocityY"] });
             go->GetComponent<PhysicComponent>()->setAcceleration({ save["Scene"][gOnameList[i]]["Physics"]["AccelerationX"], save["Scene"][gOnameList[i]]["Physics"]["AccelerationX"] });
+            
+            if (save["Scene"][gOnameList[i]]["Physics"]["IsStatic"] == true)
+                go->GetComponent<PhysicComponent>()->setStatic();
         }
 
         /* If this gameObject as the Collider Component, add it */
         if (save["Scene"][gOnameList[i]]["Collider"]["state"] == "enable")
         {
             go->AddComponent<ColliderComponent>();
+            if (save["Scene"][gOnameList[i]]["Collider"]["IsStatic"] == true)
+                go->GetComponent<ColliderComponent>()->setStatic();
+        }
+
+        /* If the gameObject as tags, set them */
+        if (save["Scene"][gOnameList[i]]["Tags"]["state"] == "enable")
+        {
+            for (auto y : save["Scene"][gOnameList[i]]["Tags"]["TagsList"])
+            {
+                go->AddTag(y);
+            }
+
         }
 
         /* Add the Entity to the new scene */

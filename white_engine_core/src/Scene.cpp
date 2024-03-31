@@ -63,7 +63,7 @@ std::vector<GameObject*> Scene::getObjects()
 	return objects;
 }
 
-void Scene::DrawDebug()
+void Scene::DrawDebug(int score)
 {
 	/* Main ImGui window */
 	if (ImGui::Begin("Global"))
@@ -237,6 +237,7 @@ void Scene::DrawDebug()
 					snprintf(rot, DEBUG_INFO_SIZE, "Rotation : %3.2f", objects[i]->GetComponent<TransformComponent>()->GetRotation());
 					snprintf(sca, DEBUG_INFO_SIZE, "Scale : %3.2f, %3.2f", objects[i]->GetComponent<TransformComponent>()->GetScale().x, objects[i]->GetComponent<TransformComponent>()->GetScale().y);
 
+
 					if (ImGui::TreeNode(objects[i]->GetFriendlyName().c_str()))
 					{
 						ImGui::Text(pos);
@@ -246,6 +247,11 @@ void Scene::DrawDebug()
 					}
 				}
 				ImGui::EndTabItem();
+				
+				/* Score display */
+				char sco[DEBUG_INFO_SIZE];
+				snprintf(sco, DEBUG_INFO_SIZE, "Score : %d", score);
+				ImGui::Text(sco);
 			}
 
 			ImGui::EndTabBar();
